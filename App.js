@@ -28,6 +28,7 @@ import Home from './src/pages/psicologo/HomePsicologo';
 // Import provisório
 import pageProvisoria from './src/pages/pageProvisoria';
 
+const Stack = createStackNavigator();
 
 function LogoTitle() {
   return (
