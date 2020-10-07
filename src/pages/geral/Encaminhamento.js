@@ -5,7 +5,6 @@ import { Image, View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Botao from '../../components/Botao';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import BotaoComIcone from '../../components/BotaoComIcone';
 
 export default function Encaminhamento() {
 return (
