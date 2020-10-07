@@ -5,10 +5,11 @@ import { Image, View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Botao from '../../components/Botao';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import Fundo from '../../components/Fundo';
 
 export default function Encaminhamento() {
 return (
-	<View style={styles.container}>
+	<Fundo>
 		<View style={styles.containerTitle}>
 				<Text style={styles.title}>O QUE DESEJA?</Text>
 		</View>
@@ -36,16 +37,11 @@ return (
 					<Text style={styles.txtEmergency}>Clique aqui para saber mais{"\n"}sobre a ligação de emergência</Text>
 				</TouchableOpacity>
 		</View>
-	</View>
+	</Fundo>
 );
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#6EB4E7',
-	},
-
 	// Título
 	containerTitle: {
 		flex: 3,
@@ -80,7 +76,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-evenly',
 	},
 	buttonLogin: {
-		paddingHorizontal: 45,
+		paddingHorizontal: 35,
 		paddingVertical: 17,
 	},
 

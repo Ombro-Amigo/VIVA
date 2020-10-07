@@ -2,10 +2,11 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import Fundo from '../../components/Fundo'
 
 export default function PrimeiroContato() {
    return (
-      <View style={styles.container}>
+      <Fundo>
          <View styles={styles.boasVindas}>
             <Text style={styles.mensagemBoasVindas}>Seja bem-vindo</Text>
          </View>
@@ -21,16 +22,11 @@ export default function PrimeiroContato() {
                <Text style={styles.txtTriagem}>SEGUIR PARA O PROCESSO DE TRIAGEM</Text>
             </TouchableOpacity>
          </View>
-      </View>
+      </Fundo>
    )
 }
 
 const styles = StyleSheet.create({
-   container: {
-      flex: 1,
-      backgroundColor: "#6EB4E7",
-      padding: 15,
-   },
    mensagemBoasVindas: {
       color: "#186794",
       textAlign: "center",
