@@ -15,12 +15,12 @@ export default function Agendamento1() {
             </View>
 
             <View style={styles.escolhaTipoConsulta}>
-               <Text style={styles.txtTipoConsulta}>Escolha o tipo de consulta:</Text>
+               <Text style={styles.titleEscolha}>Escolha o tipo de consulta:</Text>
                <TipoConsultas/>
             </View>
 
             <View style={styles.escolhaDiaConsulta}>
-               <Text style={styles.txtescolhaDiaConsulta}>Escolha um dia:</Text>
+               <Text style={styles.titleEscolha}>Escolha um dia:</Text>
                <Calendario/>
             </View>
             <View style={styles.areaProximo}>
@@ -52,18 +52,13 @@ const styles = StyleSheet.create({
    escolhaTipoConsulta: {
       marginTop: hp("3.5%")
    },
-   txtTipoConsulta: {
+   titleEscolha: {
       color: "#FFF",
-      fontSize: wp("5%"),
+      fontSize: wp("5.2%"),
       fontWeight: "bold"
    },
    escolhaDiaConsulta: {
       marginTop: hp("3%")
-   },
-   txtescolhaDiaConsulta: {
-      color: "#FFF",
-      fontSize: wp("5%"),
-      fontWeight: "bold"
    },
    buttonProximo: {
       backgroundColor: "#34C5A2",
