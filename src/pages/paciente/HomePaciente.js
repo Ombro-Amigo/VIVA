@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image } from 'react-native'
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { View, Text, StyleSheet, SafeAreaView, Image } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import ListaConsultas from '../../components/ListaConsultas';
 
 export default function HomePaciente() {
