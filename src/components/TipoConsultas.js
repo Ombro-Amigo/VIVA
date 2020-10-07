@@ -28,18 +28,17 @@ export default TipoConsultas
 const styles = StyleSheet.create({
     areaEscolha: {
         flexDirection: "row",
-        marginTop: hp("3%"),
+        marginTop: hp("2%"),
         borderStyle: "solid",
         justifyContent: "space-around",
         borderWidth: wp("0.8%"),
         borderColor: "#80C6F9",
         borderRadius: 10,
-        padding: 6,
+        padding: 4,
     },
     escolhaGratuita: {
         flexDirection: "row",
         alignItems: "center",
-        fontSize: hp("2%"),
     },
     txtGratuita: {
         fontSize: hp("2.7%"),

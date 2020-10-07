@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
    container: {
       flex: 1,
       backgroundColor: "#6EB4E7",
-      padding: 20,
+      padding: 15,
    },
    mensagemBoasVindas: {
       color: "#186794",
