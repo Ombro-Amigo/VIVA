@@ -9,7 +9,7 @@ import TipoConsultas from "../../components/TipoConsultas"
 
 export default function Agendamento1() {
    return (
-      <ScrollView style={styles.scrollView}>
+      <ScrollView>
          <Fundo>
             <View style={styles.containerAgendeConsulta}>
                <Text style={styles.txtAgendeConsulta}>Agende sua Consulta</Text>
@@ -32,14 +32,10 @@ export default function Agendamento1() {
             </View>
          </Fundo>
       </ScrollView>
-      
    )
 }
 
 const styles = StyleSheet.create({
-   scrollView: {
-      backgroundColor: "#6EB4E7",   
-   },
    container: {
       flex: 1,
       padding: 15,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View, ScrollView } from 'react-native'
 
 export default function Fundo(props) {
    const { children } = props;
@@ -13,7 +13,7 @@ export default function Fundo(props) {
 const styles = StyleSheet.create({
    container: {
       flex: 1,
-      backgroundColor: "#6EB4E7",
       padding: 15,
+      backgroundColor: "#6EB4E7",
    },
 })

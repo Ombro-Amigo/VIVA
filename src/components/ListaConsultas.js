@@ -1,6 +1,8 @@
 import React, { Component} from "react"
-import { TouchableOpacity, View, Image, Text, StyleSheet, FlatList } from "react-native"
+import { View, Image, Text, StyleSheet, FlatList } from "react-native"
+import { TouchableOpacity } from "react-native-gesture-handler"
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
+import Botao from './Botao'
 
 export default class ListaConsultas extends Component{
     render(){
@@ -65,9 +67,10 @@ export default class ListaConsultas extends Component{
                             </View>
                             <View style={styles.statusConsulta}>
                                 <Text style={styles.txtCard}>Status: <Text style={styles.txtCardStatus}>{item.status}</Text></Text>
-                                <TouchableOpacity style={styles.buttonCancelarConsulta}>
-                                    <Text style={styles.txtButtonCancelarConsulta}>Cancelar Consulta</Text>
-                                </TouchableOpacity>
+                                <Botao
+                                    style={styles.buttonCancelarConsulta}
+                                    title={"Cancelar Consulta"}
+                                />
                             </View>
                         </View>
                     </TouchableOpacity>}
@@ -134,9 +137,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         marginTop: 0,
-        paddingHorizontal: 14,
-        paddingVertical: 10,
-        borderRadius: 15,
+        paddingHorizontal: wp("2%"),
+        paddingVertical: hp("1%"),
 
         // IOS
         shadowColor: "#000",
@@ -149,10 +151,5 @@ const styles = StyleSheet.create({
 
         // ANDROID
         elevation: 4,
-    },
-    txtButtonCancelarConsulta: {
-        color: "#FFF",
-        fontSize: 13,
-        fontWeight: "bold"
     },
 });
