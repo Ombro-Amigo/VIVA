@@ -1,15 +1,16 @@
 import React from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import Botao from '../../components/Botao'
 import Calendario from '../../components/Calendario'
+import Fundo from '../../components/Fundo'
 import TipoConsultas from "../../components/TipoConsultas"
 
 
 export default function Agendamento1() {
    return (
       <ScrollView style={styles.scrollView}>
-         <View style={styles.container}>
+         <Fundo>
             <View style={styles.containerAgendeConsulta}>
                <Text style={styles.txtAgendeConsulta}>Agende sua Consulta</Text>
             </View>
@@ -24,11 +25,12 @@ export default function Agendamento1() {
                <Calendario/>
             </View>
             <View style={styles.areaProximo}>
-               <TouchableOpacity style={styles.buttonProximo}>
-                  <Text style={styles.txtProximo}>Próximo</Text>
-               </TouchableOpacity>
+               <Botao
+                  style={styles.buttonProximo}
+                  title={"Próximo"}
+               />
             </View>
-         </View>
+         </Fundo>
       </ScrollView>
       
    )
@@ -65,23 +67,5 @@ const styles = StyleSheet.create({
       alignItems: "center",
       marginTop: hp("2.5%"),
       paddingVertical: hp("2.5%"),
-      borderRadius: 15,
-
-      // IOS
-      shadowColor: "#000",
-      shadowOffset: {
-         width: 0,
-         height: hp("1%"),
-      },
-      shadowOpacity: 0.23,
-      shadowRadius: 2.62,
-
-      // ANDROID
-      elevation: 4,
-   },
-   txtProximo: {
-      color: "#FFF",
-      fontWeight: "bold",
-      fontSize: wp("4.8%")
    },
 })
