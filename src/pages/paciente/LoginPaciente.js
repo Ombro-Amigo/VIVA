@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, Button } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, Button, ViewComponent } from 'react-native';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Input, CheckBox, Icon, Divider } from 'react-native-elements';
 import Fundo from '../../components/Fundo';
@@ -81,22 +82,25 @@ export default function LoginPaciente() {
 
    return (
       <Fundo>
-         <Text>FAÇA SEU LOGIN</Text>
-
-         <Input
-            style={styles.input} placeholder="Nome de Usuário" 
-            leftIcon={<Icon name='user' size={24} color='black' type='font-awesome-5' />}
-            inputContainerStyle={styles.input}
-            value={email}
-            onChangeText={e => setEmail(e)}
-         />
-         <Input
-            style={styles.input} placeholder="Senha" 
-            leftIcon={<Icon name='key' size={24} color='black' type='font-awesome-5' />}
-            secureTextEntry
-            value={senha}
-            onChangeText={e => setSenha(e)}
-         />
+         <Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
+         <View>
+            <Input
+               style={styles.input} placeholder="Nome de Usuário" 
+               leftIcon={<Icon name='user' size={24}  type='font-awesome-5' />}
+               inputContainerStyle={styles.inputContainer}
+               value={email}
+               onChangeText={e => setEmail(e)}
+            />
+            <Input
+               style={styles.input} placeholder="Senha" 
+               leftIcon={<Icon name='key' size={24} type='font-awesome-5' />}
+               secureTextEntry
+               inputContainerStyle={styles.inputContainer}
+               value={senha}
+               onChangeText={e => setSenha(e)}
+            />
+         </View>
+         
          <CheckBox
             title='accessible'
             iconType='font-awesome-5'
@@ -130,6 +134,19 @@ export default function LoginPaciente() {
 }
 
 const styles = StyleSheet.create({
+   txtFacaLogin:{
+      color: "#186794",
+      fontWeight: "bold",
+      fontSize: hp("3.5%"),
+      alignSelf: "center"
+   },
+   input: {
+      paddingHorizontal: wp("5%")
+   },
+   inputContainer: {
+      paddingHorizontal: wp("5%"),
+      margin: 0
+   },
 	btnLogin: {
 		paddingHorizontal: 35,
 		paddingVertical: 17,
