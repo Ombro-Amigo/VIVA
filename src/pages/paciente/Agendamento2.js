@@ -1,20 +1,27 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen"
-import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace'
+import Fundo from '../../components/Fundo'
+import ListaHorarios from '../../components/ListaHorarios'
 import ListaPsicologo from '../../components/ListaPsicologos'
+import Botao from '../../components/Botao'
 
 export default function Agendamento2() {
    return (
-      <View style={styles.container}>
+      <Fundo>
          <View style={styles.areaEscolhaPsicologo}>
             <Text style={styles.txtEscolhaPsicologo}>Escolha um dos psicólogos disponíveis:</Text>
             <ListaPsicologo/>
          </View>
          <View style={styles.areaEscolhaDiaConsulta}>
             <Text style={styles.txtEscolhaDiaConsulta}>Esses são os dias de disponiblidade do psicólogo escolhido:</Text>
+            <ListaHorarios/>
          </View>
-      </View>
+         <Botao
+            style={styles.buttonFinalizarAgendamento}
+            title={"Finalizar Agendamento"}
+         />
+      </Fundo>
    )
 }
 
@@ -35,5 +42,11 @@ const styles = StyleSheet.create({
       marginTop: hp("3%"),
       fontSize: wp("5.2%"),
       fontWeight: "bold"
+   },
+   buttonFinalizarAgendamento: {
+      alignItems: "center",
+      marginTop: hp("4%"),
+      paddingVertical: hp("2.5%"),
    }
+   
 })
