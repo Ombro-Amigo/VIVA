@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
 	txtBotao: {
 		fontWeight: 'bold',
 		fontSize: hp('2.5%'),
+		alignSelf: 'center'
 	},
 
 	// Caso o botão tenha algum icone
