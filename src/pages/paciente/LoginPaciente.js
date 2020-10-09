@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, Button, ViewComponent } from 'react-native';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import { View, Text, StyleSheet, ActivityIndicator, Button } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Input, CheckBox, Icon, Divider } from 'react-native-elements';
+
 import Fundo from '../../components/Fundo';
 import Botao from '../../components/Botao';
+import Entrada from '../../components/Entrada';
+
+import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import { Checkbox } from 'react-native-paper';
+import { Icon, Divider } from 'react-native-elements';
 import firebase from '@firebase/app';
 import '@firebase/auth';
+import CaixaSelecao from '../../components/CaixaSelecao';
 
 export default function LoginPaciente() {
    const [email, setEmail] = useState('');
@@ -58,13 +63,7 @@ export default function LoginPaciente() {
       if (loading)
          return <ActivityIndicator size='large' color='#f00' />;
       
-      return (
-         // <Botao title="Entrar" style={styles.btnLogin} onPress={() => tryLogin()}/>
-         <Button
-                title='Entrar'
-                onPress={() => tryLogin()}    
-            />
-      )
+      return <Botao title="Entrar" style={styles.btnLogin} onPress={() => tryLogin()}/>
    }
 
    function renderMessage() {
@@ -84,31 +83,25 @@ export default function LoginPaciente() {
       <Fundo>
          <Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
          <View>
-            <Input
-               style={styles.input} placeholder="Nome de Usuário" 
-               leftIcon={<Icon name='user' size={24}  type='font-awesome-5' />}
-               inputContainerStyle={styles.inputContainer}
+            <Entrada
+               icon={require('../../../assets/usuario-login.png')}
+               placeholder="Nome de Usuário"
                value={email}
-               onChangeText={e => setEmail(e)}
+               onChangeText={Value => {setEmail(Value), console.log(Value)}}
             />
-            <Input
-               style={styles.input} placeholder="Senha" 
-               leftIcon={<Icon name='key' size={24} type='font-awesome-5' />}
-               secureTextEntry
-               inputContainerStyle={styles.inputContainer}
+            <Entrada
+               icon={require('../../../assets/chave-login.png')}
+               placeholder="Senha"
                value={senha}
-               onChangeText={e => setSenha(e)}
+               onChangeText={Value => {setSenha(Value), console.log(Value)}}
+               secureTextEntry
             />
          </View>
-         
-         <CheckBox
-            title='accessible'
-            iconType='font-awesome-5'
-            checked={checked}
-            checkedIcon='check-square'
-            uncheckedIcon='square'
-            checkedColor='green'
+
+         <CaixaSelecao
+            status={checked ? 'checked' : 'unchecked'}
             onPress={() => setChecked(!checked)}
+            title='Mantenha-me conectado'
          />
 
          {renderButton()}
