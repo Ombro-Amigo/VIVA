@@ -4,17 +4,20 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 export default function Botao(props) {
-	const { title, style, imgStyle, corFundo, corTexto, img } = props;
+	const { title, style, imgStyle, corFundo, corTexto, img, onPress } = props;
 	if(!img){
 		return (
 			<View>
-				<TouchableOpacity style={[
-					{
-						backgroundColor: !corFundo ? '#34C5A2' : corFundo
-					},
-					styles.botao,
-					style
-				]}>
+				<TouchableOpacity 
+					style={[
+						{
+							backgroundColor: !corFundo ? '#34C5A2' : corFundo
+						},
+						styles.botao,
+						style
+					]}
+					onPress={onPress}
+				>
 					<Text style={[
 						{
 							color: !corTexto ? '#FFF' : corTexto
@@ -73,6 +76,7 @@ const styles = StyleSheet.create({
 	txtBotao: {
 		fontWeight: 'bold',
 		fontSize: hp('2.5%'),
+		alignSelf: 'center'
 	},
 
 	// Caso o botão tenha algum icone

@@ -1,37 +1,39 @@
 import React from 'react'
-import { View, Text, StyleSheet, SafeAreaView, Image } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { View, Text, StyleSheet, Image } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import ListaConsultas from '../../components/ListaConsultas';
+import Fundo from '../../components/Fundo'
+import Botao from '../../components/Botao'
 
 export default function HomePaciente() {
    return (
-    <View style={styles.container}>
-        <SafeAreaView style={styles.areaConsultas}>
-            <View style={styles.titleContainer}>
-                <Text style={styles.title}>Consultas Agendadas</Text>
+        <Fundo>
+            <View style={styles.areaConsultas}>
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}>Consultas Agendadas</Text>
+                </View>
+                <ListaConsultas/>
             </View>
-            <ListaConsultas/>
-        </SafeAreaView>
-        <View style={styles.agendarConsulta}>
-            <TouchableOpacity style={styles.buttonAgendarConsul}>
-                <Text style={styles.txtButtonAgendarConsul}>AGENDAR UMA NOVA CONSULTA</Text>
-            </TouchableOpacity>
-        </View>
-        <View style={styles.areaAnuncio}>
-            <TouchableOpacity style={styles.buttonAssistirAnuncio}>
-                <Text style={styles.txtButtonAssistirAnuncio}>ASSISTIR UM ANÚNCIO</Text>
-            </TouchableOpacity>
-            <View style={styles.areaPontos}>
-                <Image
-                    style={styles.logoPontos}
-                    source={require('../../../assets/logo_header.png')}
+            <View style={styles.agendarConsulta}>
+                <Botao
+                    style={styles.buttonAgendarConsul}
+                    title={"AGENDAR UMA NOVA CONSULTA"}
                 />
-                <Text style={styles.txtPontos}>000</Text>
             </View>
-        </View>
-        
-    </View>
+            <View style={styles.areaAnuncio}>
+                <Botao
+                    style={styles.buttonAssistirAnuncio}
+                    title={"ASSISTIR UM ANÚNCIO"}
+                />
+                <View style={styles.areaPontos}>
+                    <Image
+                        style={styles.logoPontos}
+                        source={require('../../../assets/logo_header.png')}
+                    />
+                    <Text style={styles.txtPontos}>000</Text>
+                </View>
+            </View>
+        </Fundo>
    );
 }
 
@@ -57,7 +59,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 15,
         paddingVertical: 20,
-        borderRadius: 15,
 
         // IOS
         shadowColor: "#000",
@@ -70,11 +71,6 @@ const styles = StyleSheet.create({
 
         // ANDROID
         elevation: 4,
-    },
-    txtButtonAgendarConsul: {
-        color: "#FFF",
-        fontWeight: "bold",
-        fontSize: 15,
     },
     areaAnuncio: {
         flexDirection: "row",
