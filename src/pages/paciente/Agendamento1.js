@@ -9,7 +9,7 @@ import TipoConsultas from "../../components/TipoConsultas"
 
 export default function Agendamento1() {
    return (
-      <ScrollView>
+      <ScrollView style={styles.container}>
          <Fundo>
             <View style={styles.containerAgendeConsulta}>
                <Text style={styles.txtAgendeConsulta}>Agende sua Consulta</Text>
@@ -37,8 +37,7 @@ export default function Agendamento1() {
 
 const styles = StyleSheet.create({
    container: {
-      flex: 1,
-      padding: 15,
+      backgroundColor: "#6EB4E7",
    },
    txtAgendeConsulta: {
       color: "#186794",
@@ -48,15 +47,15 @@ const styles = StyleSheet.create({
       textAlign: "center",
    },
    escolhaTipoConsulta: {
-      marginTop: hp("3.5%")
+      marginTop: hp("3.5%"),
    },
    titleEscolha: {
       color: "#FFF",
       fontSize: wp("5.2%"),
-      fontWeight: "bold"
+      fontWeight: "bold",
    },
    escolhaDiaConsulta: {
-      marginTop: hp("3%")
+      marginTop: hp("3%"),
    },
    buttonProximo: {
       backgroundColor: "#34C5A2",

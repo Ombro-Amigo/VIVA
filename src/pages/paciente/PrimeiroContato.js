@@ -30,13 +30,13 @@ const styles = StyleSheet.create({
    mensagemBoasVindas: {
       color: "#186794",
       textAlign: "center",
-      fontSize: hp("6%"),
+      fontSize: wp("9%"),
       fontWeight: "bold",
       marginTop: hp('2%'),
    },
    mensagemExplicacao: {
       color: "#FFF",
-      fontSize: 22,
+      fontSize: wp("6%"),
       fontWeight: "bold",
       textAlign: "center",
       marginVertical: hp('10%'),
@@ -55,15 +55,15 @@ const styles = StyleSheet.create({
    },
    txtAtendimento: {
       color: "#FFF",
-      fontSize: 18,
+      fontSize: wp("5%"),
       fontWeight: "bold",
       textAlign: "center",
    },
    txtMeio: {
-      fontSize: 18,
+      fontSize: wp("5%"),
       fontWeight: "bold",
       textAlign: "center",
-      marginVertical: hp('1%'),
+      marginVertical: hp('2%'),
    },
    buttonTriagem: {
       height: hp('9%'),
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
    },
    txtTriagem: {
       color: "#FFF",
-      fontSize: 18,
+      fontSize: wp("5%"),
       fontWeight: "bold",
       textAlign: "center",
    }

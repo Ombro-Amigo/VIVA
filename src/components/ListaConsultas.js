@@ -2,6 +2,7 @@ import React, { Component} from "react"
 import { View, Image, Text, StyleSheet, FlatList } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
+import { Divider } from 'react-native-paper'
 import Botao from './Botao'
 
 export default class ListaConsultas extends Component{
@@ -10,7 +11,7 @@ export default class ListaConsultas extends Component{
             {
                 id: "1",
                 name: "Nome do(a) psicólogo(a)",
-                photo: require("../../assets/usuario-cards-e-menu.png"),
+                photo: require("../../assets/icon/usuario-cards-e-menu.png"),
                 date: "dd/mm/aaaa",
                 start: "hh:mm",
                 end: "hh:mm",
@@ -19,7 +20,7 @@ export default class ListaConsultas extends Component{
             {
                 id: "2",
                 name: "Nome do(a) psicólogo(a)",
-                photo: require("../../assets/usuario-cards-e-menu.png"),
+                photo: require("../../assets/icon/usuario-cards-e-menu.png"),
                 date: "dd/mm/aaaa",
                 start: "hh:mm",
                 end: "hh:mm",
@@ -28,7 +29,7 @@ export default class ListaConsultas extends Component{
             {
                 id: "3",
                 name: "Nome do(a) psicólogo(a)",
-                photo: require("../../assets/usuario-cards-e-menu.png"),
+                photo: require("../../assets/icon/usuario-cards-e-menu.png"),
                 date: "dd/mm/aaaa",
                 start: "hh:mm",
                 end: "hh:mm",
@@ -37,7 +38,7 @@ export default class ListaConsultas extends Component{
             {
                 id: "4",
                 name: "Nome do(a) psicólogo(a)",
-                photo: require("../../assets/usuario-cards-e-menu.png"),
+                photo: require("../../assets/icon/usuario-cards-e-menu.png"),
                 date: "dd/mm/aaaa",
                 start: "hh:mm",
                 end: "hh:mm",
@@ -58,7 +59,7 @@ export default class ListaConsultas extends Component{
                             />
                             <Text style={styles.nomePsicologo}>{item.name}</Text>
                         </View>
-                        <View style={styles.teste}/>
+                        <Divider style={styles.divider}/>
                         <View style={styles.areaInfoConsulta}>
                             <View style={styles.diaHora}>
                                 <Text style={styles.txtCard}>Data: {item.date}</Text>
@@ -83,7 +84,7 @@ export default class ListaConsultas extends Component{
 const styles = StyleSheet.create({
     flatList: {
         backgroundColor: "#FFF",
-        height: 325,
+        height: hp("52%"),
         borderRadius: 10,
         borderStyle: 'solid',
         padding: 15,
@@ -92,7 +93,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#A1E9D7",
         padding: 10,
         borderRadius: 10,
-        marginBottom: 25,
+        marginBottom: hp("2%"),
+    },
+    divider: {
+        backgroundColor: "#000",
+        alignSelf: "center",
+        width: wp("75%"),
+        height: hp("0.3"),
+        marginVertical: hp("1%"),
     },
     areaInfoPsicologo: {
         flex: 1,
@@ -107,15 +115,8 @@ const styles = StyleSheet.create({
         borderRadius: 100,
     },
     nomePsicologo: {
-        fontSize: 15,
-        fontWeight: "bold"
-    },
-    teste: {
-        backgroundColor: "#000",
-        borderColor: "#000",
-        borderStyle: "solid",
-        borderWidth: 1,
-        margin: 10
+        fontSize: wp("4.5%"),
+        fontWeight: "bold",
     },
     areaInfoConsulta: {
         flexDirection: "row",
@@ -123,10 +124,10 @@ const styles = StyleSheet.create({
     },
     statusConsulta: {
         alignItems: "center",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
     },
     txtCard: {
-        fontSize: 15,
+        fontSize: wp("4.2%"),
         fontWeight: "bold",
     },
     txtCardStatus: {
@@ -136,20 +137,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#ED0000",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 0,
         paddingHorizontal: wp("2%"),
         paddingVertical: hp("1%"),
-
-        // IOS
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.23,
-        shadowRadius: 2.62,
-
-        // ANDROID
-        elevation: 4,
     },
 });

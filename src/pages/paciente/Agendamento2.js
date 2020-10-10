@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen"
 import Fundo from '../../components/Fundo'
 import ListaHorarios from '../../components/ListaHorarios'
@@ -35,18 +35,17 @@ const styles = StyleSheet.create({
       color: "#FFF",
       marginTop: hp("2%"),
       fontSize: wp("5.2%"),
-      fontWeight: "bold"
+      fontWeight: "bold",
    },
    txtEscolhaDiaConsulta: {
       color: "#FFF",
       marginTop: hp("3%"),
       fontSize: wp("5.2%"),
-      fontWeight: "bold"
+      fontWeight: "bold",
    },
    buttonFinalizarAgendamento: {
       alignItems: "center",
       marginTop: hp("4%"),
       paddingVertical: hp("2.5%"),
    }
-   
 })

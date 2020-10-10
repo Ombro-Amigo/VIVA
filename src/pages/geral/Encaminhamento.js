@@ -31,7 +31,7 @@ return (
 					corFundo='#D4CA03'
 					corTexto='#000'
 					imgStyle={styles.iconEmergency}
-					img={require('../../../assets/icon_phone_emergency.png')}
+					img={require('../../../assets/icon/icon_phone_emergency.png')}
 				/>
 				<TouchableOpacity>
 					<Text style={styles.txtEmergency}>Clique aqui para saber mais{"\n"}sobre a ligação de emergência</Text>

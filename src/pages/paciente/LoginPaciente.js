@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, Button } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Fundo from '../../components/Fundo';
@@ -7,8 +7,7 @@ import Botao from '../../components/Botao';
 import Entrada from '../../components/Entrada';
 
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import { Checkbox } from 'react-native-paper';
-import { Icon, Divider } from 'react-native-elements';
+import { Divider } from 'react-native-paper';
 import firebase from '@firebase/app';
 import '@firebase/auth';
 import CaixaSelecao from '../../components/CaixaSelecao';
@@ -72,7 +71,7 @@ export default function LoginPaciente() {
       
       return (
          <View>
-            <Text>
+            <Text style={styles.msgErro}>
                { message }
             </Text>
          </View>
@@ -81,47 +80,63 @@ export default function LoginPaciente() {
 
    return (
       <Fundo>
-         <Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
+
          <View>
-            <Entrada
-               icon={require('../../../assets/usuario-login.png')}
-               placeholder="Nome de Usuário"
-               value={email}
-               onChangeText={Value => {setEmail(Value), console.log(Value)}}
-            />
-            <Entrada
-               icon={require('../../../assets/chave-login.png')}
-               placeholder="Senha"
-               value={senha}
-               onChangeText={Value => {setSenha(Value), console.log(Value)}}
-               secureTextEntry
-            />
+            <Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
+         </View>
+         
+         <View>
+            <View style={styles.login}>
+               <Entrada
+                  icon={require('../../../assets/icon/usuario-login.png')}
+                  placeholder="Nome de Usuário"
+                  value={email}
+                  onChangeText={Value => {setEmail(Value), console.log(Value)}}
+               />
+            </View>
+            <View style={styles.senha}>
+               <Entrada
+                  style={styles.senha}
+                  icon={require('../../../assets/icon/chave-login.png')}
+                  placeholder="Senha"
+                  value={senha}
+                  onChangeText={Value => {setSenha(Value), console.log(Value)}}
+                  secureTextEntry
+               />
+            </View>
+
+            <View>
+               {renderMessage()}
+            </View>
          </View>
 
-         <CaixaSelecao
+         {/* <CaixaSelecao
             status={checked ? 'checked' : 'unchecked'}
             onPress={() => setChecked(!checked)}
             title='Mantenha-me conectado'
-         />
+         /> */}
 
          {renderButton()}
-         {renderMessage()}
-
          
+
          <TouchableOpacity>
-            <Text style={styles.link}>Esqueci minha senha</Text>
+            <Text style={styles.txtEsqueciSenha}>Esqueci minha senha</Text>
          </TouchableOpacity>
 
          <TouchableOpacity>
-            <Text>CRIAR UMA CONTA</Text>
+            <Text style={styles.txtCriarConta}>CRIAR UMA CONTA</Text>
          </TouchableOpacity>
-         <Divider/>
-         <Text>OU</Text>
-         <Divider/>
-         
-         <Botao title="Entrar com o Facebook" style={styles.btnLogin} />
-         <Botao title="Entrar com o Google" style={styles.btnLogin} />
 
+         <View style={styles.segundaOpcao}>
+            <Divider style={styles.divider}/>
+               <Text style={styles.txtOu}>OU</Text>
+            <Divider style={styles.divider}/>
+         </View>
+
+         <View>
+            <Botao title="Entrar com o Facebook" style={styles.btnLoginFacebook} />
+            <Botao title="Entrar com o Google" corTexto={"#000"} style={styles.btnLoginGoogle} />
+         </View>
       </Fundo>
    )
 }
@@ -129,26 +144,66 @@ export default function LoginPaciente() {
 const styles = StyleSheet.create({
    txtFacaLogin:{
       color: "#186794",
+      marginTop: hp("1.5%"),
       fontWeight: "bold",
-      fontSize: hp("3.5%"),
-      alignSelf: "center"
+      fontSize: wp("6.5%"),
+      alignSelf: "center",
    },
-   input: {
-      paddingHorizontal: wp("5%")
+   login: {
+      marginTop: hp("2.5%"),
    },
-   inputContainer: {
-      paddingHorizontal: wp("5%"),
-      margin: 0
+   senha: {
+      marginTop: hp("1.5%"),
+   },
+   msgErro: {
+      color: "#FFF",
+      marginTop: hp("1%"),
    },
 	btnLogin: {
-		paddingHorizontal: 35,
-		paddingVertical: 17,
+      marginTop: hp("3%"),
+		paddingHorizontal: wp("1.8%"),
+      paddingVertical: hp("2%"), 
 	},
-	link: {
-		marginTop: 20,
+	txtEsqueciSenha: {
+		marginTop: hp("1%"),
 		color: '#000',
 		fontWeight: 'bold',
-		fontSize: 18,
+		fontSize: wp("3.8%"),
 		textAlign: 'center',
-	},
+   },
+   txtCriarConta: {
+      color: "#186794",
+      marginTop: hp("4.5%"),
+      alignSelf: "center",
+      fontWeight: "bold",
+      fontSize: wp("4.5%"),
+   },
+   segundaOpcao: {
+      marginTop: hp("2.8%"),
+      justifyContent: "space-around",
+      alignItems: "center",
+      flexDirection: "row",
+   },
+   divider: {
+      backgroundColor: "#FFF",
+      width: wp("25%"),
+      height: hp("0.3"),
+   },
+   txtOu: {
+      color: "#186794",
+      fontWeight: "bold",
+      fontSize: wp("5%"),
+   },
+   btnLoginFacebook:{
+      backgroundColor: "#3B5998",
+      marginTop: hp("3.2%"),
+      paddingHorizontal: wp("2%"),
+      paddingVertical: hp("2.3%"), 
+   },
+   btnLoginGoogle:{
+      backgroundColor: "#FFF",
+      marginTop: hp("2.5%"),
+      paddingHorizontal: wp("2%"),
+      paddingVertical: hp("2.3%"),
+   }
 })

@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Image, TextInput } from 'react-native'
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 export default function Entrada(props) {
    const { icon, placeholder, value, onChangeText, secureTextEntry } = props;
@@ -32,19 +33,21 @@ export default function Entrada(props) {
 const styles = StyleSheet.create({
    container: {
       flexDirection: 'row',
-      // justifyContent: 'center',
       alignItems: 'center',
-      borderBottomWidth: 5,
-      borderBottomColor: '#f00',
+      borderBottomWidth: hp("0.3%"),
+      borderBottomColor: '#FFF',
    },
    icon: {
-      width: 25,
-      height: 25,
+      width: wp("6.5%"),
+      height: hp("6.5%"),
       aspectRatio: 1,
-      // position: 'absolute',
+      marginHorizontal: wp("4%"),
+      marginVertical: hp("1%"),
+      opacity: 0.7,
    },
    input: {
       flex: 1,
-      fontSize: 18,
+      fontSize: hp("2.6%"),
+      paddingHorizontal: wp("2%"),
    },
 })

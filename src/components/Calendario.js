@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import CalendarPicker from 'react-native-calendar-picker'
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen'
 
@@ -35,7 +35,6 @@ export default class Calendario extends Component{
                     dayShape={"circle"}
                     selectedDayColor={"#80C6F9"}
                     selectedDayTextColor={"white"}
-                    
                 />
             </View>
         )
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFF",
         borderRadius: 10,
         borderStyle: "solid",
-        borderWidth: 2,
-        borderColor: "#000"
+        borderWidth: wp("0.8%"),
+        borderColor: "#000",
     },
 })

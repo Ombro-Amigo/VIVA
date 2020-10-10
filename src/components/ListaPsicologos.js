@@ -7,27 +7,27 @@ const ListaPsicologo = () => {
     const psicologo = [
         {
             id: "1",
-            photo: require('../../assets/usuario-cards-e-menu.png'),
+            photo: require('../../assets/icon/usuario-cards-e-menu.png'),
             name: "Nome do(a) psicólogo(a)"
         },
         {
             id: "2",
-            photo: require('../../assets/usuario-cards-e-menu.png'),
+            photo: require('../../assets/icon/usuario-cards-e-menu.png'),
             name: "Nome do(a) psicólogo(a)"
         },
         {
             id: "3",
-            photo: require('../../assets/usuario-cards-e-menu.png'),
+            photo: require('../../assets/icon/usuario-cards-e-menu.png'),
             name: "Nome do(a) psicólogo(a)",
         },
         {
             id: "4",
-            photo: require('../../assets/usuario-cards-e-menu.png'),
+            photo: require('../../assets/icon/usuario-cards-e-menu.png'),
             name: "Nome do(a) psicólogo(a)"
         },
         {
             id: "5",
-            photo: require('../../assets/usuario-cards-e-menu.png'),
+            photo: require('../../assets/icon/usuario-cards-e-menu.png'),
             name: "Nome do(a) psicólogo(a)"
         }
     ]
@@ -49,7 +49,7 @@ const ListaPsicologo = () => {
                     marginBottom: 10,
                     border: "solid",
                     borderColor: "green",
-                    borderWidth: itemId === item.id ? 2.5 : 0
+                    borderWidth: itemId === item.id ? 2.5 : 0,
                 }} onTouchStart={() => setItemId(item.id)}>
                     <View style={styles.infosPsicologo}>
                         <Image 
@@ -61,7 +61,7 @@ const ListaPsicologo = () => {
                     <TouchableOpacity>
                         <Image
                             style={styles.tresPontos}
-                            source={require("../../assets/mais-opcoes.png")} 
+                            source={require("../../assets/icon/mais-opcoes.png")} 
                         />
                     </TouchableOpacity>
                 </View>
@@ -80,12 +80,12 @@ const styles = StyleSheet.create({
         marginTop: hp("2.5%"),
         height: hp("32%"),
         borderRadius: 10,
-        paddingHorizontal: hp("1.7%"),
+        paddingHorizontal: wp("2.5%"),
         paddingVertical: hp("1%"),
     },
     infosPsicologo:{
         flexDirection: "row",
-        alignItems: "flex-end"
+        alignItems: "flex-end",
     },
     fotoPsicologo: {
         width: 60,
@@ -93,9 +93,9 @@ const styles = StyleSheet.create({
         borderRadius: 100,
     },
     nomePsicologo: {
-        fontSize: 15,
+        fontSize: wp("4%"),
         fontWeight: "bold",
-        marginLeft: wp("3%")
+        marginLeft: wp("3%"),
     },
     tresPontos: {
         width: 20,

@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     txtGratuita: {
-        fontSize: hp("2.7%"),
+        fontSize: wp("5%"),
         fontWeight: "bold",
     },
     escolhaPaga: {
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     txtPaga: {
-        fontSize: hp("2.7%"),
+        fontSize: wp("5%"),
         fontWeight: "bold",
     }
 })
