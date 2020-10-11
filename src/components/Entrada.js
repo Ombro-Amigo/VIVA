@@ -1,9 +1,9 @@
 import React from 'react'
-import { StyleSheet, View, Image, TextInput } from 'react-native'
+import { StyleSheet, View, Image, TextInput, Text } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 export default function Entrada(props) {
-   const { icon, placeholder, value, onChangeText, secureTextEntry } = props;
+   const { icon, placeholder, value, onChangeText, secureTextEntry, obrigatorio, tipoTeclado, tipoDado } = props;
 
    function renderIcon() {
       if(icon) {
@@ -16,16 +16,27 @@ export default function Entrada(props) {
       }
    }
 
+   function renderObrigatorio(value){
+      if(obrigatorio && !value){
+         return (
+            <Text style={styles.obrigatorio}>*</Text>
+         )
+      }
+   }
+
    return (
       <View style={styles.container}>
          {renderIcon()}
+         {renderObrigatorio(value)}
          <TextInput
             style={styles.input}
             placeholder={placeholder}
             value={value}
             onChangeText={onChangeText}
             secureTextEntry={secureTextEntry ? true : false}
+            keyboardType={tipoTeclado ? tipoTeclado : "default"}
          />
+         
       </View>
    )
 }
@@ -48,6 +59,11 @@ const styles = StyleSheet.create({
    input: {
       flex: 1,
       fontSize: hp("2.6%"),
-      paddingHorizontal: wp("2%"),
+      paddingHorizontal: wp("4%"),
+   },
+   obrigatorio: {
+      color: "red",
+      fontSize: wp("4.5%"),
+      alignSelf: "flex-start",
    },
 })
