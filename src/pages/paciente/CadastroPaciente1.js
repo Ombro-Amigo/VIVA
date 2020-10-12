@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
 import { View, Text, ScrollView, StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import {RadioButton} from "react-native-paper"
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import Fundo from '../../components/Fundo'
 import Botao from '../../components/Botao'
 import Entrada from '../../components/Entrada'
+import EscolhaGenero from '../../components/EscolhaGenero'
 import DateTimePicker from 'react-native-modal-datetime-picker'
 import moment from 'moment'
 
@@ -11,8 +13,10 @@ export default function CadastroPaciente1() {
    const [nomeUser, setNomeUser] = useState('');
    const [nome, setNome] = useState('');
    const [sobrenome, setSobrenome] = useState('');
+   const [email, setEmail] = useState('')
    const [dataNasc, setDataNasc] = useState('');
    const [show, setShow] = useState(false);
+   const [sexo, setSexo] = useState('')
 
    return (
       <ScrollView style={styles.container}>
@@ -49,6 +53,15 @@ export default function CadastroPaciente1() {
                   />
                </View>
 
+               <View style={styles.input}>
+                  <Entrada
+                     placeholder="Email"
+                     value={email}
+                     onChangeText={Value => {setEmail(Value)}}
+                     obrigatorio
+                  />
+               </View>
+
                <TouchableWithoutFeedback onPress={() => setShow(true)}>
                   <View style={styles.input}>
                      <Entrada
@@ -56,19 +69,21 @@ export default function CadastroPaciente1() {
                         value={dataNasc}
                         onChangeText={Value => {setDataNasc(Value)}}
                         tipoTeclado={"number-pad"}
-                        tipoDado={'calendarEvent'}
                         obrigatorio
                         desabilitado
                      />
                   </View>
                </TouchableWithoutFeedback>
-
+               
                <View style={styles.input}>
-                  <Entrada
-                     placeholder="Nome de usuário"
-                     value={nomeUser}
-                     onChangeText={Value => {setNomeUser(Value)}}
-                     obrigatorio
+                  <Text style={styles.txtSelecioneGenero}>Selecione seu gênero: </Text>
+                  <EscolhaGenero onValueChange={value => setSexo(value)} value={sexo}/>
+               </View>
+
+               <View>
+                  <Botao
+                     style={styles.btn}
+                     title="Próximo"
                   />
                </View>
 
@@ -98,7 +113,7 @@ const styles = StyleSheet.create({
    },
    titulo: {
       color: "#186794",
-      marginTop: hp("5%"),
+      marginTop: hp("4.5%"),
       marginBottom: hp("2%"),
       fontWeight: "bold",
       fontSize: wp("7%"),
@@ -106,5 +121,15 @@ const styles = StyleSheet.create({
    },
    input: {
       marginTop: hp("4.5%")
+   },
+   txtSelecioneGenero: {
+      color: "#FFF",
+      fontWeight: "bold",
+      fontSize: wp("4.6%"),
+   },
+   btn: {
+      paddingVertical: hp("2.5%"),
+      paddingHorizontal: wp("2%"),
+      marginTop: hp("3%")
    }
 })
