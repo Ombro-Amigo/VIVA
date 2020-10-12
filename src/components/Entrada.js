@@ -12,7 +12,9 @@ export default function Entrada(props) {
       obrigatorio, 
       tipoTeclado, 
       tipoDado,
-      desabilitado
+      desabilitado,
+      max,
+      tipoTexto
    } = props;
 
    function renderIcon() {
@@ -46,6 +48,8 @@ export default function Entrada(props) {
             secureTextEntry={secureTextEntry ? true : false}
             keyboardType={tipoTeclado ? tipoTeclado : "default"}
             editable={desabilitado ? false : true}
+            maxLength={max ? max : null}
+            textContentType={tipoTexto ? tipoTexto : null}
          />
          
       </View>

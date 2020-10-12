@@ -31,6 +31,7 @@ export default function CadastroPaciente1() {
                      placeholder="Nome de usuário"
                      value={nomeUser}
                      onChangeText={Value => {setNomeUser(Value)}}
+                     tipoTexto={"username"}
                      obrigatorio
                   />
                </View>
@@ -40,6 +41,7 @@ export default function CadastroPaciente1() {
                      placeholder="Nome"
                      value={nome}
                      onChangeText={Value => {setNome(Value)}}
+                     tipoTexto={"name"}
                      obrigatorio
                   />
                </View>
@@ -58,6 +60,8 @@ export default function CadastroPaciente1() {
                      placeholder="Email"
                      value={email}
                      onChangeText={Value => {setEmail(Value)}}
+                     tipoTeclado={"email-address"}
+                     tipoTexto={"emailAddress"}
                      obrigatorio
                   />
                </View>
@@ -68,7 +72,6 @@ export default function CadastroPaciente1() {
                         placeholder="Data de Nascimento"
                         value={dataNasc}
                         onChangeText={Value => {setDataNasc(Value)}}
-                        tipoTeclado={"number-pad"}
                         obrigatorio
                         desabilitado
                      />
