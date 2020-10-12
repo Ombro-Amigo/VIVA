@@ -10,13 +10,13 @@ const TipoConsultas = () => {
     return (
         <RadioButton.Group onValueChange={value => setEscolha(value)} value={escolha}>
             <View style={styles.areaEscolha}>
-                <View style={styles.escolhaGratuita}>
+                <View style={styles.escolha}>
                     <RadioButton value="Gratuita" color="#34C5A2"/>
-                    <Text style={styles.txtGratuita}>Gratuita</Text>
+                    <Text style={styles.txtOpcoes}>Gratuita</Text>
                 </View>
-                <View style={styles.escolhaPaga} >
+                <View style={styles.escolha} >
                     <RadioButton value="Paga" color="#34C5A2"/>
-                    <Text style={styles.txtPaga}>Paga</Text>
+                    <Text style={styles.txtOpcoes}>Paga</Text>
                 </View>
             </View>
         </RadioButton.Group>
@@ -34,22 +34,14 @@ const styles = StyleSheet.create({
         borderWidth: wp("0.8%"),
         borderColor: "#80C6F9",
         borderRadius: 10,
-        padding: 4,
+        padding: wp("1.5%"),
     },
-    escolhaGratuita: {
+    escolha: {
         flexDirection: "row",
         alignItems: "center",
     },
-    txtGratuita: {
+    txtOpcoes: {
         fontSize: wp("5%"),
         fontWeight: "bold",
     },
-    escolhaPaga: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    txtPaga: {
-        fontSize: wp("5%"),
-        fontWeight: "bold",
-    }
 })
