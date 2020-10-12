@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
       alignSelf: "center",
    },
    login: {
-      marginTop: hp("2.5%"),
+      marginTop: hp("3.5%"),
    },
    senha: {
       marginTop: hp("1.5%"),
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
       marginTop: hp("1%"),
    },
 	btnLogin: {
-      marginTop: hp("3%"),
+      marginTop: hp("4%"),
 		paddingHorizontal: wp("1.8%"),
       paddingVertical: hp("2%"), 
 	},
