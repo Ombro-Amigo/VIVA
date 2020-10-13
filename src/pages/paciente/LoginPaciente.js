@@ -110,12 +110,6 @@ export default function LoginPaciente() {
             </View>
          </View>
 
-         {/* <CaixaSelecao
-            status={checked ? 'checked' : 'unchecked'}
-            onPress={() => setChecked(!checked)}
-            title='Mantenha-me conectado'
-         /> */}
-
          {renderButton()}
          
 
