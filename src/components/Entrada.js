@@ -51,7 +51,6 @@ export default function Entrada(props) {
             maxLength={max ? max : null}
             textContentType={tipoTexto ? tipoTexto : null}
          />
-         
       </View>
    )
 }
