@@ -18,6 +18,7 @@ export default function LoginPaciente() {
    const [checked, setChecked] = useState(false);
    const [message, setMessage] = useState('');
    const [loading, setLoading] = useState(false);
+   const [showPassword, setShowHide] = useState(false)
 
    useEffect(() => {
       const firebaseConfig = {
@@ -59,8 +60,9 @@ export default function LoginPaciente() {
    
 
    function renderButton() {
-      if (loading)
-         return <ActivityIndicator size='large' color='#f00' />;
+      if (loading){
+         return <ActivityIndicator size='large' color='#f00' />
+      }
       
       return <Botao title="Entrar" style={styles.btnLogin} onPress={() => tryLogin()}/>
    }
@@ -101,7 +103,9 @@ export default function LoginPaciente() {
                   placeholder="Senha"
                   value={senha}
                   onChangeText={Value => {setSenha(Value), console.log(Value)}}
-                  secureTextEntry
+                  onPress={Value => {setShowHide(!showPassword)}}
+                  secureTextEntry={showPassword}
+                  tipoTexto="password"
                />
             </View>
 
