@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View, Image, TextInput, Text } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 export default function Entrada(props) {
@@ -7,15 +8,20 @@ export default function Entrada(props) {
       icon,
       placeholder, 
       value, 
-      onChangeText, 
+      onChangeText,
       secureTextEntry, 
       obrigatorio, 
       tipoTeclado, 
-      tipoDado,
       desabilitado,
       max,
-      tipoTexto
+      tipoTexto,
+      onPress,
    } = props;
+
+   const eye = require('../../assets/icon/eye-regular.png')
+   const eyeSlash = require('../../assets/icon/eye-slash.png')
+
+   const [imgOlho, setimgOlho] = useState(eye)
 
    function renderIcon() {
       if(icon) {
@@ -36,6 +42,19 @@ export default function Entrada(props) {
       }
    }
 
+   function renderEye(){
+      if(tipoTexto === "password"){
+         return (
+            <TouchableOpacity onPress={onPress}>
+               <Image
+                  style={styles.eyeIcon}
+                  source={secureTextEntry ? eye : eyeSlash}
+               />
+            </TouchableOpacity>
+         )
+      }
+   }
+
    return (
       <View style={styles.container}>
          {renderIcon()}
@@ -51,6 +70,7 @@ export default function Entrada(props) {
             maxLength={max ? max : null}
             textContentType={tipoTexto ? tipoTexto : null}
          />
+         {renderEye()}
       </View>
    )
 }
@@ -81,4 +101,10 @@ const styles = StyleSheet.create({
       fontSize: wp("4.5%"),
       alignSelf: "flex-start",
    },
+   eyeIcon: {
+      height: 22,
+      width: 22,
+      marginRight: wp("3%"),
+      marginBottom: hp("1%")
+   }
 })

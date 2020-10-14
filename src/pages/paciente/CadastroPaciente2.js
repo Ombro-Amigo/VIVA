@@ -15,6 +15,9 @@ export default function CadastroPaciente2() {
    const [confirmacaoSenha, setConfirmacaoSenha] = useState('')
    const [checkTermos, setCheckedTermos] = useState('')
    const [checkPolitas, setCheckedPoliticas] = useState('')
+   const [showPassword, setShowPassword] = useState(true)
+   const [showPasswordTwo, setShowPasswordTwo] = useState(true)
+   
 
    function confirmaSenha(){
       if((senha && confirmacaoSenha) && (senha === confirmacaoSenha)){
@@ -52,9 +55,10 @@ export default function CadastroPaciente2() {
                      placeholder="Senha"
                      value={senha}
                      onChangeText={Value => {setSenha(Value)}}
+                     onPress={() => setShowPassword(!showPassword)}
                      obrigatorio
                      tipoTexto={"password"}
-                     secureTextEntry
+                     secureTextEntry={showPassword}
                   />
                </View>
 
@@ -63,9 +67,10 @@ export default function CadastroPaciente2() {
                      placeholder="Confirme sua senha"
                      value={confirmacaoSenha}
                      onChangeText={Value => {setConfirmacaoSenha(Value)}}
+                     onPress={() => {setShowPasswordTwo(!showPasswordTwo)}}
                      obrigatorio
                      tipoTexto={"password"}
-                     secureTextEntry
+                     secureTextEntry={showPasswordTwo}
                   />
                   {confirmaSenha()}
                </View>
