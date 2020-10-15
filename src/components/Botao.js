@@ -41,7 +41,7 @@ export default function Botao(props) {
 					<Text style={[
 						{
 							color: !corTexto ? '#FFF' : corTexto,
-							marginRight: 30
+							marginRight: wp("5%")
 						},
 						styles.txtBotao,
 					]}>
@@ -72,10 +72,11 @@ const styles = StyleSheet.create({
 
 		// ANDROID
 		elevation: 4,
+		justifyContent: "space-around"
 	},
 	txtBotao: {
 		fontWeight: 'bold',
-		fontSize: hp('2.5%'),
+		fontSize: wp('4.5%'),
 		alignSelf: 'center',
 	},
 
