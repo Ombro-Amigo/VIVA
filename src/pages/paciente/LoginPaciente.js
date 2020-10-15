@@ -18,7 +18,7 @@ export default function LoginPaciente() {
    const [checked, setChecked] = useState(false);
    const [message, setMessage] = useState('');
    const [loading, setLoading] = useState(false);
-   const [showPassword, setShowHide] = useState(false)
+   const [hidePassword, setHidePassword] = useState(true)
 
    useEffect(() => {
       const firebaseConfig = {
@@ -72,7 +72,7 @@ export default function LoginPaciente() {
          return null;
       
       return (
-         <View>
+         <View >
             <Text style={styles.msgErro}>
                { message }
             </Text>
@@ -103,13 +103,13 @@ export default function LoginPaciente() {
                   placeholder="Senha"
                   value={senha}
                   onChangeText={Value => {setSenha(Value), console.log(Value)}}
-                  onPress={Value => {setShowHide(!showPassword)}}
-                  secureTextEntry={showPassword}
+                  onPress={Value => {setHidePassword(!hidePassword)}}
+                  secureTextEntry={hidePassword}
                   tipoTexto="password"
                />
             </View>
 
-            <View>
+            <View style={styles.areaMensagemErro}>
                {renderMessage()}
             </View>
          </View>
@@ -153,12 +153,15 @@ const styles = StyleSheet.create({
    senha: {
       marginTop: hp("1.5%"),
    },
+   areaMensagemErro: {
+      height: hp("3%")
+   },
    msgErro: {
       color: "#FFF",
       marginTop: hp("1%"),
    },
 	btnLogin: {
-      marginTop: hp("4%"),
+      marginTop: hp("3%"),
 		paddingHorizontal: wp("1.8%"),
       paddingVertical: hp("2%"), 
 	},
