@@ -23,7 +23,12 @@
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "package": "com.ombro_amigo.viva"
+      "package": "com.ombro_amigo.viva",
+      "adaptiveIcon": { 
+        "foregroundImage": "./assets/icon_android.png",
+        "backgroundColor": "#6EB4E7"
+      },
+      "icon": "./assets/icon.png"
     }
   }
 }
