@@ -15,21 +15,9 @@ export default function CadastroPaciente2() {
    const [confirmacaoSenha, setConfirmacaoSenha] = useState('')
    const [checkTermos, setCheckedTermos] = useState('')
    const [checkPolitas, setCheckedPoliticas] = useState('')
-   const [showPassword, setShowPassword] = useState(true)
-   const [showPasswordTwo, setShowPasswordTwo] = useState(true)
+   const [hidePassword, setHidePassword] = useState(true)
+   const [hidePasswordTwo, setHidePasswordTwo] = useState(true)
    
-
-   function confirmaSenha(){
-      if((senha && confirmacaoSenha) && (senha === confirmacaoSenha)){
-         return (
-            <Text style={styles.senhaCorreta}>As senhas são correspondendes</Text>
-         )
-      }else if((senha && confirmacaoSenha) && (senha !== confirmacaoSenha)){
-         return (
-            <Text style={styles.senhaErrada}>As senhas não são correspondendes</Text>
-         )
-      }
-   }
 
    return (
       <ScrollView style={styles.container}>
@@ -55,10 +43,10 @@ export default function CadastroPaciente2() {
                      placeholder="Senha"
                      value={senha}
                      onChangeText={Value => {setSenha(Value)}}
-                     onPress={() => setShowPassword(!showPassword)}
+                     onPress={() => setHidePassword(!hidePassword)}
                      obrigatorio
                      tipoTexto={"password"}
-                     secureTextEntry={showPassword}
+                     secureTextEntry={hidePassword}
                   />
                </View>
 
@@ -67,12 +55,16 @@ export default function CadastroPaciente2() {
                      placeholder="Confirme sua senha"
                      value={confirmacaoSenha}
                      onChangeText={Value => {setConfirmacaoSenha(Value)}}
-                     onPress={() => {setShowPasswordTwo(!showPasswordTwo)}}
+                     onPress={() => {setHidePasswordTwo(!hidePasswordTwo)}}
                      obrigatorio
                      tipoTexto={"password"}
-                     secureTextEntry={showPasswordTwo}
+                     secureTextEntry={hidePasswordTwo}
+                     msgError="As senha não são correspondentes."
+                     msgSucesso="As senhas correspondem."
+                     senha={senha}
+                     confirmacaoSenha={confirmacaoSenha}
+                     verificaSenha
                   />
-                  {confirmaSenha()}
                </View>
                
                <View style={styles.confirmacoesLeitura}>
@@ -83,8 +75,8 @@ export default function CadastroPaciente2() {
                         color={"#FFF"}
                      />
                      <View style={styles.areaTxt}>
-                        <Text style={styles.txtSelecao}>Li e concordo com os </Text>
-                        <TouchableOpacity><Text style={[styles.txtSelecao, styles.txtSublinhado]}>Termos de Uso.</Text></TouchableOpacity>
+                        <Text style={styles.txtSelecao}>Li e concordo com os <Text style={styles.txtSublinhado}>Termos de Uso.</Text></Text>
+                        
                      </View>
                   </View>
                   
@@ -95,8 +87,7 @@ export default function CadastroPaciente2() {
                         color={"#FFF"}
                      />
                      <View style={styles.areaTxt}>
-                        <Text style={styles.txtSelecao}>Li e concordo com as </Text>
-                        <TouchableOpacity><Text style={[styles.txtSelecao, styles.txtSublinhado]}>Políticas de Privacidade.</Text></TouchableOpacity>
+                        <Text style={styles.txtSelecao}>Li e concordo com as <Text style={styles.txtSublinhado}>Políticas de Privacidade.</Text></Text>
                      </View>
                   </View>
 
@@ -130,34 +121,25 @@ const styles = StyleSheet.create({
    input: {
       marginTop: hp("7%"),
    },
-   senhaCorreta: {
-      color: "green",
-      alignSelf: "flex-end",
-      fontSize: wp("3.3%"),
-   },
-   senhaErrada: {
-      color: "red",
-      alignSelf: "flex-end",
-      fontSize: wp("3.3%"),
-   },
    confirmacoesLeitura: {
       marginTop: hp("5%"),
    },
    confirmacaoContainer: {
+      flex: 1,
       flexDirection: "row",
       alignItems: "center"
    },
    areaTxt: {
       flexDirection: "row",
       alignItems: "center",
-      
+      flexWrap: "wrap",
    },
    txtSublinhado: {
       textDecorationLine: "underline"
    },
    txtSelecao: {
       alignSelf: "center",
-      fontSize: wp("3.7%"),
+      fontSize: wp("4%"),
       fontWeight: "bold",
    },
    btn: {
