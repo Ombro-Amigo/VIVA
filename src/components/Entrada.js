@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState} from 'react'
 import { StyleSheet, View, Image, TextInput, Text } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -16,6 +16,11 @@ export default function Entrada(props) {
       max,
       tipoTexto,
       onPress,
+      verificaSenha,
+      senha,
+      confirmacaoSenha,
+      msgError,
+      msgSucesso,
    } = props;
 
    const eye = require('../../assets/icon/eye-regular.png')
@@ -42,6 +47,20 @@ export default function Entrada(props) {
       }
    }
 
+   function renderMsgSenha(){
+    if(verificaSenha){
+        if((senha && confirmacaoSenha) && (senha === confirmacaoSenha)){
+            return (
+            <Text style={styles.senhaCorreta}>{msgSucesso}</Text>
+            )
+        }else if((senha && confirmacaoSenha) && (senha !== confirmacaoSenha)){
+            return (
+                <Text style={styles.senhaErrada}>{msgError}</Text>
+            )
+        } 
+    }
+   }
+
    function renderEye(){
       if(tipoTexto === "password"){
          return (
@@ -56,22 +75,30 @@ export default function Entrada(props) {
    }
 
    return (
-      <View style={styles.container}>
-         {renderIcon()}
-         {renderObrigatorio(value)}
-         <TextInput
-            style={[styles.input]}
-            placeholder={placeholder}
-            value={value}
-            onChangeText={onChangeText}
-            secureTextEntry={secureTextEntry ? true : false}
-            keyboardType={tipoTeclado ? tipoTeclado : "default"}
-            editable={desabilitado ? false : true}
-            maxLength={max ? max : null}
-            textContentType={tipoTexto ? tipoTexto : null}
-         />
-         {renderEye()}
-      </View>
+    <>
+        <View style={styles.container}>   
+            {renderIcon()}
+            <View style={styles.areaObrigatorio}>
+                {renderObrigatorio(value)}
+            </View> 
+            <TextInput
+                style={[styles.input]}
+                placeholder={placeholder}
+                value={value}
+                onChangeText={onChangeText}
+                secureTextEntry={secureTextEntry ? true : false}
+                keyboardType={tipoTeclado ? tipoTeclado : "default"}
+                editable={desabilitado ? false : true}
+                maxLength={max ? max : null}
+                textContentType={tipoTexto ? tipoTexto : null}
+            />
+            {renderEye()}
+            
+        </View>
+        <View style={styles.areaConfirmacaoSenha}>
+            {renderMsgSenha()}
+        </View>
+    </>
    )
 }
 
@@ -93,8 +120,11 @@ const styles = StyleSheet.create({
    input: {
       flex: 1,
       fontSize: hp("2.6%"),
-      paddingHorizontal: wp("4%"),
+      paddingHorizontal: wp("5%"),
       color: '#000',
+   },
+   areaObrigatorio: {
+      width: wp("2%"),
    },
    obrigatorio: {
       color: "red",
@@ -106,5 +136,18 @@ const styles = StyleSheet.create({
       width: 22,
       marginRight: wp("3%"),
       marginBottom: hp("1%")
-   }
+   },
+   areaConfirmacaoSenha: {
+      height: hp("2%")
+   },
+   senhaCorreta: {
+      color: "green",
+      alignSelf: "flex-end",
+      fontSize: wp("3.3%"),
+   },
+   senhaErrada: {
+      color: "red",
+      alignSelf: "flex-end",
+      fontSize: wp("3.3%"),
+   },
 })
