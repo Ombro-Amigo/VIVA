@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 	title: {
 		color: '#186794',
 		fontWeight: 'bold',
-		fontSize: 24,
+		fontSize: wp("7%"),
 	},
 
 	// Login
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
 	txtLogin: {
 		color: '#186794',
 		fontWeight: 'bold',
-		fontSize: 14,
-		marginBottom: 20,
+		fontSize: wp("4%"),
+		marginBottom: hp("3.2%"),
 	},
 	containerButtonLogin: {
 		// flex: 2,
@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-evenly',
 	},
 	buttonLogin: {
-		paddingHorizontal: 35,
-		paddingVertical: 17,
+		paddingHorizontal: wp("9.5%"),
+		paddingVertical: hp("3%"),
 	},
 
 	// Emergência
@@ -87,19 +87,19 @@ const styles = StyleSheet.create({
 		// backgroundColor: '#00f',
 	},
 	buttonEmergency: {
-		paddingVertical: 10,
-		paddingHorizontal: 32,
+		paddingVertical: hp("1.5%"),
+		paddingHorizontal: wp("9%"),
 	},
 	iconEmergency: {
-		width: 35,
-		height: 35,
+		width: wp("8.5%"),
+		height: hp("8.5%"),
 		aspectRatio: 1,
 	},
 	txtEmergency: {
-		marginTop: 20,
+		marginTop: hp("3%"),
 		color: '#fff',
 		fontWeight: 'bold',
-		fontSize: 12,
+		fontSize: wp("3.3%"),
 		textAlign: 'center',
 	},
 });
