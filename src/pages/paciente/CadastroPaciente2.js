@@ -100,6 +100,7 @@ export default function CadastroPaciente2() {
                   <Botao
                      style={styles.btn}
                      title="Concluir Cadastrado"
+                     onPress={() => navigation.navigate('LoginPaciente')}
                   />
                </View>
 
