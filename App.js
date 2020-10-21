@@ -25,37 +25,29 @@ import CadastroPsicologo2 from './src/pages/psicologo/CadastroPsicologo2';
 import ConfirmacaoCrp from './src/pages/psicologo/ConfirmacaoCrp';
 import Home from './src/pages/psicologo/HomePsicologo';
 
-// Import provisório
-import pageProvisoria from './src/pages/pageProvisoria';
-
 const Stack = createStackNavigator();
 
 function LogoTitle() {
-  return (
-    <Image
-      style={{ width: 50, height: 50, aspectRatio: 1 }}
-      source={require('./assets/icon/logo_header.png')}
-    />
-  );
+   return (
+      <Image
+         style={{ width: 50, height: 50, aspectRatio: 1 }}
+         source={require('./assets/icon/logo_header.png')}
+      />
+   );
 }
 
 export default function App() {
-  return (
-    <NavigationContainer>
+return (
+   <NavigationContainer>
       <Stack.Navigator
-         initialRouteName='pageProvisoria'
+         initialRouteName='Encaminhamento'
          screenOptions={
             {
-            headerTitleAlign: 'center',
-            headerTitle: props => <LogoTitle {...props} />
+               headerTitleAlign: 'center',
+               headerTitle: props => <LogoTitle {...props} />
             }
          }
       >
-         <Stack.Screen
-            name='pageProvisoria'
-            component={pageProvisoria}
-         />
-
          {/* Geral */}
          <Stack.Screen
             name='Encaminhamento'
@@ -121,7 +113,7 @@ export default function App() {
             name='Home'
             component={Home}
          />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+		</Stack.Navigator>
+	</NavigationContainer>
+);
 }
