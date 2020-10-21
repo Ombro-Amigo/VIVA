@@ -5,56 +5,41 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 
 export default function Botao(props) {
 	const { title, style, imgStyle, corFundo, corTexto, img, onPress } = props;
-	if(!img){
-		return (
-			<View>
-				<TouchableOpacity 
-					style={[
-						{
-							backgroundColor: !corFundo ? '#34C5A2' : corFundo
-						},
-						styles.botao,
-						style
-					]}
-					onPress={onPress}
-				>
-					<Text style={[
-						{
-							color: !corTexto ? '#FFF' : corTexto
-						},
-						styles.txtBotao
-					]}>
-						{title}
-					</Text>
-				</TouchableOpacity>
-			</View>
-		);
-	}else{
-		return (
-			<View>
-				<TouchableOpacity style={[
-					{backgroundColor: !corFundo ? '#34C5A2' : corFundo},
-					styles.botao,
-					styles.botaoComIcone,
-					style
-				]}>
-					<Text style={[
-						{
-							color: !corTexto ? '#FFF' : corTexto,
-							marginRight: wp("5%")
-						},
-						styles.txtBotao,
-					]}>
-						{title}
-					</Text>
-					<Image
-						style={imgStyle}
-						source={img}
-					/>
-				</TouchableOpacity>
-			</View>
-		);
+
+	function renderIcon(){
+		if(img) {
+			return (
+				<Image style={imgStyle} source={img} />
+			);
+		}
 	}
+
+	return (
+		<View>
+			<TouchableOpacity 
+				style={[
+					{
+						backgroundColor: !corFundo ? '#34C5A2' : corFundo
+					},
+					styles.botao,
+					img ? styles.botaoComIcone : null,
+					style
+				]}
+				onPress={onPress}
+			>
+				<Text style={[
+					{
+						color: !corTexto ? '#FFF' : corTexto,
+						marginRight: img ? wp("5%") : null
+					},
+					styles.txtBotao
+				]}>
+					{title}
+				</Text>
+				{ renderIcon() }
+			</TouchableOpacity>
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
