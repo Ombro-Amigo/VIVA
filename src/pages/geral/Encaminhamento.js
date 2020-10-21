@@ -2,43 +2,54 @@
 
 import React from 'react';
 import { Image, View, Text, StyleSheet } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import Botao from '../../components/Botao';
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useFonts, Signika_400Regular, Signika_700Bold } from '@expo-google-fonts/signika';
+import Botao from '../../components/Botao';
 import Fundo from '../../components/Fundo';
 
 export default function Encaminhamento() {
-return (
-	<Fundo>
-		<View style={styles.containerTitle}>
-				<Text style={styles.title}>O QUE DESEJA?</Text>
-		</View>
 
-		<View style={styles.containerLogin}>
-				<View style={styles.containerTxtLogin}>
-					<Text style={styles.txtLogin}>Seguir para as opções de login</Text>
-				</View>
-				<View style={styles.containerButtonLogin}>
-					<Botao title="Paciente" style={styles.buttonLogin} />
-					<Botao title="Psicólogo" style={styles.buttonLogin} />
-				</View>
-		</View>
+	let [fontsLoaded] = useFonts({
+		Signika_400Regular,
+		Signika_700Bold,
+	});
 
-		<View style={styles.containerEmergency}>
-				<Botao
-					title="Ligar para a Emergência"
-					style={styles.buttonEmergency}
-					corFundo='#D4CA03'
-					corTexto='#000'
-					imgStyle={styles.iconEmergency}
-					img={require('../../../assets/icon/icon_phone_emergency.png')}
-				/>
-				<TouchableOpacity>
-					<Text style={styles.txtEmergency}>Clique aqui para saber mais{"\n"}sobre a ligação de emergência</Text>
-				</TouchableOpacity>
-		</View>
-	</Fundo>
-);
+	if(fontsLoaded){
+
+		return (
+			<Fundo>
+				<View style={styles.containerTitle}>
+						<Text style={styles.title}>O QUE DESEJA?</Text>
+				</View>
+
+				<View style={styles.containerLogin}>
+						<View style={styles.containerTxtLogin}>
+							<Text style={styles.txtLogin}>Seguir para as opções de login</Text>
+						</View>
+						<View style={styles.containerButtonLogin}>
+							<Botao title="Paciente" style={styles.buttonLogin} />
+							<Botao title="Psicólogo" style={styles.buttonLogin} />
+						</View>
+				</View>
+
+				<View style={styles.containerEmergency}>
+						<Botao
+							title="Ligar para a Emergência"
+							style={styles.buttonEmergency}
+							corFundo='#D4CA03'
+							corTexto='#000'
+							imgStyle={styles.iconEmergency}
+							img={require('../../../assets/icon/icon_phone_emergency.png')}
+						/>
+						<TouchableOpacity>
+							<Text style={styles.txtEmergency}>Clique aqui para saber mais{"\n"}sobre a ligação de emergência</Text>
+						</TouchableOpacity>
+				</View>
+			</Fundo>
+		);
+	}
+	return <Text>Algo deu errado</Text>
 }
 
 const styles = StyleSheet.create({
@@ -51,8 +62,9 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		color: '#186794',
-		fontWeight: 'bold',
+		// fontWeight: 'bold',
 		fontSize: wp("7%"),
+		fontFamily: "Signika_700Bold",
 	},
 
 	// Login
