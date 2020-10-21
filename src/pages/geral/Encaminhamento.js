@@ -1,14 +1,15 @@
-// import { StatusBar } from 'expo-status-bar';
-
-import React from 'react';
-import { Image, View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useFonts, Signika_400Regular, Signika_700Bold } from '@expo-google-fonts/signika';
 import Botao from '../../components/Botao';
 import Fundo from '../../components/Fundo';
 
-export default function Encaminhamento() {
+import ModalConstrucao from '../modalConstrucao';
+
+export default function Encaminhamento({ navigation }) {
+	const [modalVisible, setModalVisible] = useState(false);
 
 	let [fontsLoaded] = useFonts({
 		Signika_400Regular,
@@ -28,8 +29,17 @@ export default function Encaminhamento() {
 							<Text style={styles.txtLogin}>Seguir para as opções de login</Text>
 						</View>
 						<View style={styles.containerButtonLogin}>
-							<Botao title="Paciente" style={styles.buttonLogin} />
-							<Botao title="Psicólogo" style={styles.buttonLogin} />
+							<Botao
+								title="Paciente"
+								style={styles.buttonLogin}
+								onPress={() => navigation.navigate('LoginPaciente')}
+							/>
+							<Botao
+								title="Psicólogo"
+								style={styles.buttonLogin}
+								// onPress={() => navigation.navigate('LoginPsicologo')}
+								onPress={() => setModalVisible(!modalVisible)}
+							/>
 						</View>
 				</View>
 
@@ -41,11 +51,14 @@ export default function Encaminhamento() {
 							corTexto='#000'
 							imgStyle={styles.iconEmergency}
 							img={require('../../../assets/icon/icon_phone_emergency.png')}
+							onPress={() => setModalVisible(!modalVisible)}
 						/>
-						<TouchableOpacity>
+						<TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
 							<Text style={styles.txtEmergency}>Clique aqui para saber mais{"\n"}sobre a ligação de emergência</Text>
 						</TouchableOpacity>
 				</View>
+
+				<ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} />
 			</Fundo>
 		);
 	}

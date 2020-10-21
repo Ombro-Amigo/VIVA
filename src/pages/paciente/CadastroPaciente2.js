@@ -61,9 +61,12 @@ export default function CadastroPaciente2() {
                      secureTextEntry={hidePasswordTwo}
                      msgError="As senha não são correspondentes."
                      msgSucesso="As senhas correspondem."
-                     senha={senha}
-                     confirmacaoSenha={confirmacaoSenha}
-                     verificaSenha
+                     verificaCondicao
+                     condicao={
+                        senha === confirmacaoSenha
+                        ? true
+                        : false
+                     }
                   />
                </View>
                

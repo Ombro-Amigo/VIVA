@@ -7,7 +7,7 @@ import Fundo from '../../components/Fundo'
 import TipoConsultas from "../../components/TipoConsultas"
 
 
-export default function Agendamento1() {
+export default function Agendamento1({ navigation }) {
    return (
       <ScrollView style={styles.container}>
          <Fundo>
@@ -28,6 +28,7 @@ export default function Agendamento1() {
                <Botao
                   style={styles.buttonProximo}
                   title={"Próximo"}
+                  onPress={() => navigation.navigate('Agendamento2')}
                />
             </View>
          </Fundo>

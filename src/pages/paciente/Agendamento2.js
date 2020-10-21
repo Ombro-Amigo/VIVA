@@ -6,7 +6,7 @@ import ListaHorarios from '../../components/ListaHorarios'
 import ListaPsicologo from '../../components/ListaPsicologos'
 import Botao from '../../components/Botao'
 
-export default function Agendamento2() {
+export default function Agendamento2({ navigation }) {
    return (
       <Fundo>
          <View style={styles.areaEscolhaPsicologo}>
@@ -20,6 +20,7 @@ export default function Agendamento2() {
          <Botao
             style={styles.buttonFinalizarAgendamento}
             title={"Finalizar Agendamento"}
+            onPress={() => navigation.navigate('HomePaciente')}
          />
       </Fundo>
    )

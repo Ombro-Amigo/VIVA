@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Fundo from '../../components/Fundo';
 import Botao from '../../components/Botao';
 import Entrada from '../../components/Entrada';
+import { errorCodesEmail, errorCodesPassword, errorCodes } from '../../utils/errorCodes';
 
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { Divider } from 'react-native-paper';
@@ -12,13 +13,17 @@ import firebase from '@firebase/app';
 import '@firebase/auth';
 import CaixaSelecao from '../../components/CaixaSelecao';
 
-export default function LoginPaciente() {
+import ModalConstrucao from '../modalConstrucao';
+import Loading from '../Loading';
+
+export default function LoginPaciente({ navigation }) {
    const [email, setEmail] = useState('');
    const [senha, setSenha] = useState('');
    const [checked, setChecked] = useState(false);
    const [message, setMessage] = useState('');
    const [loading, setLoading] = useState(false);
-   const [hidePassword, setHidePassword] = useState(true)
+   const [hidePassword, setHidePassword] = useState(true);
+	const [modalVisible, setModalVisible] = useState(false);
 
    useEffect(() => {
       const firebaseConfig = {
@@ -43,10 +48,13 @@ export default function LoginPaciente() {
       setMessage('');
 
       const loginUserSuccess = user => {
+         setLoading(false);
          setMessage('Sucesso!');
+         navigation.navigate('HomePaciente')
       }
 
       const loginUserFailed = error => {
+         setLoading(false);
          setMessage(error.code);
       }
 
@@ -55,88 +63,99 @@ export default function LoginPaciente() {
          .signInWithEmailAndPassword(email, senha)
          .then(loginUserSuccess)
          .catch(loginUserFailed)
-         .then(setLoading(false))
-   }
-   
-
-   function renderButton() {
-      if (loading){
-         return <ActivityIndicator size='large' color='#f00' />
-      }
-      
-      return <Botao title="Entrar" style={styles.btnLogin} onPress={() => tryLogin()}/>
    }
 
    function renderMessage() {
-      if(!message)
-         return null;
+      if((errorCodesEmail(message) === undefined && errorCodesPassword(message) === undefined) && message && message !== 'Sucesso!'){
+         return (
+            <View >
+               <Text style={styles.msgErro}>
+                  { errorCodes(message) }
+               </Text>
+            </View>
+         );
+      }
+      return null;
       
-      return (
-         <View >
-            <Text style={styles.msgErro}>
-               { message }
-            </Text>
-         </View>
-      )
    }
-
-   return (
-      <Fundo>
-
-         <View>
-            <Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
-         </View>
-         
-         <View>
-            <View style={styles.login}>
-               <Entrada
-                  icon={require('../../../assets/icon/usuario-login.png')}
-                  placeholder="Nome de Usuário"
-                  value={email}
-                  onChangeText={Value => {setEmail(Value), console.log(Value)}}
-               />
+   
+   if(!loading) {
+      return (
+         <Fundo>
+   
+            <View>
+               <Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
             </View>
-            <View style={styles.senha}>
-               <Entrada
-                  style={styles.senha}
-                  icon={require('../../../assets/icon/chave-login.png')}
-                  placeholder="Senha"
-                  value={senha}
-                  onChangeText={Value => {setSenha(Value), console.log(Value)}}
-                  onPress={Value => {setHidePassword(!hidePassword)}}
-                  secureTextEntry={hidePassword}
-                  tipoTexto="password"
-               />
+            
+            <View>
+               <View style={styles.login}>
+                  <Entrada
+                     icon={require('../../../assets/icon/usuario-login.png')}
+                     placeholder="Nome de Usuário"
+                     value={email}
+                     onChangeText={Value => setEmail(Value)}
+                     msgError={errorCodesEmail(message)}
+                     verificaCondicao
+                     condicao={
+                        message
+                        ? false
+                        : null
+                     }
+                  />
+               </View>
+               <View style={styles.senha}>
+                  <Entrada
+                     style={styles.senha}
+                     icon={require('../../../assets/icon/chave-login.png')}
+                     placeholder="Senha"
+                     value={senha}
+                     onChangeText={Value => setSenha(Value)}
+                     onPress={Value => {setHidePassword(!hidePassword)}}
+                     secureTextEntry={hidePassword}
+                     tipoTexto="password"
+                     msgError={errorCodesPassword(message)}
+                     verificaCondicao
+                     condicao={
+                        message
+                        ? false
+                        : null
+                     }
+                  />
+               </View>
+   
+               <View style={styles.areaMensagemErro}>
+                  {renderMessage()}
+               </View>
             </View>
-
-            <View style={styles.areaMensagemErro}>
-               {renderMessage()}
+   
+            <Botao title="Entrar" style={styles.btnLogin} onPress={() => tryLogin()}/>
+            
+   
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+               <Text style={styles.txtEsqueciSenha}>Esqueci minha senha</Text>
+            </TouchableOpacity>
+   
+            <TouchableOpacity onPress={() => navigation.navigate('CadastroPaciente1')}>
+               <Text style={styles.txtCriarConta}>CRIAR UMA CONTA</Text>
+            </TouchableOpacity>
+   
+            <View style={styles.segundaOpcao}>
+               <Divider style={styles.divider}/>
+                  <Text style={styles.txtOu}>OU</Text>
+               <Divider style={styles.divider}/>
             </View>
-         </View>
-
-         {renderButton()}
-         
-
-         <TouchableOpacity>
-            <Text style={styles.txtEsqueciSenha}>Esqueci minha senha</Text>
-         </TouchableOpacity>
-
-         <TouchableOpacity>
-            <Text style={styles.txtCriarConta}>CRIAR UMA CONTA</Text>
-         </TouchableOpacity>
-
-         <View style={styles.segundaOpcao}>
-            <Divider style={styles.divider}/>
-               <Text style={styles.txtOu}>OU</Text>
-            <Divider style={styles.divider}/>
-         </View>
-
-         <View>
-            <Botao title="Entrar com o Facebook" style={styles.btnLoginFacebook} />
-            <Botao title="Entrar com o Google" corTexto={"#000"} style={styles.btnLoginGoogle} />
-         </View>
-      </Fundo>
-   )
+   
+            <View>
+               <Botao title="Entrar com o Facebook" style={styles.btnLoginFacebook}  onPress={() => setModalVisible(!modalVisible)} />
+               <Botao title="Entrar com o Google" corTexto={"#000"} style={styles.btnLoginGoogle}  onPress={() => setModalVisible(!modalVisible)} />
+            </View>
+   
+            <ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} />
+         </Fundo>
+      )
+   }else{
+      return <Loading/>
+   }
 }
 
 const styles = StyleSheet.create({
@@ -157,8 +176,8 @@ const styles = StyleSheet.create({
       height: hp("3%")
    },
    msgErro: {
-      color: "#FFF",
-      marginTop: hp("1%"),
+      color: "#F00",
+      textAlign: 'center',
    },
 	btnLogin: {
       marginTop: hp("3%"),

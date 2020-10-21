@@ -9,7 +9,7 @@ import EscolhaGenero from '../../components/EscolhaGenero'
 import DateTimePicker from 'react-native-modal-datetime-picker'
 import moment from 'moment'
 
-export default function CadastroPaciente1() {
+export default function CadastroPaciente1({ navigation }) {
    const [nomeUser, setNomeUser] = useState('');
    const [nome, setNome] = useState('');
    const [sobrenome, setSobrenome] = useState('');
@@ -87,6 +87,7 @@ export default function CadastroPaciente1() {
                   <Botao
                      style={styles.btn}
                      title="Próximo"
+                     onPress={() => navigation.navigate('CadastroPaciente2')}
                   />
                </View>
 

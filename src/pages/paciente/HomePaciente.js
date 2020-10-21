@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import ListaConsultas from '../../components/ListaConsultas';
 import Fundo from '../../components/Fundo'
 import Botao from '../../components/Botao'
 
-export default function HomePaciente() {
-   return (
+import ModalConstrucao from '../modalConstrucao';
+
+export default function HomePaciente({ navigation }) {
+    const [modalVisible, setModalVisible] = useState(false);
+
+return (
         <Fundo>
             <View style={styles.areaConsultas}>
                 <View style={styles.titleContainer}>
@@ -18,12 +22,14 @@ export default function HomePaciente() {
                 <Botao
                     style={styles.buttonAgendarConsul}
                     title={"AGENDAR UMA NOVA CONSULTA"}
+                    onPress={() => navigation.navigate('Agendamento1')}
                 />
             </View>
             <View style={styles.areaAnuncio}>
                 <Botao
                     style={styles.buttonAssistirAnuncio}
                     title={"ASSISTIR UM ANÚNCIO"}
+                    onPress={() => setModalVisible(!modalVisible)}
                 />
                 <View style={styles.areaPontos}>
                     <Image
@@ -33,8 +39,10 @@ export default function HomePaciente() {
                     <Text style={styles.txtPontos}>000</Text>
                 </View>
             </View>
+            
+            <ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} />
         </Fundo>
-   );
+);
 }
 
 const styles = StyleSheet.create({
