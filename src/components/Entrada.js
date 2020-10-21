@@ -16,9 +16,8 @@ export default function Entrada(props) {
       max,
       tipoTexto,
       onPress,
-      verificaSenha,
-      senha,
-      confirmacaoSenha,
+      verificaCondicao,
+      condicao,
       msgError,
       msgSucesso,
    } = props;
@@ -47,18 +46,16 @@ export default function Entrada(props) {
       }
    }
 
-   function renderMsgSenha(){
-    if(verificaSenha){
-        if((senha && confirmacaoSenha) && (senha === confirmacaoSenha)){
-            return (
-            <Text style={styles.senhaCorreta}>{msgSucesso}</Text>
-            )
-        }else if((senha && confirmacaoSenha) && (senha !== confirmacaoSenha)){
-            return (
-                <Text style={styles.senhaErrada}>{msgError}</Text>
-            )
-        } 
-    }
+   function renderMsg(){
+      if(verificaCondicao){
+         if(condicao && msgSucesso){
+               return <Text style={styles.senhaCorreta}>{msgSucesso}</Text>
+         }else if(!condicao && msgError){
+               return (
+                  <Text style={styles.senhaErrada}>{msgError}</Text>
+               )
+         } 
+      }
    }
 
    function renderEye(){
@@ -67,7 +64,7 @@ export default function Entrada(props) {
             <TouchableOpacity onPress={onPress}>
                <Image
                   style={styles.eyeIcon}
-                  source={secureTextEntry ? eye : eyeSlash}
+                  source={secureTextEntry ? eyeSlash : eye}
                />
             </TouchableOpacity>
          )
@@ -96,7 +93,7 @@ export default function Entrada(props) {
             
         </View>
         <View style={styles.areaConfirmacaoSenha}>
-            {renderMsgSenha()}
+            {renderMsg()}
         </View>
     </>
    )
