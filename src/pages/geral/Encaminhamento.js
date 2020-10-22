@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { useFonts, Signika_400Regular, Signika_700Bold } from '@expo-google-fonts/signika';
 import Botao from '../../components/Botao';
 import Fundo from '../../components/Fundo';
 
@@ -11,58 +10,51 @@ import ModalConstrucao from '../modalConstrucao';
 export default function Encaminhamento({ navigation }) {
 	const [modalVisible, setModalVisible] = useState(false);
 
-	let [fontsLoaded] = useFonts({
-		Signika_400Regular,
-		Signika_700Bold,
-	});
 
-	if(fontsLoaded){
+	return (
+		<Fundo>
+			
+			<View style={styles.containerTitle}>
+					<Text style={styles.title}>O QUE DESEJA?</Text>
+			</View>
 
-		return (
-			<Fundo>
-				<View style={styles.containerTitle}>
-						<Text style={styles.title}>O QUE DESEJA?</Text>
-				</View>
-
-				<View style={styles.containerLogin}>
-						<View style={styles.containerTxtLogin}>
-							<Text style={styles.txtLogin}>Seguir para as opções de login</Text>
-						</View>
-						<View style={styles.containerButtonLogin}>
-							<Botao
-								title="Paciente"
-								style={styles.buttonLogin}
-								onPress={() => navigation.navigate('LoginPaciente')}
-							/>
-							<Botao
-								title="Psicólogo"
-								style={styles.buttonLogin}
-								// onPress={() => navigation.navigate('LoginPsicologo')}
-								onPress={() => setModalVisible(!modalVisible)}
-							/>
-						</View>
-				</View>
-
-				<View style={styles.containerEmergency}>
+			<View style={styles.containerLogin}>
+					<View style={styles.containerTxtLogin}>
+						<Text style={styles.txtLogin}>Seguir para as opções de login</Text>
+					</View>
+					<View style={styles.containerButtonLogin}>
 						<Botao
-							title="Ligar para a Emergência"
-							style={styles.buttonEmergency}
-							corFundo='#D4CA03'
-							corTexto='#000'
-							imgStyle={styles.iconEmergency}
-							img={require('../../../assets/icon/icon_phone_emergency.png')}
-							onPress={() => setModalVisible(!modalVisible)}
+							title="Paciente"
+							style={styles.buttonLogin}
+							onPress={() => navigation.navigate('LoginPaciente')}
 						/>
-						<TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-							<Text style={styles.txtEmergency}>Clique aqui para saber mais{"\n"}sobre a ligação de emergência</Text>
-						</TouchableOpacity>
-				</View>
+						<Botao
+							title="Psicólogo"
+							style={styles.buttonLogin}
+							onPress={() => navigation.navigate('CadastroPsicologo1')}
+							// onPress={() => setModalVisible(!modalVisible)}
+						/>
+					</View>
+			</View>
 
-				<ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} />
-			</Fundo>
-		);
-	}
-	return <Text>Algo deu errado</Text>
+			<View style={styles.containerEmergency}>
+					<Botao
+						title="Ligar para a Emergência"
+						style={styles.buttonEmergency}
+						corFundo='#D4CA03'
+						corTexto='#000'
+						imgStyle={styles.iconEmergency}
+						img={require('../../../assets/icon/icon_phone_emergency.png')}
+						onPress={() => setModalVisible(!modalVisible)}
+					/>
+					<TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+						<Text style={styles.txtEmergency}>Clique aqui para saber mais{"\n"}sobre a ligação de emergência</Text>
+					</TouchableOpacity>
+			</View>
+
+			<ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} />
+		</Fundo>
+	);
 }
 
 const styles = StyleSheet.create({
@@ -75,9 +67,8 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		color: '#186794',
-		// fontWeight: 'bold',
+		fontWeight: 'bold',
 		fontSize: wp("7%"),
-		fontFamily: "Signika_700Bold",
 	},
 
 	// Login
