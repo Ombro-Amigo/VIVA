@@ -5,12 +5,13 @@ import ListaConsultas from '../../components/ListaConsultas';
 import Fundo from '../../components/Fundo'
 import Botao from '../../components/Botao'
 
+
 import ModalConstrucao from '../modalConstrucao';
 
 export default function HomePaciente({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false);
 
-return (
+    return (
         <Fundo>
             <View style={styles.areaConsultas}>
                 <View style={styles.titleContainer}>
@@ -42,7 +43,7 @@ return (
             
             <ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} />
         </Fundo>
-);
+    );
 }
 
 const styles = StyleSheet.create({
