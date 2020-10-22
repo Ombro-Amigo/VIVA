@@ -6,10 +6,8 @@ import CaixaSelecao from '../../components/CaixaSelecao'
 import Botao from '../../components/Botao'
 import { cpfMask } from '../../utils/cpfMask'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { TextInput } from 'react-native-paper'
 
-export default function CadastroPaciente2() {
+export default function CadastroPaciente2({navigation}) {
    const [cpf, setCpf] = useState('')
    const [senha, setSenha] = useState('')
    const [confirmacaoSenha, setConfirmacaoSenha] = useState('')
@@ -61,7 +59,11 @@ export default function CadastroPaciente2() {
                      secureTextEntry={hidePasswordTwo}
                      msgError="As senha não são correspondentes."
                      msgSucesso="As senhas correspondem."
-                     verificaCondicao
+                     verificaCondicao={
+                        senha && confirmacaoSenha
+                        ? true
+                        : false
+                     }
                      condicao={
                         senha === confirmacaoSenha
                         ? true
@@ -100,7 +102,7 @@ export default function CadastroPaciente2() {
                   <Botao
                      style={styles.btn}
                      title="Concluir Cadastrado"
-                     onPress={() => navigation.navigate('LoginPaciente')}
+                     onPress={() => navigation.navigate('HomePaciente')}
                   />
                </View>
 
