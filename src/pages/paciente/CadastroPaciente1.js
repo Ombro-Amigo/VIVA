@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import { View, Text, ScrollView, StyleSheet, TouchableWithoutFeedback } from 'react-native'
-import {RadioButton} from "react-native-paper"
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import Fundo from '../../components/Fundo'
 import Botao from '../../components/Botao'
@@ -16,7 +15,7 @@ export default function CadastroPaciente1({ navigation }) {
    const [email, setEmail] = useState('')
    const [dataNasc, setDataNasc] = useState('');
    const [show, setShow] = useState(false);
-   const [sexo, setSexo] = useState('')
+   const [genero, setGenero] = useState('')
 
    return (
       <ScrollView style={styles.container}>
@@ -80,7 +79,7 @@ export default function CadastroPaciente1({ navigation }) {
                
                <View style={styles.input}>
                   <Text style={styles.txtSelecioneGenero}>Selecione seu gênero: </Text>
-                  <EscolhaGenero onValueChange={value => setSexo(value)} value={sexo}/>
+                  <EscolhaGenero onValueChange={value => setGenero(value)} value={genero}/>
                </View>
 
                <View>
