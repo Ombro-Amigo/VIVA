@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 export default function Botao(props) {
-	const { title, style, imgStyle, corFundo, corTexto, img, onPress } = props;
+	const { title, style, imgStyle, corFundo, corTexto, img, onPress, desabilitado } = props;
 
 	function renderIcon(){
 		if(img) {
@@ -26,6 +26,7 @@ export default function Botao(props) {
 					style
 				]}
 				onPress={onPress}
+				disabled={desabilitado}
 			>
 				<Text style={[
 					{
