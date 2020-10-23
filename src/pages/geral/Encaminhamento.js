@@ -10,7 +10,6 @@ import ModalConstrucao from '../modalConstrucao';
 export default function Encaminhamento({ navigation }) {
 	const [modalVisible, setModalVisible] = useState(false);
 
-
 	return (
 		<Fundo>
 			
@@ -26,12 +25,13 @@ export default function Encaminhamento({ navigation }) {
 						<Botao
 							title="Paciente"
 							style={styles.buttonLogin}
+
 							onPress={() => navigation.navigate('LoginPaciente')}
 						/>
 						<Botao
 							title="Psicólogo"
 							style={styles.buttonLogin}
-							onPress={() => navigation.navigate('CadastroPsicologo1')}
+							onPress={() => navigation.navigate('LoginPsicologo')}
 							// onPress={() => setModalVisible(!modalVisible)}
 						/>
 					</View>
