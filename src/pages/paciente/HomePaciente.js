@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import ListaConsultas from '../../components/ListaConsultas';
-import Fundo from '../../components/Fundo'
-import Botao from '../../components/Botao'
-
+import Fundo from '../../components/Fundo';
+import Botao from '../../components/Botao';
 
 import ModalConstrucao from '../modalConstrucao';
 
