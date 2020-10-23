@@ -10,6 +10,7 @@ import CadastroPaciente2 from '../pages/paciente/CadastroPaciente2';
 import LoginPsicologo from '../pages/psicologo/LoginPsicologo';
 import CadastroPsicologo1 from '../pages/psicologo/CadastroPsicologo1';
 import CadastroPsicologo2 from '../pages/psicologo/CadastroPsicologo2';
+import ConfirmacaoCrp from '../pages/psicologo/ConfirmacaoCrp'
 import { Image } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
@@ -42,6 +43,7 @@ const AuthRoutes = () => (
       <AuthStack.Screen name='LoginPsicologo' component={LoginPsicologo} />
       <AuthStack.Screen name='CadastroPsicologo1' component={CadastroPsicologo1} />
       <AuthStack.Screen name='CadastroPsicologo2' component={CadastroPsicologo2} />
+      <AuthStack.Screen name='ConfirmacaoCrp' component={ConfirmacaoCrp} />
    </AuthStack.Navigator>
 )
 
