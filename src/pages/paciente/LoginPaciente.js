@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Fundo from '../../components/Fundo';
@@ -10,20 +10,22 @@ import { errorCodesEmail, errorCodesPassword, errorCodes } from '../../utils/err
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { Divider } from 'react-native-paper';
 import firebase from '@firebase/app';
-import '@firebase/auth';
-import CaixaSelecao from '../../components/CaixaSelecao';
+import '@firebase/auth'
+// import CaixaSelecao from '../../components/CaixaSelecao';
 
 import ModalConstrucao from '../modalConstrucao';
 import Loading from '../Loading';
 
+import AuthContext from '../../contexts/auth';
+
+
 export default function LoginPaciente({ navigation }) {
-   const [email, setEmail] = useState('');
-   const [senha, setSenha] = useState('');
    const [checked, setChecked] = useState(false);
-   const [message, setMessage] = useState('');
-   const [loading, setLoading] = useState(false);
+   // const [loading, setLoading] = useState(false);
    const [hidePassword, setHidePassword] = useState(true);
-	const [modalVisible, setModalVisible] = useState(false);
+   const [modalVisible, setModalVisible] = useState(false);
+   
+   const {signIn, email, senha, setEmail, setSenha, message, loading, setTypeUser} = useContext(AuthContext);
 
    useEffect(() => {
       const firebaseConfig = {
@@ -43,27 +45,29 @@ export default function LoginPaciente({ navigation }) {
       // firebase.analytics();
    });
 
-   function tryLogin() {
-      setLoading(true);
-      setMessage('');
+   // function tryLogin() {
+   //    setLoading(true);
+   //    setMessage('');
+      
 
-      const loginUserSuccess = user => {
-         setLoading(false);
-         setMessage('Sucesso!');
-         navigation.navigate('HomePaciente')
-      }
+   //    const loginUserSuccess = user => {
+   //       console.log(user);
+   //       setLoading(false);
+   //       setMessage('Sucesso!');
+   //       navigation.navigate('HomePaciente')
+   //    }
 
-      const loginUserFailed = error => {
-         setLoading(false);
-         setMessage(error.code);
-      }
+   //    const loginUserFailed = error => {
+   //       setLoading(false);
+   //       setMessage(error.code);
+   //    }
 
-      firebase
-         .auth()
-         .signInWithEmailAndPassword(email, senha)
-         .then(loginUserSuccess)
-         .catch(loginUserFailed)
-   }
+   //    firebase
+   //       .auth()
+   //       .signInWithEmailAndPassword(email, senha)
+   //       .then(loginUserSuccess)
+   //       .catch(loginUserFailed)
+   // }
 
    function renderMessage() {
       if((errorCodesEmail(message) === undefined && errorCodesPassword(message) === undefined) && message && message !== 'Sucesso!'){
@@ -128,14 +132,18 @@ export default function LoginPaciente({ navigation }) {
                </View>
             </View>
    
-            <Botao title="Entrar" style={styles.btnLogin} onPress={() => tryLogin()}/>
+            <Botao title="Entrar" style={styles.btnLogin}
+            onPress={() => {signIn(); setTypeUser('paciente')}}
+            />
             
    
             <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                <Text style={styles.txtEsqueciSenha}>Esqueci minha senha</Text>
             </TouchableOpacity>
    
-            <TouchableOpacity onPress={() => navigation.navigate('CadastroPaciente1')}>
+            <TouchableOpacity 
+            onPress={() => navigation.navigate('CadastroPaciente1')}
+            >
                <Text style={styles.txtCriarConta}>CRIAR UMA CONTA</Text>
             </TouchableOpacity>
    
