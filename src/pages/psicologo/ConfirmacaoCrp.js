@@ -37,6 +37,7 @@ export default function ConfirmacaoCrp({navigation}) {
                style={styles.btn}
                title="Concluir"
                desabilitado={!validade}
+               onPress={() => navigation.navigate("LoginPsicologo")}
             />
 
          </Fundo>
