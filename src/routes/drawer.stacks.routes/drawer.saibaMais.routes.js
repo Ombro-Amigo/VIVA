@@ -1,5 +1,5 @@
 import React from 'react';
-import HomePsicologo from '../pages/psicologo/HomePsicologo';
+import SaibaMais from '../../pages/drawer/SaibaMais';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { Image } from 'react-native';
@@ -11,21 +11,21 @@ function LogoTitle() {
       <Image
 
          style={{ width: 50, height: 50, aspectRatio: 1 }}
-         source={require('../../assets/icon/logo_header.png')}
+         source={require('../../../assets/icon/logo_header.png')}
       />
    );
 }
 
-const AppPacienteRoutes = () => (
+const saibaMaisRoutes = () => (
    <AppStack.Navigator 
-      initialRouteName='HomePsicologo'
+      initialRouteName='HomePaciente'
       screenOptions={{
          headerTitleAlign: 'center',
          headerTitle: props => <LogoTitle {...props} />
       }}
    >
-      <AppStack.Screen name='HomePsicologo' component={HomePsicologo} />
+      <AppStack.Screen name='SaibaMais' component={SaibaMais} />
    </AppStack.Navigator>
 )
 
-export default AppPacienteRoutes;
+export default saibaMaisRoutes;

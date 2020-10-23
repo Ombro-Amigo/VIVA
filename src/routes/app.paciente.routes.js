@@ -5,6 +5,7 @@ import Agendamento2 from '../pages/paciente/Agendamento2';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { Image } from 'react-native';
+import { TouchableRipple } from 'react-native-paper';
 
 const AppStack = createStackNavigator();
 
@@ -18,15 +19,25 @@ function LogoTitle() {
    );
 }
 
-const AppPacienteRoutes = () => (
+const AppPacienteRoutes = ({ navigation }) => (
    <AppStack.Navigator 
-      initialRouteName='Encaminhamento'
+      initialRouteName='HomePaciente'
       screenOptions={{
          headerTitleAlign: 'center',
          headerTitle: props => <LogoTitle {...props} />
       }}
    >
-      <AppStack.Screen name='HomePaciente' component={HomePaciente} />
+      <AppStack.Screen name='HomePaciente' component={HomePaciente} 
+         options={{
+            headerRight: () => (
+               <TouchableRipple onPress={() => navigation.openDrawer()}>
+                  <Image 
+                  style={{width: 25, height: 25, aspectRatio: 1, marginRight: 15}}
+                  source={require('../../assets/icon/menu.png')}/>
+               </TouchableRipple>
+            )
+         }}
+      />
       <AppStack.Screen name='Agendamento1' component={Agendamento1} />
       <AppStack.Screen name='Agendamento2' component={Agendamento2} />
    </AppStack.Navigator>
