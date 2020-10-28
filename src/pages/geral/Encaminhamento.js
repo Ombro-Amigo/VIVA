@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -7,32 +7,31 @@ import Fundo from '../../components/Fundo';
 
 import ModalConstrucao from '../modalConstrucao';
 
+import FontContext from '../../contexts/styles/styles';
+
 export default function Encaminhamento({ navigation }) {
 	const [modalVisible, setModalVisible] = useState(false);
 
+	const StylesFontContext = useContext(FontContext);
+
 	return (
 		<Fundo>
-			
 			<View style={styles.containerTitle}>
-					<Text style={styles.title}>O QUE DESEJA?</Text>
+				<Text style={StylesFontContext.title1}>O QUE DESEJA?</Text>
 			</View>
 
 			<View style={styles.containerLogin}>
-					<View style={styles.containerTxtLogin}>
-						<Text style={styles.txtLogin}>Seguir para as opções de login</Text>
-					</View>
+					<Text style={StylesFontContext.spam}>Seguir para as opções de login</Text>
 					<View style={styles.containerButtonLogin}>
 						<Botao
 							title="Paciente"
 							style={styles.buttonLogin}
-
 							onPress={() => navigation.navigate('LoginPaciente')}
 						/>
 						<Botao
 							title="Psicólogo"
 							style={styles.buttonLogin}
 							onPress={() => navigation.navigate('LoginPsicologo')}
-							// onPress={() => setModalVisible(!modalVisible)}
 						/>
 					</View>
 			</View>
@@ -63,31 +62,13 @@ const styles = StyleSheet.create({
 		flex: 3,
 		alignItems: 'center',
 		justifyContent: 'center',
-		// backgroundColor: '#f00',
-	},
-	title: {
-		color: '#186794',
-		fontWeight: 'bold',
-		fontSize: wp("7%"),
 	},
 
 	// Login
 	containerLogin: {
 		flex: 2,
-		// backgroundColor: '#0f0',
-	},
-	containerTxtLogin: {
-		alignItems: 'center',
-		// flex: 1,
-	},
-	txtLogin: {
-		color: '#186794',
-		fontWeight: 'bold',
-		fontSize: wp("4%"),
-		marginBottom: hp("3.2%"),
 	},
 	containerButtonLogin: {
-		// flex: 2,
 		flexDirection: 'row',
 		justifyContent: 'space-evenly',
 	},
@@ -100,7 +81,6 @@ const styles = StyleSheet.create({
 	containerEmergency: {
 		flex: 3,
 		alignItems: 'center',
-		// backgroundColor: '#00f',
 	},
 	buttonEmergency: {
 		paddingVertical: hp("1.5%"),
