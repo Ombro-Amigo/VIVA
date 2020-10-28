@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import { auth } from '../services/auth'
-import Loading from '../pages/Loading';
+// import { auth } from '../services/auth'
+import Loading from '../../pages/Loading';
 import firebase from '@firebase/app';
 import '@firebase/auth';
 // import { FirebaseNamespace } from '@firebase/app-types';
@@ -27,7 +27,7 @@ import '@firebase/auth';
 //    // signOut(): void;
 // }
 
-const AuthContext = createContext({
+const LoginContext = createContext({
    signed: false,
    typeUser: null,
    setTypeUser: () => {},
@@ -43,7 +43,7 @@ const AuthContext = createContext({
    /*signOut*/
 });
 
-export const AuthProvider = ({ children }) => {
+export const LoginProvider = ({ children }) => {
    const [email, setEmail] = useState('');
    const [senha, setSenha] = useState('');
    
@@ -57,14 +57,14 @@ export const AuthProvider = ({ children }) => {
       // const firebase = connectFirebase();
       
       const firebaseConfig = {
-         apiKey: "AIzaSyD_7bjlJPA5EAEb49d-NwxNdret4kGg1Ik",
-         authDomain: "viva-ca312.firebaseapp.com",
-         databaseURL: "https://viva-ca312.firebaseio.com",
-         projectId: "viva-ca312",
-         storageBucket: "viva-ca312.appspot.com",
-         messagingSenderId: "374644306933",
-         appId: "1:374644306933:web:418fd7c5a2e27b6b6e66bc",
-         // measurementId: "G-H5GYMVM386"
+         apiKey: "AIzaSyCdq8TLHoPdCnwyvdyaMHXYtlcsP0GsHuA",
+         authDomain: "viva-3130e.firebaseapp.com",
+         databaseURL: "https://viva-3130e.firebaseio.com",
+         projectId: "viva-3130e",
+         storageBucket: "viva-3130e.appspot.com",
+         messagingSenderId: "47514371046",
+         appId: "1:47514371046:web:523aaf2539e114c82c0c27",
+         measurementId: "G-13L7KHYTGB"
       };
       // Initialize Firebase
       if(firebase.apps.length === 0){
@@ -143,7 +143,7 @@ export const AuthProvider = ({ children }) => {
    // }
 
    return (
-      <AuthContext.Provider value={{
+      <LoginContext.Provider value={{
          signed: !!user,
          typeUser: typeUser,
          setTypeUser,
@@ -159,8 +159,8 @@ export const AuthProvider = ({ children }) => {
          /*signOut*/
       }}>
          {children}
-      </AuthContext.Provider>
+      </LoginContext.Provider>
    );
 }
 
-export default AuthContext;
+export default LoginContext;
