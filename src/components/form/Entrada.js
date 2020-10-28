@@ -1,10 +1,12 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect, useRef } from 'react';
+import { useField } from '@unform/core';
 import { StyleSheet, View, Image, TextInput, Text } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { styles } from './styles';
 
 export default function Entrada(props) {
-   const { 
+   const {
+      name,
       icon,
       placeholder, 
       value, 
@@ -22,8 +24,33 @@ export default function Entrada(props) {
       msgSucesso,
    } = props;
 
-   const eye = require('../../assets/icon/eye-regular.png')
-   const eyeSlash = require('../../assets/icon/eye-slash.png')
+   const inputRef = useRef(null);
+   const { fieldName, registerField, defaultValue, error } = useField(name);
+   useEffect(() => {
+      inputRef.current.value = defaultValue;
+   }, [defaultValue]);
+
+   useEffect(() => {
+      registerField({
+         name: fieldName,
+         ref: inputRef.current,
+         path: 'value',
+         clearValue(ref) {
+            ref.value = '';
+            ref.clear();
+         },
+         setValue(ref, value) {
+            ref.setNativeProps({ text: value });
+            inputRef.current.value = value;
+         },
+         getValue(ref) {
+            return ref.value;
+         },
+      });
+   }, [fieldName, registerField]);
+
+   const eye = require('../../../assets/icon/eye-regular.png')
+   const eyeSlash = require('../../../assets/icon/eye-slash.png')
 
    const [imgOlho, setimgOlho] = useState(eye)
 
@@ -79,10 +106,12 @@ export default function Entrada(props) {
                 {renderObrigatorio(value)}
             </View> 
             <TextInput
+                ref={inputRef}
+                defaultValue={defaultValue}
                 style={[styles.input]}
                 placeholder={placeholder}
-                value={value}
-                onChangeText={onChangeText}
+               //  value='123'
+                onChangeText={value => {if(inputRef.current){inputRef.current.value = value}}}
                 secureTextEntry={secureTextEntry ? true : false}
                 keyboardType={tipoTeclado ? tipoTeclado : "default"}
                 editable={desabilitado ? false : true}
@@ -93,58 +122,10 @@ export default function Entrada(props) {
             
         </View>
         <View style={styles.areaConfirmacaoSenha}>
+        { error && <Text style={styles.senhaErrada}>{error}</Text>}
             {renderMsg()}
         </View>
     </>
    )
 }
 
-const styles = StyleSheet.create({
-   container: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      borderBottomWidth: hp("0.3%"),
-      borderBottomColor: '#FFF',
-   },
-   icon: {
-      width: wp("6.5%"),
-      height: hp("6.5%"),
-      aspectRatio: 1,
-      marginHorizontal: wp("4%"),
-      marginVertical: hp("1%"),
-      opacity: 0.7,
-   },
-   input: {
-      flex: 1,
-      fontSize: hp("2.6%"),
-      paddingHorizontal: wp("5%"),
-      color: '#000',
-   },
-   areaObrigatorio: {
-      width: wp("2%"),
-   },
-   obrigatorio: {
-      color: "red",
-      fontSize: wp("4.5%"),
-      alignSelf: "flex-start",
-   },
-   eyeIcon: {
-      height: 22,
-      width: 22,
-      marginRight: wp("3%"),
-      marginBottom: hp("1%")
-   },
-   areaConfirmacaoSenha: {
-      height: hp("2%")
-   },
-   senhaCorreta: {
-      color: "green",
-      alignSelf: "flex-end",
-      fontSize: wp("3.3%"),
-   },
-   senhaErrada: {
-      color: "red",
-      alignSelf: "flex-end",
-      fontSize: wp("3.3%"),
-   },
-})

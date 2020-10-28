@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Fundo from '../../components/Fundo';
 import Botao from '../../components/Botao';
-import Entrada from '../../components/Entrada';
+import { Entrada } from '../../components/form/index';
 import { errorCodesEmail, errorCodesPassword, errorCodes } from '../../utils/errorCodes';
 
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
@@ -16,7 +16,7 @@ import '@firebase/auth'
 import ModalConstrucao from '../modalConstrucao';
 import Loading from '../Loading';
 
-import AuthContext from '../../contexts/auth';
+import LoginContext from '../../contexts/auth/login';
 
 
 export default function LoginPsicologo({ navigation }) {
@@ -25,7 +25,7 @@ export default function LoginPsicologo({ navigation }) {
    const [hidePassword, setHidePassword] = useState(true);
    const [modalVisible, setModalVisible] = useState(false);
    
-   const {signIn, email, senha, setEmail, setSenha, message, loading, setTypeUser} = useContext(AuthContext);
+   const {signIn, email, senha, setEmail, setSenha, message, loading, setTypeUser} = useContext(LoginContext);
 
    useEffect(() => {
       const firebaseConfig = {
@@ -87,7 +87,7 @@ export default function LoginPsicologo({ navigation }) {
       return (
          <Fundo>
    
-            <View>
+            {/* <View>
                <Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
             </View>
             
@@ -147,7 +147,7 @@ export default function LoginPsicologo({ navigation }) {
                <Text style={styles.txtCriarConta}>CRIAR UMA CONTA</Text>
             </TouchableOpacity>
    
-            <ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} />
+            <ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} /> */}
          </Fundo>
       )
    }else{

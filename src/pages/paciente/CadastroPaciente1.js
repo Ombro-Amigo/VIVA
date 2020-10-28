@@ -1,21 +1,58 @@
-import React, {useState} from 'react'
-import { View, Text, ScrollView, StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import React, { useState, useRef, useContext } from 'react';
+import { Form } from '@unform/mobile';
+import { Scope } from '@unform/core';
+import * as Yup from 'yup';
+import { View, Text, ScrollView, StyleSheet, TouchableWithoutFeedback, Button } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import Fundo from '../../components/Fundo'
 import Botao from '../../components/Botao'
-import Entrada from '../../components/Entrada'
-import EscolhaGenero from '../../components/EscolhaGenero'
-import DateTimePicker from 'react-native-modal-datetime-picker'
-import moment from 'moment'
+import { Entrada, EscolhaGenero, InputDate } from '../../components/form/index';
+import CadContext from '../../contexts/auth/cadastro';
 
 export default function CadastroPaciente1({ navigation }) {
    const [nomeUser, setNomeUser] = useState('');
    const [nome, setNome] = useState('');
    const [sobrenome, setSobrenome] = useState('');
    const [email, setEmail] = useState('')
-   const [dataNasc, setDataNasc] = useState('');
-   const [show, setShow] = useState(false);
-   const [genero, setGenero] = useState('')
+   const [genero, setGenero] = useState('');
+
+   const formRef = useRef(null);
+
+   const { user, setUser } = useContext(CadContext);
+
+   async function handleSubmit(data) {
+      try {
+         formRef.current.setErrors({});
+
+         const schema = Yup.object().shape({
+            nomeUsuario: Yup.string().required('O nome de usuário é obigatório'),
+            nome: Yup.string().required('O nome é obrigatório'),
+            sobrenome: Yup.string().required('O sobrenome é obrigatório'),
+            email: Yup.string()
+               .email('Digite um e-mail válido')
+               .required('O email é obrigatório'),
+            nascimento: Yup.string().required('A data de nascimento é obrigatória'),
+            genero: Yup.string().required('O genero é obrigatório'),
+         });
+
+         await schema.validate(data, {
+            abortEarly: false,
+         });
+
+         setUser(data);
+         navigation.navigate('CadastroPaciente2');
+      } catch (err) {
+         if(err instanceof Yup.ValidationError) {
+            const errorMessages = {};
+
+            err.inner.forEach(error => {
+               errorMessages[error.path] = error.message;
+            });
+
+            formRef.current.setErrors(errorMessages);
+         }
+      }
+   }
 
    return (
       <ScrollView style={styles.container}>
@@ -25,85 +62,73 @@ export default function CadastroPaciente1({ navigation }) {
             </View>
 
             <View style={styles.form}>
-               <View style={styles.input}>
-                  <Entrada
-                     placeholder="Nome de usuário"
-                     value={nomeUser}
-                     onChangeText={Value => {setNomeUser(Value)}}
-                     tipoTexto={"username"}
-                     obrigatorio
-                  />
-               </View>
-               
-               <View style={styles.input}>
-                  <Entrada
-                     placeholder="Nome"
-                     value={nome}
-                     onChangeText={Value => {setNome(Value)}}
-                     tipoTexto={"name"}
-                     obrigatorio
-                  />
-               </View>
+               <Form ref={formRef} onSubmit={handleSubmit}>
+                  {/* <Scope path='user'> */}
+                     <View style={styles.input}>
+                        <Entrada
+                           name="nomeUsuario"
+                           placeholder="Nome de usuário"
+                           // value={nomeUser}
+                           // onChangeText={Value => {setNomeUser(Value)}}
+                           tipoTexto={"username"}
+                           obrigatorio
+                        />
+                     </View>
+                     
+                     <View style={styles.input}>
+                        <Entrada
+                           name="nome"
+                           placeholder="Nome"
+                           // value={nome}
+                           // onChangeText={Value => {setNome(Value)}}
+                           tipoTexto={"name"}
+                           obrigatorio
+                        />
+                     </View>
 
-               <View style={styles.input}>
-                  <Entrada
-                     placeholder="Sobrenome"
-                     value={sobrenome}
-                     onChangeText={Value => {setSobrenome(Value)}}
-                     obrigatorio
-                  />
-               </View>
+                     <View style={styles.input}>
+                        <Entrada
+                           name="sobrenome"
+                           placeholder="Sobrenome"
+                           // value={sobrenome}
+                           // onChangeText={Value => {setSobrenome(Value)}}
+                           obrigatorio
+                        />
+                     </View>
 
-               <View style={styles.input}>
-                  <Entrada
-                     placeholder="Email"
-                     value={email}
-                     onChangeText={Value => {setEmail(Value)}}
-                     tipoTeclado={"email-address"}
-                     tipoTexto={"emailAddress"}
-                     obrigatorio
-                  />
-               </View>
+                     <View style={styles.input}>
+                        <Entrada
+                           name="email"
+                           placeholder="Email"
+                           // value={email}
+                           // onChangeText={Value => {setEmail(Value)}}
+                           tipoTeclado={"email-address"}
+                           tipoTexto={"emailAddress"}
+                           obrigatorio
+                        />
+                     </View>
 
-               <TouchableWithoutFeedback onPress={() => setShow(true)}>
-                  <View style={styles.input}>
-                     <Entrada
-                        placeholder="Data de Nascimento"
-                        value={dataNasc}
-                        onChangeText={Value => {setDataNasc(Value)}}
-                        obrigatorio
-                        desabilitado
+                     <InputDate name='nascimento' />
+                     
+                     <View style={styles.input}>
+                        <Text style={styles.txtSelecioneGenero}>Selecione seu gênero: </Text>
+                        <EscolhaGenero
+                        name='genero'
+                        onValueChange={value => setGenero(value)}
+                        value={genero}
                      />
-                  </View>
-               </TouchableWithoutFeedback>
-               
-               <View style={styles.input}>
-                  <Text style={styles.txtSelecioneGenero}>Selecione seu gênero: </Text>
-                  <EscolhaGenero onValueChange={value => setGenero(value)} value={genero}/>
-               </View>
+                     </View>
 
-               <View>
-                  <Botao
-                     style={styles.btn}
-                     title="Próximo"
-                     onPress={() => navigation.navigate('CadastroPaciente2')}
-                  />
-               </View>
-
-               <DateTimePicker
-                  isVisible={show}
-                  mode='date'
-                  onConfirm={(date) => {
-                     setShow(false);
-                     setDataNasc(moment(date).format('DD/MM/YYYY'))
-                  }}
-                  onCancel={() => {
-                     setShow(false);
-                     setDataNasc(dataNasc);
-                  }}
-                  maximumDate={new Date()}
-               />
-
+                     <View>
+                        <Botao
+                           style={styles.btn}
+                           title="Próximo"
+                           // onPress={() => navigation.navigate('CadastroPaciente2')}
+                           onPress={() => formRef.current.submitForm()}
+                        />
+                     </View>
+                  {/* </Scope> */}
+               </Form>
             </View>
          </Fundo>
       </ScrollView>

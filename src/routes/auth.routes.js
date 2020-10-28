@@ -28,16 +28,16 @@ function LogoTitle() {
 
 const AuthRoutes = () => (
    <AuthStack.Navigator 
-      initialRouteName='Encaminhamento'
+      initialRouteName='CadastroPaciente1'
       screenOptions={{
          headerTitleAlign: 'center',
          headerTitle: props => <LogoTitle {...props} />
       }}
    >
+   <AuthStack.Screen name='CadastroPaciente1' component={CadastroPaciente1} />
       <AuthStack.Screen name='Encaminhamento' component={Encaminhamento} />
 
       <AuthStack.Screen name='LoginPaciente' component={LoginPaciente} />
-      <AuthStack.Screen name='CadastroPaciente1' component={CadastroPaciente1} />
       <AuthStack.Screen name='CadastroPaciente2' component={CadastroPaciente2} />
 
       <AuthStack.Screen name='LoginPsicologo' component={LoginPsicologo} />

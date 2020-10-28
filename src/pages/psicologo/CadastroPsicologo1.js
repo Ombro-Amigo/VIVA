@@ -3,8 +3,7 @@ import { View, Text, ScrollView, StyleSheet, TouchableWithoutFeedback } from 're
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import Fundo from '../../components/Fundo'
 import Botao from '../../components/Botao'
-import Entrada from '../../components/Entrada'
-import EscolhaGenero from '../../components/EscolhaGenero'
+import { Entrada, EscolhaGenero } from '../../components/form/index'
 import DateTimePicker from 'react-native-modal-datetime-picker'
 import moment from 'moment'
    
@@ -22,7 +21,7 @@ export default function CadastroPsicologo1({ navigation }) {
    return (
       <ScrollView style={styles.container}>
          <Fundo>
-            <View style={styles.areaTitulo}>
+            {/* <View style={styles.areaTitulo}>
                <Text style={styles.titulo}>Crie sua conta</Text>
             </View>
 
@@ -106,7 +105,7 @@ export default function CadastroPsicologo1({ navigation }) {
                   maximumDate={new Date()}
                />
 
-            </View>
+            </View> */}
          </Fundo>
       </ScrollView>
    )

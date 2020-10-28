@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Fundo from '../../components/Fundo';
 import Botao from '../../components/Botao';
-import Entrada from '../../components/Entrada';
+// import { Entrada } from '../../components/form/index';
 import { errorCodesEmail, errorCodesPassword, errorCodes } from '../../utils/errorCodes';
 
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
@@ -16,7 +16,7 @@ import '@firebase/auth'
 import ModalConstrucao from '../modalConstrucao';
 import Loading from '../Loading';
 
-import AuthContext from '../../contexts/auth';
+import LoginContext from '../../contexts/auth/login';
 
 
 export default function LoginPaciente({ navigation }) {
@@ -25,25 +25,25 @@ export default function LoginPaciente({ navigation }) {
    const [hidePassword, setHidePassword] = useState(true);
    const [modalVisible, setModalVisible] = useState(false);
    
-   const {signIn, email, senha, setEmail, setSenha, message, loading, setTypeUser} = useContext(AuthContext);
+   const {signIn, email, senha, setEmail, setSenha, message, loading, setTypeUser} = useContext(LoginContext);
 
-   useEffect(() => {
-      const firebaseConfig = {
-         apiKey: "AIzaSyD_7bjlJPA5EAEb49d-NwxNdret4kGg1Ik",
-         authDomain: "viva-ca312.firebaseapp.com",
-         databaseURL: "https://viva-ca312.firebaseio.com",
-         projectId: "viva-ca312",
-         storageBucket: "viva-ca312.appspot.com",
-         messagingSenderId: "374644306933",
-         appId: "1:374644306933:web:418fd7c5a2e27b6b6e66bc",
-         // measurementId: "G-H5GYMVM386"
-      };
-      // Initialize Firebase
-      if(firebase.apps.length === 0){
-         firebase.initializeApp(firebaseConfig);
-      }
-      // firebase.analytics();
-   });
+   // useEffect(() => {
+   //    const firebaseConfig = {
+   //       apiKey: "AIzaSyD_7bjlJPA5EAEb49d-NwxNdret4kGg1Ik",
+   //       authDomain: "viva-ca312.firebaseapp.com",
+   //       databaseURL: "https://viva-ca312.firebaseio.com",
+   //       projectId: "viva-ca312",
+   //       storageBucket: "viva-ca312.appspot.com",
+   //       messagingSenderId: "374644306933",
+   //       appId: "1:374644306933:web:418fd7c5a2e27b6b6e66bc",
+   //       // measurementId: "G-H5GYMVM386"
+   //    };
+   //    // Initialize Firebase
+   //    if(firebase.apps.length === 0){
+   //       firebase.initializeApp(firebaseConfig);
+   //    }
+   //    // firebase.analytics();
+   // });
 
    // function tryLogin() {
    //    setLoading(true);
@@ -87,7 +87,7 @@ export default function LoginPaciente({ navigation }) {
       return (
          <Fundo>
    
-            <View>
+            {/* <View>
                <Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
             </View>
             
@@ -158,7 +158,7 @@ export default function LoginPaciente({ navigation }) {
                <Botao title="Entrar com o Google" corTexto={"#000"} style={styles.btnLoginGoogle}  onPress={() => setModalVisible(!modalVisible)} />
             </View>
    
-            <ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} />
+            <ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} /> */}
          </Fundo>
       )
    }else{

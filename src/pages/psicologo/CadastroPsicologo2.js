@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, ScrollView } from 'react-native'
-import Entrada from '../../components/Entrada'
+import { Entrada } from '../../components/form/index'
 import Fundo from '../../components/Fundo'
 import CaixaSelecao from '../../components/CaixaSelecao'
 import Botao from '../../components/Botao'
@@ -21,7 +21,7 @@ export default function CadastroPsicologo2({navigation}) {
    return (
       <ScrollView style={styles.container}>
          <Fundo>
-            <View style={styles.areaTitulo}>
+            {/* <View style={styles.areaTitulo}>
                <Text style={styles.titulo}>Quase lá</Text>
             </View>
 
@@ -118,7 +118,7 @@ export default function CadastroPsicologo2({navigation}) {
                   />
                </View>
 
-            </View>
+            </View> */}
          </Fundo>
       </ScrollView>
    )

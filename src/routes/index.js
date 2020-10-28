@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import AuthContext from '../contexts/auth';
+import AuthContext from '../contexts/auth/login';
 
 import AuthRoutes from './auth.routes'
 import AppPacienteRoutes from './app.paciente.routes'
