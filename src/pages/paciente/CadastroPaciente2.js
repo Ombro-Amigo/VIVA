@@ -1,6 +1,9 @@
 import React, { useState, useRef, useContext } from 'react';
 import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
+import firebase from '../../firebase';
+import '@firebase/auth';
+import '@firebase/database';
 import { StyleSheet, View, Text, ScrollView } from 'react-native'
 import { Entrada } from '../../components/form/index'
 import Fundo from '../../components/Fundo'
@@ -21,7 +24,7 @@ export default function CadastroPaciente2({navigation}) {
    
    const formRef = useRef(null);
 
-   const { user, setUser } = useContext(CadContext);
+   const { userInfo, setUser } = useContext(CadContext);
 
    async function handleSubmit(data) {
       try {
@@ -37,8 +40,25 @@ export default function CadastroPaciente2({navigation}) {
             abortEarly: false,
          });
 
-         setUser({...user, ...data});
-         console.log(user)
+         const formUser = {...userInfo, ...data};
+         
+         firebase
+            .auth()
+            .createUserWithEmailAndPassword(formUser.email, formUser.senha)
+            .then((userCredential) => {
+               setUser(userCredential);
+               const db = firebase.database();
+               db.ref(`/users/${userCredential.user.uid}`).push({
+                  cpf: formUser.cpf,
+                  nomeusuario: formUser.nomeusuario
+               })
+               .then(() => {
+                  console.log('ok');
+               })
+                  .catch(err => {
+                     console.log(err.message);
+                  });
+            })
          // navigation.navigate('CadastroPaciente2');
       } catch (err) {
          if(err instanceof Yup.ValidationError) {

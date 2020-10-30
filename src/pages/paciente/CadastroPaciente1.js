@@ -2,6 +2,9 @@ import React, { useState, useRef, useContext } from 'react';
 import { Form } from '@unform/mobile';
 import { Scope } from '@unform/core';
 import * as Yup from 'yup';
+import firebase from '../../firebase';
+import '@firebase/auth';
+import '@firebase/database';
 import { View, Text, ScrollView, StyleSheet, TouchableWithoutFeedback, Button } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import Fundo from '../../components/Fundo'
@@ -18,7 +21,7 @@ export default function CadastroPaciente1({ navigation }) {
 
    const formRef = useRef(null);
 
-   const { user, setUser } = useContext(CadContext);
+   const { userInfo, setUserInfo } = useContext(CadContext);
 
    async function handleSubmit(data) {
       try {
@@ -39,7 +42,7 @@ export default function CadastroPaciente1({ navigation }) {
             abortEarly: false,
          });
 
-         setUser(data);
+         setUserInfo(data);
          navigation.navigate('CadastroPaciente2');
       } catch (err) {
          if(err instanceof Yup.ValidationError) {

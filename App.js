@@ -8,6 +8,7 @@ import { CadProvider } from './src/contexts/auth/cadastro';
 import { FontProvider } from './src/contexts/styles/styles';
 
 import Routes from './src/routes/';
+import { Text, View } from 'react-native';
 
 
 function App() {
