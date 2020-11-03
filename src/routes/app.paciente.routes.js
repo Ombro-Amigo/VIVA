@@ -14,7 +14,7 @@ function LogoTitle() {
       <Image
 
          style={{ width: 50, height: 50, aspectRatio: 1 }}
-         source={require('../../assets/icon/logo_header.png')}
+         source={require('../assets/icon/logo_header.png')}
       />
    );
 }
@@ -33,7 +33,7 @@ const AppPacienteRoutes = ({ navigation }) => (
                <TouchableRipple onPress={() => navigation.openDrawer()}>
                   <Image 
                   style={{width: 25, height: 25, aspectRatio: 1, marginRight: 15}}
-                  source={require('../../assets/icon/menu.png')}/>
+                  source={require('../assets/icon/menu.png')}/>
                </TouchableRipple>
             )
          }}

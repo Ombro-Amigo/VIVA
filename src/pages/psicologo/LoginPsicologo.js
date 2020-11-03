@@ -9,8 +9,8 @@ import { errorCodesEmail, errorCodesPassword, errorCodes } from '../../utils/err
 
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { Divider } from 'react-native-paper';
-import firebase from '@firebase/app';
-import '@firebase/auth'
+// import firebase from '@firebase/app';
+// import '@firebase/auth'
 // import CaixaSelecao from '../../components/CaixaSelecao';
 
 import ModalConstrucao from '../modalConstrucao';
@@ -28,20 +28,20 @@ export default function LoginPsicologo({ navigation }) {
    const {signIn, email, senha, setEmail, setSenha, message, loading, setTypeUser} = useContext(LoginContext);
 
    useEffect(() => {
-      const firebaseConfig = {
-         apiKey: "AIzaSyD_7bjlJPA5EAEb49d-NwxNdret4kGg1Ik",
-         authDomain: "viva-ca312.firebaseapp.com",
-         databaseURL: "https://viva-ca312.firebaseio.com",
-         projectId: "viva-ca312",
-         storageBucket: "viva-ca312.appspot.com",
-         messagingSenderId: "374644306933",
-         appId: "1:374644306933:web:418fd7c5a2e27b6b6e66bc",
-         // measurementId: "G-H5GYMVM386"
-      };
-      // Initialize Firebase
-      if(firebase.apps.length === 0){
-         firebase.initializeApp(firebaseConfig);
-      }
+      // const firebaseConfig = {
+      //    apiKey: "AIzaSyD_7bjlJPA5EAEb49d-NwxNdret4kGg1Ik",
+      //    authDomain: "viva-ca312.firebaseapp.com",
+      //    databaseURL: "https://viva-ca312.firebaseio.com",
+      //    projectId: "viva-ca312",
+      //    storageBucket: "viva-ca312.appspot.com",
+      //    messagingSenderId: "374644306933",
+      //    appId: "1:374644306933:web:418fd7c5a2e27b6b6e66bc",
+      //    // measurementId: "G-H5GYMVM386"
+      // };
+      // // Initialize Firebase
+      // if(firebase.apps.length === 0){
+      //    firebase.initializeApp(firebaseConfig);
+      // }
       // firebase.analytics();
    });
 
@@ -94,7 +94,7 @@ export default function LoginPsicologo({ navigation }) {
             <View>
                <View style={styles.login}>
                   <Entrada
-                     icon={require('../../../assets/icon/usuario-login.png')}
+                     icon={require('../../assets/icon/usuario-login.png')}
                      placeholder="Nome de Usuário"
                      value={email}
                      onChangeText={Value => setEmail(Value)}
@@ -110,7 +110,7 @@ export default function LoginPsicologo({ navigation }) {
                <View style={styles.senha}>
                   <Entrada
                      style={styles.senha}
-                     icon={require('../../../assets/icon/chave-login.png')}
+                     icon={require('../../assets/icon/chave-login.png')}
                      placeholder="Senha"
                      value={senha}
                      onChangeText={Value => setSenha(Value)}

@@ -2,15 +2,15 @@ import React, { useState, useRef, useContext } from 'react';
 import { Form } from '@unform/mobile';
 import { Scope } from '@unform/core';
 import * as Yup from 'yup';
-import firebase from '../../firebase';
-import '@firebase/auth';
-import '@firebase/database';
+// import firebase from '../../firebase';
+// import '@firebase/auth';
+// import '@firebase/database';
 import { View, Text, ScrollView, StyleSheet, TouchableWithoutFeedback, Button } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import Fundo from '../../components/Fundo'
 import Botao from '../../components/Botao'
 import { Entrada, EscolhaGenero, InputDate } from '../../components/form/index';
-import CadContext from '../../contexts/auth/cadastro';
+import AuthContext from '../../contexts/auth/auth';
 
 export default function CadastroPaciente1({ navigation }) {
    const [nomeUser, setNomeUser] = useState('');
@@ -21,7 +21,7 @@ export default function CadastroPaciente1({ navigation }) {
 
    const formRef = useRef(null);
 
-   const { userInfo, setUserInfo } = useContext(CadContext);
+   const { setFormInfo } = useContext(AuthContext);
 
    async function handleSubmit(data) {
       try {
@@ -41,8 +41,8 @@ export default function CadastroPaciente1({ navigation }) {
          await schema.validate(data, {
             abortEarly: false,
          });
-
-         setUserInfo(data);
+         setFormInfo(data);
+         
          navigation.navigate('CadastroPaciente2');
       } catch (err) {
          if(err instanceof Yup.ValidationError) {

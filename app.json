@@ -1,34 +1,4 @@
 {
-  "expo": {
-    "name": "VIVA!",
-    "slug": "viva",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#6EB4E7"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "android": {
-      "package": "com.ombro_amigo.viva",
-      "adaptiveIcon": { 
-        "foregroundImage": "./assets/icon_android.png",
-        "backgroundColor": "#6EB4E7"
-      },
-      "icon": "./assets/icon.png"
-    }
-  }
+  "name": "viva",
+  "displayName": "viva"
 }

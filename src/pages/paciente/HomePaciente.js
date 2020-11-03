@@ -34,7 +34,7 @@ export default function HomePaciente({ navigation }) {
                 <View style={styles.areaPontos}>
                     <Image
                         style={styles.logoPontos}
-                        source={require('../../../assets/icon/logo_header.png')}
+                        source={require('../../assets/icon/logo_header.png')}
                     />
                     <Text style={styles.txtPontos}>000</Text>
                 </View>

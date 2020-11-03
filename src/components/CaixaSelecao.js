@@ -6,7 +6,7 @@ export default function CaixaSelecao(props) {
    const { status, onPress, uncheckedColor, color, title } = props
    return (
       <View style={styles.container}>
-         <Checkbox
+         <Checkbox.Android
             status={status}
             onPress={onPress}
             uncheckedColor={uncheckedColor ? uncheckedColor : '#ccc'}

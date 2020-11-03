@@ -11,7 +11,7 @@ function LogoTitle() {
       <Image
 
          style={{ width: 50, height: 50, aspectRatio: 1 }}
-         source={require('../../assets/icon/logo_header.png')}
+         source={require('../assets/icon/logo_header.png')}
       />
    );
 }

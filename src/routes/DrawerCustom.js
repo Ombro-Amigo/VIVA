@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
+import { signOut } from '../services/auth';
 
 import {
    Avatar,
@@ -22,7 +23,7 @@ function DrawerCustom(props) {
                <View style={styles.userInfoSection}>
                   <View style={{flexDirection:'row', marginTop: 15}}>
                      <Avatar.Image 
-                        source={require('../../assets/icon/sair.png')}
+                        source={require('../assets/icon/sair.png')}
                      />
                      <View style={{marginLeft:15,flexDirection:'column'}}>
                         <Title style={styles.title}>Usuário</Title>
@@ -47,7 +48,7 @@ function DrawerCustom(props) {
                      icon={() => (
                         <Image
                            style={styles.icon}
-                           source={require('../../assets/icon/sair.png')}
+                           source={require('../assets/icon/sair.png')}
                         />
                      )}
                      label='Sign Out'
@@ -57,7 +58,7 @@ function DrawerCustom(props) {
                      icon={() => (
                         <Image
                            style={styles.icon}
-                           source={require('../../assets/icon/sair.png')}
+                           source={require('../assets/icon/sair.png')}
                         />
                      )}
                      label='Sign Out'
@@ -67,7 +68,7 @@ function DrawerCustom(props) {
                      icon={() => (
                         <Image
                            style={styles.icon}
-                           source={require('../../assets/icon/sair.png')}
+                           source={require('../assets/icon/sair.png')}
                         />
                      )}
                      label='Sign Out'
@@ -77,7 +78,7 @@ function DrawerCustom(props) {
                      icon={() => (
                         <Image
                            style={styles.icon}
-                           source={require('../../assets/icon/sair.png')}
+                           source={require('../assets/icon/sair.png')}
                         />
                      )}
                      label='Sign Out'
@@ -99,11 +100,11 @@ function DrawerCustom(props) {
                icon={() => (
                   <Image
                      style={styles.icon}
-                     source={require('../../assets/icon/sair.png')}
+                     source={require('../assets/icon/sair.png')}
                   />
                )}
                label='Sign Out'
-               onPress={() => {}}
+               onPress={() => signOut()}
             />
          </Drawer.Section>         
       </View>

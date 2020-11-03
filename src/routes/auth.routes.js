@@ -21,23 +21,23 @@ function LogoTitle() {
    return (
       <Image
          style={{ width: 50, height: 50, aspectRatio: 1 }}
-         source={require('../../assets/icon/logo_header.png')}
+         source={require('../assets/icon/logo_header.png')}
       />
    );
 }
 
 const AuthRoutes = () => (
    <AuthStack.Navigator 
-      initialRouteName='CadastroPaciente1'
+      initialRouteName='Encaminhamento'
       screenOptions={{
          headerTitleAlign: 'center',
          headerTitle: props => <LogoTitle {...props} />
       }}
    >
-   <AuthStack.Screen name='CadastroPaciente1' component={CadastroPaciente1} />
       <AuthStack.Screen name='Encaminhamento' component={Encaminhamento} />
 
       <AuthStack.Screen name='LoginPaciente' component={LoginPaciente} />
+      <AuthStack.Screen name='CadastroPaciente1' component={CadastroPaciente1} />
       <AuthStack.Screen name='CadastroPaciente2' component={CadastroPaciente2} />
 
       <AuthStack.Screen name='LoginPsicologo' component={LoginPsicologo} />

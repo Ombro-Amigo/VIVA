@@ -11,7 +11,7 @@ export default class ListaConsultas extends Component{
             {
                 id: "1",
                 name: "Nome do(a) psicólogo(a)",
-                photo: require("../../assets/icon/usuario-cards-e-menu.png"),
+                photo: require("../assets/icon/usuario-cards-e-menu.png"),
                 date: "dd/mm/aaaa",
                 start: "hh:mm",
                 end: "hh:mm",
@@ -20,7 +20,7 @@ export default class ListaConsultas extends Component{
             {
                 id: "2",
                 name: "Nome do(a) psicólogo(a)",
-                photo: require("../../assets/icon/usuario-cards-e-menu.png"),
+                photo: require("../assets/icon/usuario-cards-e-menu.png"),
                 date: "dd/mm/aaaa",
                 start: "hh:mm",
                 end: "hh:mm",
@@ -29,7 +29,7 @@ export default class ListaConsultas extends Component{
             {
                 id: "3",
                 name: "Nome do(a) psicólogo(a)",
-                photo: require("../../assets/icon/usuario-cards-e-menu.png"),
+                photo: require("../assets/icon/usuario-cards-e-menu.png"),
                 date: "dd/mm/aaaa",
                 start: "hh:mm",
                 end: "hh:mm",
@@ -38,7 +38,7 @@ export default class ListaConsultas extends Component{
             {
                 id: "4",
                 name: "Nome do(a) psicólogo(a)",
-                photo: require("../../assets/icon/usuario-cards-e-menu.png"),
+                photo: require("../assets/icon/usuario-cards-e-menu.png"),
                 date: "dd/mm/aaaa",
                 start: "hh:mm",
                 end: "hh:mm",

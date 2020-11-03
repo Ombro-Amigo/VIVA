@@ -7,27 +7,27 @@ const ListaPsicologo = () => {
     const psicologo = [
         {
             id: "1",
-            photo: require('../../assets/icon/usuario-cards-e-menu.png'),
+            photo: require('../assets/icon/usuario-cards-e-menu.png'),
             name: "Nome do(a) psicólogo(a)"
         },
         {
             id: "2",
-            photo: require('../../assets/icon/usuario-cards-e-menu.png'),
+            photo: require('../assets/icon/usuario-cards-e-menu.png'),
             name: "Nome do(a) psicólogo(a)"
         },
         {
             id: "3",
-            photo: require('../../assets/icon/usuario-cards-e-menu.png'),
+            photo: require('../assets/icon/usuario-cards-e-menu.png'),
             name: "Nome do(a) psicólogo(a)",
         },
         {
             id: "4",
-            photo: require('../../assets/icon/usuario-cards-e-menu.png'),
+            photo: require('../assets/icon/usuario-cards-e-menu.png'),
             name: "Nome do(a) psicólogo(a)"
         },
         {
             id: "5",
-            photo: require('../../assets/icon/usuario-cards-e-menu.png'),
+            photo: require('../assets/icon/usuario-cards-e-menu.png'),
             name: "Nome do(a) psicólogo(a)"
         }
     ]
@@ -61,7 +61,7 @@ const ListaPsicologo = () => {
                     <TouchableOpacity>
                         <Image
                             style={styles.tresPontos}
-                            source={require("../../assets/icon/mais-opcoes.png")} 
+                            source={require("../assets/icon/mais-opcoes.png")} 
                         />
                     </TouchableOpacity>
                 </View>

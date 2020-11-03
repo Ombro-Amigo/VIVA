@@ -17,7 +17,7 @@ const DrawerNavigatorPaciente = () => {
       <Drawer.Navigator
          initialRouteName='Home'
          drawerPosition='right'
-         // drawerContent={props => <DrawerCustom {...props}/>}
+         drawerContent={props => <DrawerCustom {...props}/>}
       >
          <Drawer.Screen name='Home' component={AppPacienteRoutes}/>
          <Drawer.Screen name='Alterar informações da conta' component={editaInfoRoutes}/>

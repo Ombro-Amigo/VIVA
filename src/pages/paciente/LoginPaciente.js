@@ -1,22 +1,24 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Fundo from '../../components/Fundo';
 import Botao from '../../components/Botao';
-// import { Entrada } from '../../components/form/index';
+import { Entrada } from '../../components/form/index';
 import { errorCodesEmail, errorCodesPassword, errorCodes } from '../../utils/errorCodes';
 
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { Divider } from 'react-native-paper';
-import firebase from '@firebase/app';
-import '@firebase/auth'
+// import firebase from '@firebase/app';
+// import '@firebase/auth'
 // import CaixaSelecao from '../../components/CaixaSelecao';
 
 import ModalConstrucao from '../modalConstrucao';
 import Loading from '../Loading';
+import { Form } from '@unform/mobile';
+import * as Yup from 'yup';
 
-import LoginContext from '../../contexts/auth/login';
+import AuthContext from '../../contexts/auth/auth';
 
 
 export default function LoginPaciente({ navigation }) {
@@ -24,8 +26,14 @@ export default function LoginPaciente({ navigation }) {
    // const [loading, setLoading] = useState(false);
    const [hidePassword, setHidePassword] = useState(true);
    const [modalVisible, setModalVisible] = useState(false);
+   const [senha, setSenha] = useState('');
+   const [email, setEmail] = useState('');
+
+   const formRef = useRef(null);
    
-   const {signIn, email, senha, setEmail, setSenha, message, loading, setTypeUser} = useContext(LoginContext);
+   // const {signIn, email, senha, setEmail, setSenha, message, loading, setTypeUser} = useContext(LoginContext);
+
+   const { setCredentials } = useContext(AuthContext);
 
    // useEffect(() => {
    //    const firebaseConfig = {
@@ -69,72 +77,106 @@ export default function LoginPaciente({ navigation }) {
    //       .catch(loginUserFailed)
    // }
 
-   function renderMessage() {
-      if((errorCodesEmail(message) === undefined && errorCodesPassword(message) === undefined) && message && message !== 'Sucesso!'){
-         return (
-            <View >
-               <Text style={styles.msgErro}>
-                  { errorCodes(message) }
-               </Text>
-            </View>
-         );
-      }
-      return null;
+   // function renderMessage() {
+   //    if((errorCodesEmail(message) === undefined && errorCodesPassword(message) === undefined) && message && message !== 'Sucesso!'){
+   //       return (
+   //          <View >
+   //             <Text style={styles.msgErro}>
+   //                { errorCodes(message) }
+   //             </Text>
+   //          </View>
+   //       );
+   //    }
+   //    return null;
       
+   // }
+
+   async function handleSubmit(data) {
+      try {
+         formRef.current.setErrors({});
+
+         const schema = Yup.object().shape({
+            email: Yup.string()
+               .email('Digite um e-mail válido')
+               .required('O email é obrigatório'),
+            senha: Yup.string().required('A senha é obrigatória'),
+         });
+
+         await schema.validate(data, {
+            abortEarly: false,
+         });
+
+         setCredentials(data);
+      } catch (err) {
+         if(err instanceof Yup.ValidationError) {
+            const errorMessages = {};
+
+            err.inner.forEach(error => {
+               errorMessages[error.path] = error.message;
+            });
+
+            formRef.current.setErrors(errorMessages);
+         }
+      }
    }
    
-   if(!loading) {
+   // if(!loading) {
       return (
          <Fundo>
-   
-            {/* <View>
+            <View>
                <Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
             </View>
             
-            <View>
-               <View style={styles.login}>
-                  <Entrada
-                     icon={require('../../../assets/icon/usuario-login.png')}
-                     placeholder="Nome de Usuário"
-                     value={email}
-                     onChangeText={Value => setEmail(Value)}
-                     msgError={errorCodesEmail(message)}
-                     verificaCondicao
-                     condicao={
-                        message
-                        ? false
-                        : null
-                     }
-                  />
-               </View>
-               <View style={styles.senha}>
-                  <Entrada
-                     style={styles.senha}
-                     icon={require('../../../assets/icon/chave-login.png')}
-                     placeholder="Senha"
-                     value={senha}
-                     onChangeText={Value => setSenha(Value)}
-                     onPress={Value => {setHidePassword(!hidePassword)}}
-                     secureTextEntry={hidePassword}
-                     tipoTexto="password"
-                     msgError={errorCodesPassword(message)}
-                     verificaCondicao
-                     condicao={
-                        message
-                        ? false
-                        : null
-                     }
-                  />
+            <Form ref={formRef} onSubmit={handleSubmit}>
+               <View>
+                  <View style={styles.login}>
+                     <Entrada
+                        name='email'
+                        icon={require('../../assets/icon/usuario-login.png')}
+                        placeholder="E-mail"
+                        value={email}
+                        // onChangeText={Value => setEmail(Value)}
+                        // msgError={errorCodesEmail(message)}
+                        // verificaCondicao
+                        // condicao={
+                        //    message
+                        //    ? false
+                        //    : null
+                        // }
+                     />
+                  </View>
+                  <View style={styles.senha}>
+                     <Entrada
+                        name='senha'
+                        style={styles.senha}
+                        icon={require('../../assets/icon/chave-login.png')}
+                        placeholder="Senha"
+                        value={senha}
+                        // onChangeText={Value => setSenha(Value)}
+                        onPress={Value => {setHidePassword(!hidePassword)}}
+                        secureTextEntry={hidePassword}
+                        tipoTexto="password"
+                        // msgError={errorCodesPassword(message)}
+                        verificaCondicao
+                        // condicao={
+                        //    message
+                        //    ? false
+                        //    : null
+                        // }
+                     />
+                  </View>
+   
+                  <View style={styles.areaMensagemErro}>
+                     {/* {renderMessage()} */}
+                  </View>
                </View>
    
-               <View style={styles.areaMensagemErro}>
-                  {renderMessage()}
-               </View>
-            </View>
-   
-            <Botao title="Entrar" style={styles.btnLogin}
-            onPress={() => {signIn(); setTypeUser('paciente')}}
-            />
+               <Botao title="Entrar" style={styles.btnLogin}
+                  onPress={() => formRef.current.submitForm()}
+               />
+            
+            </Form>
+            {/* setTypeUser('paciente') */}
             
    
             <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
@@ -158,12 +200,12 @@ export default function LoginPaciente({ navigation }) {
                <Botao title="Entrar com o Google" corTexto={"#000"} style={styles.btnLoginGoogle}  onPress={() => setModalVisible(!modalVisible)} />
             </View>
    
-            <ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} /> */}
+            <ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} />
          </Fundo>
       )
-   }else{
-      return <Loading/>
-   }
+   // }else{
+   //    return <Loading/>
+   // }
 }
 
 const styles = StyleSheet.create({

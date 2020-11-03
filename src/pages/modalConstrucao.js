@@ -17,7 +17,7 @@ export default function ModalConstrucao({modalVisible, setModalVisible}) {
                      <Text style={styles.title}>PÁGINA EM CONSTRUÇÃO</Text>
                      <Image
                         style={styles.icone}
-                        source={require('../../assets/icon/construcao.png')}
+                        source={require('../assets/icon/construcao.png')}
                      />
 							<Text style={styles.modalText}>Ainda estamos apertando alguns parafusos por aqui!</Text>
 

@@ -1,9 +1,6 @@
 import React, { useState, useRef, useContext } from 'react';
 import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
-import firebase from '../../firebase';
-import '@firebase/auth';
-import '@firebase/database';
 import { StyleSheet, View, Text, ScrollView } from 'react-native'
 import { Entrada } from '../../components/form/index'
 import Fundo from '../../components/Fundo'
@@ -11,7 +8,7 @@ import CaixaSelecao from '../../components/CaixaSelecao'
 import Botao from '../../components/Botao'
 import { cpfMask } from '../../utils/cpfMask'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import CadContext from '../../contexts/auth/cadastro';
+import AuthContext from '../../contexts/auth/auth';
 
 export default function CadastroPaciente2({navigation}) {
    const [cpf, setCpf] = useState('')
@@ -24,7 +21,7 @@ export default function CadastroPaciente2({navigation}) {
    
    const formRef = useRef(null);
 
-   const { userInfo, setUser } = useContext(CadContext);
+   const { formInfo, setFormInfo, signInAndSaveData } = useContext(AuthContext);
 
    async function handleSubmit(data) {
       try {
@@ -40,26 +37,9 @@ export default function CadastroPaciente2({navigation}) {
             abortEarly: false,
          });
 
-         const formUser = {...userInfo, ...data};
-         
-         firebase
-            .auth()
-            .createUserWithEmailAndPassword(formUser.email, formUser.senha)
-            .then((userCredential) => {
-               setUser(userCredential);
-               const db = firebase.database();
-               db.ref(`/users/${userCredential.user.uid}`).push({
-                  cpf: formUser.cpf,
-                  nomeusuario: formUser.nomeusuario
-               })
-               .then(() => {
-                  console.log('ok');
-               })
-                  .catch(err => {
-                     console.log(err.message);
-                  });
-            })
-         // navigation.navigate('CadastroPaciente2');
+         const allForm = {...formInfo, ...data};
+
+         setFormInfo(allForm);
       } catch (err) {
          if(err instanceof Yup.ValidationError) {
             const errorMessages = {};

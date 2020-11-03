@@ -49,8 +49,8 @@ export default function Entrada(props) {
       });
    }, [fieldName, registerField]);
 
-   const eye = require('../../../assets/icon/eye-regular.png')
-   const eyeSlash = require('../../../assets/icon/eye-slash.png')
+   const eye = require('../../assets/icon/eye-regular.png')
+   const eyeSlash = require('../../assets/icon/eye-slash.png')
 
    const [imgOlho, setimgOlho] = useState(eye)
 
