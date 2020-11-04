@@ -17,13 +17,14 @@ const Routes = () => {
 
    // : typeUser === 'paciente' ? 
    // : <AppPsicologoRoutes />
+   console.log(`Teste: ${typeUser === 'paciente'}`);
 
    if(loading)
       return <Loading/>;
 
    return !user ? <AuthRoutes /> :
-          typeUser === 'paciente' ? <DrawerNavigatorPaciente /> :
-            <DrawerNavigatorPsicologo />;
+          typeUser === 'paciente' ? 
+          <DrawerNavigatorPaciente /> : <DrawerNavigatorPsicologo />;
 
    // return <AuthRoutes />
 }
