@@ -7,16 +7,23 @@ import AppPacienteRoutes from './app.paciente.routes'
 import AppPsicologoRoutes from './app.psicologo.routes'
 
 import DrawerNavigatorPaciente from './app.drawer.paciente.routes'
+import DrawerNavigatorPsicologo from './app.drawer.psicologo.routes'
+import Loading from '../pages/Loading';
 
 const Routes = () => {
-   const { initializing, user } = useContext(AuthContext);
+   const { loading, user, typeUser } = useContext(AuthContext);
 
    // console.log(user);
 
    // : typeUser === 'paciente' ? 
    // : <AppPsicologoRoutes />
 
-   return !user ? <AuthRoutes /> : <DrawerNavigatorPaciente />;
+   if(loading)
+      return <Loading/>;
+
+   return !user ? <AuthRoutes /> :
+          typeUser === 'paciente' ? <DrawerNavigatorPaciente /> :
+            <DrawerNavigatorPsicologo />;
 
    // return <AuthRoutes />
 }

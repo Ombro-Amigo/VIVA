@@ -33,7 +33,7 @@ export default function LoginPaciente({ navigation }) {
    
    // const {signIn, email, senha, setEmail, setSenha, message, loading, setTypeUser} = useContext(LoginContext);
 
-   const { setCredentials } = useContext(AuthContext);
+   const { setCredentials, setTypeUser, setLoading } = useContext(AuthContext);
 
    // useEffect(() => {
    //    const firebaseConfig = {
@@ -106,7 +106,9 @@ export default function LoginPaciente({ navigation }) {
             abortEarly: false,
          });
 
+         setLoading(true);
          setCredentials(data);
+         setTypeUser('paciente');
       } catch (err) {
          if(err instanceof Yup.ValidationError) {
             const errorMessages = {};
@@ -119,6 +121,10 @@ export default function LoginPaciente({ navigation }) {
          }
       }
    }
+
+   // if(loading) {
+   //    return <Loading />;
+   // }
    
    // if(!loading) {
       return (

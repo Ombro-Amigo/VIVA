@@ -12,7 +12,6 @@ const AppStack = createStackNavigator();
 function LogoTitle() {
    return (
       <Image
-
          style={{ width: 50, height: 50, aspectRatio: 1 }}
          source={require('../assets/icon/logo_header.png')}
       />

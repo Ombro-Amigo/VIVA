@@ -1,13 +1,14 @@
 import auth from '@react-native-firebase/auth';
+import { confirmTypeUser } from './database';
 
-export const login = (email, senha) => {
-  auth()
+export const login = async (email, senha) => {
+  await auth()
     .signInWithEmailAndPassword(email, senha)
-    .then(() => {
+    .then(userInfo => {
       console.log('logou!');
     })
     .catch(error => {
-      console.log(`Erro: ${error.code}`);
+      console.log(`Erro ao logar: ${error.code}`);
     });
 }
 
@@ -18,7 +19,7 @@ export const signIn = (email, senha) => {
       console.log('inscreveu!');
     })
     .catch(error => {
-      console.log(`Erro: ${error.code}`);
+      console.log(`Erro ao criar usuário: ${error.code}`);
     });
 }
 
@@ -30,3 +31,5 @@ export const signOut = () => {
       console.log(`Erro inesperado ao sair: ${error}`)
     });
 }
+
+export const currentUser = () => auth().currentUser;

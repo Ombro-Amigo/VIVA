@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { StyleSheet, View, Text, ScrollView } from 'react-native'
 import { Entrada } from '../../components/form/index'
 import Fundo from '../../components/Fundo'
@@ -7,6 +7,9 @@ import Botao from '../../components/Botao'
 import { cpfMask } from '../../utils/cpfMask'
 import { crpMask } from '../../utils/crpMask'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import AuthContext from '../../contexts/auth/auth'
+import * as Yup from 'yup';
+import { Form } from '@unform/mobile'
 
 export default function CadastroPsicologo2({navigation}) {
    const [cpf, setCpf] = useState('')
@@ -17,108 +20,149 @@ export default function CadastroPsicologo2({navigation}) {
    const [checkPolitas, setCheckedPoliticas] = useState('')
    const [hidePassword, setHidePassword] = useState(true)
    const [hidePasswordTwo, setHidePasswordTwo] = useState(true)
+   
+   const formRef = useRef(null);
+
+   const { formInfo, setFormInfo, setTypeUser } = useContext(AuthContext);
+
+   async function handleSubmit(data) {
+      try {
+         formRef.current.setErrors({});
+
+         const schema = Yup.object().shape({
+            cpf: Yup.string().required('O cpf é obigatório'),
+            senha: Yup.string().required('A senha é obrigatória'),
+            confirmaSenha: Yup.string().required('A confirmação de senha é obrigatória'),
+         });
+
+         await schema.validate(data, {
+            abortEarly: false,
+         });
+
+         const allForm = {...formInfo, ...data};
+
+         setTypeUser('psicologo');
+         setFormInfo(allForm);
+      } catch (err) {
+         if(err instanceof Yup.ValidationError) {
+            const errorMessages = {};
+
+            err.inner.forEach(error => {
+               errorMessages[error.path] = error.message;
+            });
+
+            formRef.current.setErrors(errorMessages);
+         }
+      }
+   }
 
    return (
       <ScrollView style={styles.container}>
          <Fundo>
-            {/* <View style={styles.areaTitulo}>
+            <View style={styles.areaTitulo}>
                <Text style={styles.titulo}>Quase lá</Text>
             </View>
 
-            <View style={styles.form}>
-               <View style={styles.input}>
-                  <Entrada
-                     placeholder="CPF"
-                     value={cpf}
-                     onChangeText={Value => {setCpf(cpfMask(Value))}}
-                     obrigatorio
-                     tipoTeclado={"number-pad"}
-                     max={14}
-                  />
-               </View>
-
-               <View style={styles.input}>
-                  <Entrada
-                     placeholder="CRP"
-                     value={crp}
-                     onChangeText={Value => {setCrp(crpMask(Value))}}
-                     obrigatorio
-                     tipoTeclado={"number-pad"}
-                     max={9}
-                  />
-               </View>
-
-               <View style={styles.input}>
-                  <Entrada
-                     placeholder="Senha"
-                     value={senha}
-                     onChangeText={Value => {setSenha(Value)}}
-                     onPress={() => setHidePassword(!hidePassword)}
-                     obrigatorio
-                     tipoTexto={"password"}
-                     secureTextEntry={hidePassword}
-                  />
-               </View>
-
-               <View style={styles.input}>
-                  <Entrada
-                     placeholder="Confirme sua senha"
-                     value={confirmacaoSenha}
-                     onChangeText={Value => {setConfirmacaoSenha(Value)}}
-                     onPress={() => {setHidePasswordTwo(!hidePasswordTwo)}}
-                     obrigatorio
-                     tipoTexto={"password"}
-                     secureTextEntry={hidePasswordTwo}
-                     msgError="As senha não são correspondentes."
-                     msgSucesso="As senhas correspondem."
-                     verificaCondicao={
-                        senha && confirmacaoSenha
-                        ? true
-                        : false
-                     }
-                     condicao={
-                        senha === confirmacaoSenha
-                        ? true
-                        : false
-                     }
-                  />
-               </View>
-               
-               <View style={styles.confirmacoesLeitura}>
-                  <View style={styles.confirmacaoContainer}>
-                     <CaixaSelecao
-                        status={checkPolitas ? 'checked' : 'unchecked'}
-                        onPress={() => setCheckedPoliticas(!checkPolitas)}
-                        color={"#FFF"}
+            <Form ref={formRef} onSubmit={handleSubmit}>
+               <View style={styles.form}>
+                  <View style={styles.input}>
+                     <Entrada
+                        name='cpf'
+                        placeholder="CPF"
+                        value={cpf}
+                        onChangeText={Value => {setCpf(cpfMask(Value))}}
+                        obrigatorio
+                        tipoTeclado={"number-pad"}
+                        max={14}
                      />
-                     <View style={styles.areaTxt}>
-                        <Text style={styles.txtSelecao}>Li e concordo com os <Text style={styles.txtSublinhado}>Termos de Uso.</Text></Text>
-                        
-                     </View>
+                  </View>
+
+                  <View style={styles.input}>
+                     <Entrada
+                        name='crp'
+                        placeholder="CRP"
+                        value={crp}
+                        onChangeText={Value => {setCrp(Value)}}
+                        obrigatorio
+                        tipoTeclado={"number-pad"}
+                        max={14}
+                     />
+                  </View>
+   
+                  <View style={styles.input}>
+                     <Entrada
+                        name='senha'
+                        placeholder="Senha"
+                        value={senha}
+                        onChangeText={Value => {setSenha(Value)}}
+                        onPress={() => setHidePassword(!hidePassword)}
+                        obrigatorio
+                        tipoTexto={"password"}
+                        secureTextEntry={hidePassword}
+                     />
+                  </View>
+   
+                  <View style={styles.input}>
+                     <Entrada
+                        name='confirmaSenha'
+                        placeholder="Confirme sua senha"
+                        value={confirmacaoSenha}
+                        onChangeText={Value => {setConfirmacaoSenha(Value)}}
+                        onPress={() => {setHidePasswordTwo(!hidePasswordTwo)}}
+                        obrigatorio
+                        tipoTexto={"password"}
+                        secureTextEntry={hidePasswordTwo}
+                        msgError="As senha não são correspondentes."
+                        msgSucesso="As senhas correspondem."
+                        verificaCondicao={
+                           senha && confirmacaoSenha
+                           ? true
+                           : false
+                        }
+                        condicao={
+                           senha === confirmacaoSenha
+                           ? true
+                           : false
+                        }
+                     />
                   </View>
                   
-                  <View style={styles.confirmacaoContainer}>
-                     <CaixaSelecao
-                        status={checkTermos ? 'checked' : 'unchecked'}
-                        onPress={() => setCheckedTermos(!checkTermos)}
-                        color={"#FFF"}
-                     />
-                     <View style={styles.areaTxt}>
-                        <Text style={styles.txtSelecao}>Li e concordo com as <Text style={styles.txtSublinhado}>Políticas de Privacidade.</Text></Text>
+                  <View style={styles.confirmacoesLeitura}>
+                     <View style={styles.confirmacaoContainer}>
+                        <CaixaSelecao
+                           status={checkPolitas ? 'checked' : 'unchecked'}
+                           onPress={() => setCheckedPoliticas(!checkPolitas)}
+                           color={"#FFF"}
+                        />
+                        <View style={styles.areaTxt}>
+                           <Text style={styles.txtSelecao}>Li e concordo com os <Text style={styles.txtSublinhado}>Termos de Uso.</Text></Text>
+                           
+                        </View>
                      </View>
+                     
+                     <View style={styles.confirmacaoContainer}>
+                        <CaixaSelecao
+                           status={checkTermos ? 'checked' : 'unchecked'}
+                           onPress={() => setCheckedTermos(!checkTermos)}
+                           color={"#FFF"}
+                        />
+                        <View style={styles.areaTxt}>
+                           <Text style={styles.txtSelecao}>Li e concordo com as <Text style={styles.txtSublinhado}>Políticas de Privacidade.</Text></Text>
+                        </View>
+                     </View>
+   
                   </View>
-
+                  
+                  <View>
+                     <Botao
+                        style={styles.btn}
+                        title="Concluir Cadastrado"
+                        onPress={() => formRef.current.submitForm()}
+                     />
+                  </View>
+   
                </View>
-               
-               <View>
-                  <Botao
-                     style={styles.btn}
-                     title="Concluir Cadastrado"
-                     onPress={() => navigation.navigate('ConfirmacaoCrp')}
-                  />
-               </View>
-
-            </View> */}
+            </Form>
          </Fundo>
       </ScrollView>
    )

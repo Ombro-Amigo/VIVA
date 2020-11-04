@@ -21,7 +21,7 @@ export default function CadastroPaciente2({navigation}) {
    
    const formRef = useRef(null);
 
-   const { formInfo, setFormInfo, signInAndSaveData } = useContext(AuthContext);
+   const { formInfo, setFormInfo, setTypeUser } = useContext(AuthContext);
 
    async function handleSubmit(data) {
       try {
@@ -39,6 +39,7 @@ export default function CadastroPaciente2({navigation}) {
 
          const allForm = {...formInfo, ...data};
 
+         setTypeUser('paciente');
          setFormInfo(allForm);
       } catch (err) {
          if(err instanceof Yup.ValidationError) {

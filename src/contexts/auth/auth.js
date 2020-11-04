@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
-import { signIn as signInService, login as loginService }  from '../../services/auth';
-import { setDataUser } from '../../services/database';
+import { signIn as signInService, login as loginService, currentUser }  from '../../services/auth';
+import { confirmTypeUser, setDataUser } from '../../services/database';
 // import { connect } from '../../config/firebaseConfig';
 // import firebase from '../../firebase';
 // import '@firebase/auth';
@@ -12,16 +12,19 @@ import { setDataUser } from '../../services/database';
 const AuthContext = createContext({
    initializing: true,
    user: {},
+   typeUser: '',
+   setTypeUser: () => {},
    // signInAndSaveData: () => {},
    // user: {},
    // authenticated() {
-
    // }: false,
    // setUser: () => {},
    // loadingAuthState: false,
    formInfo: {},
    setFormInfo: () => {},
    setCredentials: () => {},
+   loading: false,
+   setLoading: () => {},
 });
 
 export const AuthProvider = ({ children }) => {
@@ -29,6 +32,8 @@ export const AuthProvider = ({ children }) => {
    const [user, setUser] = useState(null);
    const [formInfo, setFormInfo] = useState({});
    const [credentials, setCredentials] = useState({});
+   const [typeUser, setTypeUser] = useState('');
+   const [loading, setLoading] = useState(false);
 
    function onAuthStateChanged(user) {
       setUser(user);
@@ -41,25 +46,36 @@ export const AuthProvider = ({ children }) => {
    }, []);
 
    useEffect(() => {
-      if(formInfo.email && formInfo.senha) {
+      if(formInfo.email && formInfo.senha && !user) {
          signInService(formInfo.email, formInfo.senha);
          if(user){
             delete formInfo.email;
             delete formInfo.senha;
             delete formInfo.confirmaSenha;
+
+            formInfo["tipo"] = typeUser;
+            
+            setDataUser(user.uid, formInfo);
+            setTypeUser('');
          }
       }
       
-      if(user && formInfo !== {}){
-         setDataUser(user.uid, formInfo);
-      }
+      // if(user && formInfo !== {}){
+      // }
    });
 
    useEffect(() => {
-      if(credentials.email && credentials.senha){
-         loginService(credentials.email, credentials.senha);
-         setCredentials({});
+      async function logar() {
+         if(credentials.email && credentials.senha && typeUser && !user){
+            await loginService(credentials.email, credentials.senha);
+            console.log(`Tipo: ${typeUser}`)
+            confirmTypeUser(currentUser().uid, typeUser, setLoading);
+            setCredentials({});
+            setTypeUser('');
+         }
       }
+
+      logar();
    })
 
    // function login() {
@@ -107,6 +123,10 @@ export const AuthProvider = ({ children }) => {
             formInfo,
             setFormInfo,
             setCredentials,
+            typeUser,
+            setTypeUser,
+            loading,
+            setLoading,
             // authenticated() {
 
             // }: user !== null, 
