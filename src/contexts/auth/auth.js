@@ -46,19 +46,26 @@ export const AuthProvider = ({ children }) => {
    }, []);
 
    useEffect(() => {
-      if(formInfo.email && formInfo.senha && !user) {
-         signInService(formInfo.email, formInfo.senha);
-         if(user){
-            delete formInfo.email;
-            delete formInfo.senha;
-            delete formInfo.confirmaSenha;
+      async function signIn() {
+         if(formInfo.email && formInfo.senha) {
+            if(!user) {
+               await signInService(formInfo.email, formInfo.senha)
+            }
 
-            formInfo["tipo"] = typeUser;
-            
-            setDataUser(user.uid, formInfo);
-            setTypeUser('');
+            if(user) {
+               delete formInfo.email;
+               delete formInfo.senha;
+               delete formInfo.confirmaSenha;
+   
+               formInfo["tipo"] = typeUser;
+               
+               await setDataUser(user.uid, formInfo);
+               // setTypeUser('');
+            }
          }
       }
+
+      signIn();
       
       // if(user && formInfo !== {}){
       // }
@@ -66,12 +73,12 @@ export const AuthProvider = ({ children }) => {
 
    useEffect(() => {
       async function logar() {
-         if(credentials.email && credentials.senha && typeUser && !user){
+         if(credentials.email && credentials.senha && !user && typeUser){
             await loginService(credentials.email, credentials.senha);
             console.log(`Tipo: ${typeUser}`)
-            confirmTypeUser(currentUser().uid, typeUser, setLoading);
+            await confirmTypeUser(currentUser().uid, typeUser, setLoading);
             setCredentials({});
-            setTypeUser('');
+            // setTypeUser('');
          }
       }
 

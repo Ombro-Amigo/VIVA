@@ -12,8 +12,8 @@ export const login = async (email, senha) => {
     });
 }
 
-export const signIn = (email, senha) => {
-  auth()
+export const signIn = async (email, senha) => {
+  await auth()
     .createUserWithEmailAndPassword(email, senha)
     .then(() => {
       console.log('inscreveu!');
@@ -23,8 +23,8 @@ export const signIn = (email, senha) => {
     });
 }
 
-export const signOut = () => {
-  auth()
+export const signOut = async () => {
+  await auth()
     .signOut()
     .then(() => console.log('Saiu!'))
     .catch(error => {
