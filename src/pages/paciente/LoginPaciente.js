@@ -33,7 +33,7 @@ export default function LoginPaciente({ navigation }) {
    
    // const {signIn, email, senha, setEmail, setSenha, message, loading, setTypeUser} = useContext(LoginContext);
 
-   const { setCredentials, setTypeUser, setLoading } = useContext(AuthContext);
+   const { setCredentials, setTypeUser, setLoading, setFacebookLogin } = useContext(AuthContext);
 
    // useEffect(() => {
    //    const firebaseConfig = {
@@ -202,8 +202,17 @@ export default function LoginPaciente({ navigation }) {
             </View>
    
             <View>
-               <Botao title="Entrar com o Facebook" style={styles.btnLoginFacebook}  onPress={() => setModalVisible(!modalVisible)} />
-               <Botao title="Entrar com o Google" corTexto={"#000"} style={styles.btnLoginGoogle}  onPress={() => setModalVisible(!modalVisible)} />
+               <Botao
+                  title="Entrar com o Facebook"
+                  style={styles.btnLoginFacebook}
+                  onPress={() => setFacebookLogin(true)}
+               />
+               <Botao
+                  title="Entrar com o Google"
+                  corTexto={"#000"}
+                  style={styles.btnLoginGoogle} 
+                  onPress={() => setModalVisible(!modalVisible)}
+               />
             </View>
    
             <ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} />

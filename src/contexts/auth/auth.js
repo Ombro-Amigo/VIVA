@@ -1,6 +1,10 @@
 import React, { createContext, useState, useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
-import { signIn as signInService, login as loginService, currentUser }  from '../../services/auth';
+import {
+   signIn as signInService,
+   login as loginService, currentUser,
+   loginWithFacebook as facebookService
+}  from '../../services/auth';
 import { confirmTypeUser, setDataUser } from '../../services/database';
 // import { connect } from '../../config/firebaseConfig';
 // import firebase from '../../firebase';
@@ -9,23 +13,7 @@ import { confirmTypeUser, setDataUser } from '../../services/database';
 // import Loading from '../../pages/Loading';
 // import { SignUpUser } from '../../services/auth';
 
-const AuthContext = createContext({
-   initializing: true,
-   user: {},
-   typeUser: '',
-   setTypeUser: () => {},
-   // signInAndSaveData: () => {},
-   // user: {},
-   // authenticated() {
-   // }: false,
-   // setUser: () => {},
-   // loadingAuthState: false,
-   formInfo: {},
-   setFormInfo: () => {},
-   setCredentials: () => {},
-   loading: false,
-   setLoading: () => {},
-});
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
    const [initializing, setInitializing] = useState(true);
@@ -34,6 +22,7 @@ export const AuthProvider = ({ children }) => {
    const [credentials, setCredentials] = useState({});
    const [typeUser, setTypeUser] = useState('');
    const [loading, setLoading] = useState(false);
+   const [facebookLogin, setFacebookLogin] = useState(false);
 
    function onAuthStateChanged(user) {
       setUser(user);
@@ -47,25 +36,24 @@ export const AuthProvider = ({ children }) => {
 
    useEffect(() => {
       async function signIn() {
-         if(formInfo.email && formInfo.senha) {
-            if(!user) {
-               await signInService(formInfo.email, formInfo.senha)
-            }
+         if(!user) {
+            await signInService(formInfo.email, formInfo.senha)
+         }
 
-            if(user) {
-               delete formInfo.email;
-               delete formInfo.senha;
-               delete formInfo.confirmaSenha;
-   
-               formInfo["tipo"] = typeUser;
-               
-               await setDataUser(user.uid, formInfo);
-               // setTypeUser('');
-            }
+         if(user) {
+            delete formInfo.email;
+            delete formInfo.senha;
+            delete formInfo.confirmaSenha;
+
+            formInfo["tipo"] = typeUser;
+            
+            await setDataUser(user.uid, formInfo);
+            // setTypeUser('');
          }
       }
 
-      signIn();
+      if(formInfo.email && formInfo.senha)
+         signIn();
       
       // if(user && formInfo !== {}){
       // }
@@ -73,17 +61,26 @@ export const AuthProvider = ({ children }) => {
 
    useEffect(() => {
       async function logar() {
-         if(credentials.email && credentials.senha && !user && typeUser){
-            await loginService(credentials.email, credentials.senha);
-            console.log(`Tipo: ${typeUser}`)
-            await confirmTypeUser(currentUser().uid, typeUser, setLoading);
-            setCredentials({});
-            // setTypeUser('');
-         }
+         await loginService(credentials.email, credentials.senha);
+         console.log(`Tipo: ${typeUser}`)
+         await confirmTypeUser(currentUser().uid, typeUser, setLoading);
+         setCredentials({});
+         // setTypeUser('');         
       }
 
-      logar();
-   })
+      if(credentials.email && credentials.senha && !user && typeUser)
+         logar();
+   });
+
+   useEffect(() => {
+      async function logarFacebook() {
+         await facebookService();
+         setFacebookLogin(false);
+      }
+
+      if(facebookLogin)
+         logarFacebook();
+   });
 
    // function login() {
 
@@ -134,6 +131,7 @@ export const AuthProvider = ({ children }) => {
             setTypeUser,
             loading,
             setLoading,
+            setFacebookLogin,
             // authenticated() {
 
             // }: user !== null, 
