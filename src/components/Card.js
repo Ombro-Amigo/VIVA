@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, Image, StyleSheet, TouchableHighlight } from 'react-native'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import { Divider } from 'react-native-paper'
 import Botao from './Botao'
@@ -8,6 +8,7 @@ export default function Card(props){
     const {
         photo,
         name,
+        crp,
         date,
         start,
         end,
@@ -15,36 +16,62 @@ export default function Card(props){
     } =  props
 
     return(
-        <TouchableOpacity style={styles.card}>
-            <View style={styles.areaInfoPsicologo}>
-                <Image
-                    style={styles.fotoPsicologo}
-                    source={photo}
-                />
-                <Text style={styles.nomePsicologo}>{name}</Text>
+        <View style={styles.card}>
+            <View style={styles.infoUsuario}>
+                <View style={{flexDirection: "row"}}>
+                    <Image
+                        style={styles.foto}
+                        source={require('../assets/icon/usuario-cards-e-menu.png')}
+                    />
+                    <View style={styles.containerCrpNome}>
+                        <Text style={styles.txt1}>{crp}</Text>
+                        <Text style={styles.txt1}>{name}</Text>    
+                    </View>
+                </View>
+           
+                <TouchableOpacity style={styles.cliqueExcluir}>
+                    <Image
+                        style={styles.excluirConsulta}
+                        source={require('../assets/icon/button-fechar.png')}
+                    />
+                </TouchableOpacity>
             </View>
             <Divider style={styles.divider}/>
             <View style={styles.areaInfoConsulta}>
-                <View style={styles.diaHora}>
-                    <Text style={styles.txtCard}>Data: {date}</Text>
-                    <Text style={styles.txtCard}>Início: {start}</Text>
-                    <Text style={styles.txtCard}>Término: {end}</Text>
+                <View style={styles.line}>
+                    <View style={styles.group}>
+                        <Image style={styles.icon} source={require('../assets/icon/calendario.png')}/>
+                        <Text style={styles.txt2}>{date}</Text>
+                    </View>
+                    <View style={styles.group}>
+                        <Image style={styles.icon} source={require('../assets/icon/relogio.png')}/>
+                        <Text style={styles.txt2}>{start} - {end}</Text>
+                    </View>
                 </View>
-                <View style={styles.statusConsulta}>
-                    <Text style={styles.txtCard}>Status: <Text style={styles.txtCardStatus}>{status}</Text></Text>
-                    <Botao
-                        style={styles.buttonCancelarConsulta}
-                        title={"Cancelar Consulta"}
-                    />
+                <View style={styles.line2}>
+                    <TouchableHighlight
+                        onPress={() => console.log("Clicou no chat.")}
+                        activeOpacity={0.90}
+                        underlayColor={"#34C5A2"}
+                        style={styles.btnChat}
+                    >
+                        
+                        <View style={styles.containerBtn}>   
+                            <Image style={styles.icon} source={require('../assets/icon/chat.png')}/>
+                            <Text style={styles.txt2}>Chat</Text>    
+                        </View>
+                        
+                    </TouchableHighlight>
+                    <Text style={styles.txt2}>Status: <Text style={{color: "green"}}>Confirmada</Text></Text>
                 </View>
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: "#A1E9D7",
+        backgroundColor: "#8EDAC8",
         padding: 10,
         borderRadius: 10,
         marginBottom: hp("2%"),
@@ -53,45 +80,80 @@ const styles = StyleSheet.create({
         backgroundColor: "#000",
         alignSelf: "center",
         width: wp("75%"),
-        height: hp("0.3"),
+        height: hp("0.3%"),
         marginVertical: hp("1%"),
     },
-    areaInfoPsicologo: {
+    infoUsuario: {
         flex: 1,
         flexDirection: "row",
         alignItems: "flex-end",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
 
     },
-    fotoPsicologo: {
+    foto: {
         width: 60,
         height: 60,
         borderRadius: 100,
     },
-    nomePsicologo: {
+    containerCrpNome: {
+        height: hp("10%"),
+        marginLeft: wp("2%"),
+        justifyContent: "space-between",
+    },
+    txt1: {
         fontSize: wp("4.5%"),
         fontWeight: "bold",
     },
-    areaInfoConsulta: {
-        flexDirection: "row",
-        justifyContent: "space-around",
+    cliqueExcluir: {
+        alignSelf: "flex-start",
     },
-    statusConsulta: {
-        alignItems: "center",
+    excluirConsulta: {
+        width: 18,
+        height: 18,
+    },
+    areaInfoConsulta: {
+        flexDirection: "column",
+        justifyContent: "center",
+    },
+    line: {
+        flexDirection: "row",
+        width: wp("80%"),
+        marginVertical: hp("1%"),
+        justifyContent: "space-between",
+        alignItems: "center"
+    },
+    line2: {
+        flexDirection: "row",
+        width: wp("80%"),
+        marginVertical: hp("1%"),
+        justifyContent: "space-around",
+        alignItems: "center"
+    },
+    group: {
+        flexDirection: "row",
         justifyContent: "space-between",
     },
-    txtCard: {
-        fontSize: wp("4.2%"),
+    icon: {
+        width: 20,
+        height: 20,
+    },
+    txt2: {
+        color: "#FFF",
+        fontSize: wp("5%"),
         fontWeight: "bold",
+        marginLeft: wp("2%"), 
     },
-    txtCardStatus: {
-        color: "green",
-    },
-    buttonCancelarConsulta: {
-        backgroundColor: "#ED0000",
+    btnChat: {
+        height: hp("5.5%"), //5
+        width: wp("30%"), //25
+        borderRadius: 15,
+        borderWidth: wp("0.8%"),
+        borderColor: "#565656",
         justifyContent: "center",
-        alignItems: "center",
-        paddingHorizontal: wp("2%"),
-        paddingVertical: hp("1%"),
     },
+    containerBtn: {
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        alignItems: "center" 
+    }, 
 });
