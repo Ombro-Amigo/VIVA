@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import { signOut } from '../services/auth';
+import AuthContext from '../contexts/auth/auth';
 
 import {
    Avatar,
@@ -16,6 +16,8 @@ import {
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 
 function DrawerCustom(props) {
+   const { setSignOut } = useContext(AuthContext);
+   
    return (
       <View style={{flex:1}}>
          <DrawerContentScrollView {...props}>
@@ -104,7 +106,7 @@ function DrawerCustom(props) {
                   />
                )}
                label='Sign Out'
-               onPress={() => signOut()}
+               onPress={() => setSignOut(true)}
             />
          </Drawer.Section>         
       </View>

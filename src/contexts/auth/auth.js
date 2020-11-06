@@ -2,8 +2,10 @@ import React, { createContext, useState, useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
 import {
    signIn as signInService,
-   login as loginService, currentUser,
-   loginWithFacebook as facebookService
+   login as loginService,
+   currentUser,
+   loginWithFacebook as facebookService,
+   signOut as signOutService
 }  from '../../services/auth';
 import { confirmTypeUser, setDataUser } from '../../services/database';
 // import { connect } from '../../config/firebaseConfig';
@@ -17,15 +19,19 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
    const [initializing, setInitializing] = useState(true);
-   const [user, setUser] = useState(null);
+   const [user, setUser] = useState();
+   const [authenticated, setAuthenticated] = useState(false);
    const [formInfo, setFormInfo] = useState({});
-   const [credentials, setCredentials] = useState({});
+   const [credentials, setCredentials] = useState();
    const [typeUser, setTypeUser] = useState('');
    const [loading, setLoading] = useState(false);
    const [facebookLogin, setFacebookLogin] = useState(false);
+   const [signOut, setSignOut] = useState();
 
    function onAuthStateChanged(user) {
-      setUser(user);
+      if(user){
+         setUser(user);
+      }
       if(initializing) setInitializing(false);
    }
 
@@ -34,53 +40,68 @@ export const AuthProvider = ({ children }) => {
       return subscribrer;
    }, []);
 
-   useEffect(() => {
-      async function signIn() {
-         if(!user) {
-            await signInService(formInfo.email, formInfo.senha)
-         }
+   // useEffect(() => {
+   //    async function signIn() {
+   //       if(!user) {
+   //          await signInService(formInfo.email, formInfo.senha)
+   //       }
 
-         if(user) {
-            delete formInfo.email;
-            delete formInfo.senha;
-            delete formInfo.confirmaSenha;
+   //       if(user) {
+   //          delete formInfo.email;
+   //          delete formInfo.senha;
+   //          delete formInfo.confirmaSenha;
 
-            formInfo["tipo"] = typeUser;
+   //          formInfo["tipo"] = typeUser;
             
-            await setDataUser(user.uid, formInfo);
-            // setTypeUser('');
-         }
-      }
+   //          await setDataUser(user.uid, formInfo);
+   //          // setTypeUser('');
+   //       }
+   //    }
 
-      if(formInfo.email && formInfo.senha)
-         signIn();
+   //    if(formInfo.email && formInfo.senha)
+   //       signIn();
       
-      // if(user && formInfo !== {}){
-      // }
-   });
+   //    // if(user && formInfo !== {}){
+   //    // }
+   // });
 
    useEffect(() => {
       async function logar() {
          await loginService(credentials.email, credentials.senha);
-         console.log(`Tipo: ${typeUser}`)
-         await confirmTypeUser(currentUser().uid, typeUser, setLoading);
-         setCredentials({});
-         // setTypeUser('');         
+         
+         auth().onAuthStateChanged(user => {
+            if(user && credentials)
+               setAuthenticated(confirmTypeUser(user.uid, credentials.tipo, setSignOut));
+         });
+         setLoading(false);
       }
 
-      if(credentials.email && credentials.senha && !user && typeUser)
+      if(credentials)
          logar();
-   });
+
+      return () => {setCredentials()}
+   }, [credentials]);
 
    useEffect(() => {
-      async function logarFacebook() {
-         await facebookService();
-         setFacebookLogin(false);
+      async function sair() {
+         await signOutService();
+         setAuthenticated(false);
       }
 
-      if(facebookLogin)
-         logarFacebook();
-   });
+      if(signOut) sair();
+
+      return setSignOut(false);
+   }, [signOut])
+
+   // useEffect(() => {
+   //    async function logarFacebook() {
+   //       await facebookService();
+   //       setFacebookLogin(false);
+   //    }
+
+   //    if(facebookLogin)
+   //       logarFacebook();
+   // });
 
    // function login() {
 
@@ -126,12 +147,15 @@ export const AuthProvider = ({ children }) => {
             // signInAndSaveData,
             formInfo,
             setFormInfo,
+            credentials,
             setCredentials,
             typeUser,
             setTypeUser,
             loading,
             setLoading,
             setFacebookLogin,
+            authenticated,
+            setSignOut,
             // authenticated() {
 
             // }: user !== null, 

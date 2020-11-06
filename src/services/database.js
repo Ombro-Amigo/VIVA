@@ -9,19 +9,25 @@ export const setDataUser = async (uid, data) => {
       .catch(error => console.log(`Erro ao salvar os dados: ${error}`));
 }
 
-export const confirmTypeUser = async (uid, typeUser, setLoading) => {
-   await database()
-      .ref(`/users/${uid}/tipo`)
-      .once('value')
+export const confirmTypeUser = async (uid, typeUser, setSignOut) => {
+   let result = false;
+   console.log('tipo: ', typeUser);
+   console.log('uid: ', uid);
+   await database().ref(`/users/${uid}/tipo`).once('value')
       .then(snapshot => {
          if(snapshot.val() === typeUser) {
+            console.log('tipo: ', typeUser);
             console.log('igual = ', snapshot.val());
-            setLoading(false);
+            result = true;
+            // setLoading(false);
          }else{
-            console.log('não igual');
+            console.log('não igual', typeUser);
+            console.log('value: ', snapshot.val());
             signOut();
-            setLoading(false);
+            // setLoading(false);
          }
       })
-      .catch(error => console.log(`Erro ao confirmar usuário: ${error}`));
+      .catch(error => alert(`Erro ao confirmar o tipo de usuário: ${error}`));
+   
+   return result;
 }

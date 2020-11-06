@@ -11,22 +11,26 @@ import DrawerNavigatorPsicologo from './app.drawer.psicologo.routes'
 import Loading from '../pages/Loading';
 
 const Routes = () => {
-   const { loading, user, typeUser } = useContext(AuthContext);
+   // const [auth] = useAuth();
+   const { loading, user, authenticated, typeUser } = useContext(AuthContext);
 
-   // console.log(user);
+   // // console.log(user);
 
-   // : typeUser === 'paciente' ? 
-   // : <AppPsicologoRoutes />
-   console.log(`Teste: ${typeUser === 'paciente'}`);
+   // // : typeUser === 'paciente' ? 
+   // // : <AppPsicologoRoutes />
+   // console.log(`Teste: ${typeUser === 'paciente'}`);
 
    if(loading)
       return <Loading/>;
 
-   return !user ? <AuthRoutes /> :
-          typeUser === 'paciente' ? 
-          <DrawerNavigatorPaciente /> : <DrawerNavigatorPsicologo />;
+   // return !user ? <AuthRoutes /> :
+   //        typeUser === 'paciente' ? 
+   //        <DrawerNavigatorPaciente /> : <DrawerNavigatorPsicologo />;
 
-   // return <AuthRoutes />
+   return !authenticated ? <AuthRoutes /> :
+            typeUser === "paciente" ? <DrawerNavigatorPaciente /> :
+               typeUser === "psicologo" ? <DrawerNavigatorPsicologo /> :
+               <Loading />;
 }
 
 export default Routes;

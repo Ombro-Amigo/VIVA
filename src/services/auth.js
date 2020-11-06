@@ -2,9 +2,9 @@ import auth from '@react-native-firebase/auth';
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
 
 export const login = async (email, senha) => {
-  auth()
+  await auth()
     .signInWithEmailAndPassword(email, senha)
-    .then(userInfo => {
+    .then(() => {
       console.log('logou!');
     })
     .catch(error => {

@@ -91,6 +91,11 @@ export default function LoginPsicologo({ navigation }) {
       
    // }
 
+   const initialData = {
+      email: 'psicologo@mail.com',
+      senha: '123123',
+   }
+
    async function handleSubmit(data) {
       try {
          formRef.current.setErrors({});
@@ -105,6 +110,8 @@ export default function LoginPsicologo({ navigation }) {
          await schema.validate(data, {
             abortEarly: false,
          });
+
+         data["tipo"] = "psicologo";
 
          setLoading(true);
          setCredentials(data);
@@ -129,7 +136,7 @@ export default function LoginPsicologo({ navigation }) {
                <Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
             </View>
             
-            <Form ref={formRef} onSubmit={handleSubmit}>
+            <Form initialData={initialData} ref={formRef} onSubmit={handleSubmit}>
                <View>
                   <View style={styles.login}>
                      <Entrada

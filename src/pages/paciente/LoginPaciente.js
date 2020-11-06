@@ -29,11 +29,14 @@ export default function LoginPaciente({ navigation }) {
    const [senha, setSenha] = useState('');
    const [email, setEmail] = useState('');
 
+   // const [state, setState] = useState(false);
+   // const [, setAuth] = useAuth( )
+
    const formRef = useRef(null);
    
    // const {signIn, email, senha, setEmail, setSenha, message, loading, setTypeUser} = useContext(LoginContext);
 
-   const { setCredentials, setTypeUser, setLoading, setFacebookLogin } = useContext(AuthContext);
+   const { setCredentials, setLoading, setFacebookLogin, setTypeUser } = useContext(AuthContext);
 
    // useEffect(() => {
    //    const firebaseConfig = {
@@ -91,6 +94,11 @@ export default function LoginPaciente({ navigation }) {
       
    // }
 
+   const initialData = {
+      email: 'paciente@mail.com',
+      senha: '123123',
+   }
+
    async function handleSubmit(data) {
       try {
          formRef.current.setErrors({});
@@ -105,6 +113,8 @@ export default function LoginPaciente({ navigation }) {
          await schema.validate(data, {
             abortEarly: false,
          });
+
+         data["tipo"] = "paciente";
 
          setLoading(true);
          setCredentials(data);
@@ -133,7 +143,7 @@ export default function LoginPaciente({ navigation }) {
                <Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
             </View>
             
-            <Form ref={formRef} onSubmit={handleSubmit}>
+            <Form initialData={initialData} ref={formRef} onSubmit={handleSubmit}>
                <View>
                   <View style={styles.login}>
                      <Entrada
