@@ -16,7 +16,7 @@ export default function HomePaciente({ navigation }) {
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}>Consultas Agendadas</Text>
                 </View>
-                <ListaConsultas usuario={"pc"}/>
+                <ListaConsultas user={"pc"}/>
             </View>
             <View style={styles.agendarConsulta}>
                 <Botao
