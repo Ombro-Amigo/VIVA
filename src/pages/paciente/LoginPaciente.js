@@ -1,5 +1,5 @@
 import React, { useState, useRef, useContext } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Fundo from '../../components/Fundo';
@@ -138,7 +138,8 @@ export default function LoginPaciente({ navigation }) {
    
    // if(!loading) {
       return (
-         <Fundo>
+         <ScrollView>
+            <Fundo>
             <View>
                <Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
             </View>
@@ -215,18 +216,23 @@ export default function LoginPaciente({ navigation }) {
                <Botao
                   title="Entrar com o Facebook"
                   style={styles.btnLoginFacebook}
+                  img={require('../../assets/icon/facebook.png')}
+                  imgStyle={styles.icon}
                   onPress={() => setFacebookLogin(true)}
                />
                <Botao
                   title="Entrar com o Google"
                   corTexto={"#000"}
+                  img={require('../../assets/icon/google.png')}
+                  imgStyle={styles.icon}
                   style={styles.btnLoginGoogle} 
                   onPress={() => setModalVisible(!modalVisible)}
                />
             </View>
    
             <ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} />
-         </Fundo>
+            </Fundo>
+         </ScrollView>
       )
    // }else{
    //    return <Loading/>
@@ -293,12 +299,21 @@ const styles = StyleSheet.create({
       backgroundColor: "#3B5998",
       marginTop: hp("3.2%"),
       paddingHorizontal: wp("2%"),
-      paddingVertical: hp("2.3%"), 
+      paddingVertical: hp("2.3%"),
+      flexDirection: "row-reverse",
+      justifyContent: "center"
    },
    btnLoginGoogle:{
       backgroundColor: "#FFF",
       marginTop: hp("2.5%"),
       paddingHorizontal: wp("2%"),
       paddingVertical: hp("2.3%"),
-   }
+      flexDirection: "row-reverse",
+      justifyContent: "center"
+   },
+   icon: {
+      width: wp("6%"),
+		marginRight: wp("5%"),
+		aspectRatio: 1,
+   },
 })
