@@ -4,27 +4,46 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen'
 import Fundo from '../../components/Fundo'
 import ModalStatus from '../modalStatus'
+import ModalRangeConsultas from '../modalRangeConsultas'
 import StatesContext from '../../contexts/states'
 import MensagemStatus from '../../components/MensagemStatus'
+import RangeConsultas from '../../components/RangeConsultas'
+import ListaConsultas from '../../components/ListaConsultas'
 
 export default function HomePsicologo({navigation}) {
 
-    const [modalVisible, setModalVisible] = useState(false)
+    const [modalStatusVisible, setModalStatusVisible] = useState(false)
+    const [modalRangeVisible, setModalRangeVisible] = useState(false)
+
     const {dispo} = useContext(StatesContext)
-    
-    console.log(dispo)
+    const {rangeConsultas} = useContext(StatesContext)
+
+    console.log(rangeConsultas)
+
     return (
         <Fundo>
             <View style={styles.container}>
-                <View style={styles.teste}>
+                <View style={styles.areaStatus}>
                     <Text style={styles.txtStatus}>Seu status: </Text>
-                    <TouchableOpacity  onPress={() => setModalVisible(!modalVisible)}>
+                    <TouchableOpacity  onPress={() => setModalStatusVisible(!modalStatusVisible)}>
                         <MensagemStatus dispo={dispo}/>
                     </TouchableOpacity>    
-                </View>
-                
+                </View>   
             </View>
-            <ModalStatus modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+            <View style={styles.areaListaConsultas}>
+                <Text style={styles.title}>Consultas Agendadas</Text>
+                
+                    <TouchableOpacity onPress={() => setModalRangeVisible(!modalRangeVisible)}>
+                        <View style={styles.periodoConsultas}>
+                            <RangeConsultas rangeConsultas={rangeConsultas}/>
+                        </View>
+                    </TouchableOpacity>
+                
+                <ListaConsultas style={styles.listaConsultas} user="ps"/>
+            </View>
+            
+            <ModalStatus modalVisible={modalStatusVisible} setModalVisible={setModalStatusVisible}/>
+            <ModalRangeConsultas modalVisible={modalRangeVisible} setModalVisible={setModalRangeVisible}/>
         </Fundo>
     )
 }
@@ -33,11 +52,12 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: "#FFF",
         height: hp("6%"),
+        marginTop: hp("3%"),
         borderRadius: 15,
         justifyContent: "center",
         alignItems: "center",
     },
-    teste: {
+    areaStatus: {
         width: wp("70%"),
         flexDirection: "row",
         justifyContent: "space-between",
@@ -46,5 +66,24 @@ const styles = StyleSheet.create({
     txtStatus: {
         fontSize: wp("5.5%"),
         fontWeight: "bold",
+    },
+    areaListaConsultas: {
+        marginTop: wp("8%"),
+    },
+    title: {
+        color: "#FFF",
+        fontWeight: "bold",
+        fontSize: wp("5.5%"),
+    },
+    periodoConsultas: {
+        backgroundColor: "#80C6F9",
+        marginVertical: hp("2%"),
+        height: hp("7%"),
+        borderRadius: 10,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    listaConsultas: {
+        marginTop: hp("1.5%"),
     },
 })
