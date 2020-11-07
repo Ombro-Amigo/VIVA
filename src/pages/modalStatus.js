@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import { Modal, Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { Modal, Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { Divider } from 'react-native-paper'
 
@@ -12,13 +12,19 @@ export default function modalStatus({modalVisible, setModalVisible}){
     return(
         <View>
             <Modal
-                animationType="fade"
+                animationType="slide"
                 transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => setModalVisible(!modalVisible)}
             >
                 <View style={styles.centeredView}>
 					<View style={styles.modalView}>
+                        <TouchableOpacity style={styles.cliqueSair} onPress={() => setModalVisible(!modalVisible)}>
+                            <Image
+                                style={styles.sairModal}
+                                source={require('../assets/icon/button-fechar.png')}
+                            />
+                        </TouchableOpacity>
                         <Text style={styles.title}>DEFINA SEU STATUS DE DISPONIBILIDADE</Text>
                         <View style={styles.areaEscolha}>
                             <TouchableOpacity onPress={() => {setModalVisible(!modalVisible), setDispo(1)}}>
@@ -51,13 +57,14 @@ const styles = StyleSheet.create({
     centeredView: {
        flex: 1,
        justifyContent: "center",
-       alignItems: "center",
+    //    alignItems: "center",
     },
     modalView: {
-        margin: 20,
-        backgroundColor: "white",
+        marginHorizontal: wp("4%"),
+        backgroundColor: "#FFF",
         borderRadius: 20,
-        padding: 35,
+        paddingVertical: hp("3%"),
+        paddingHorizontal: wp("4%"),
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -68,11 +75,19 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5
     },
+    cliqueSair: {
+        alignSelf: "flex-end",
+    },
+    sairModal: {
+        width: 18,
+        height: 18,
+    },
     title: {
-       marginBottom: 15,
-       textAlign: "center",
-       fontSize: wp("6%"),
-       fontWeight: 'bold',
+        marginTop: hp("2.5%"),
+        marginBottom: hp("2.5%"),
+        textAlign: "center",
+        fontSize: wp("6%"),
+        fontWeight: 'bold',
     },
     areaEscolha: {
         alignItems: "center"
@@ -96,8 +111,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#C4C4C4",
         alignSelf: "center",
         width: wp("50%"),
-        height: hp("0.3%"),
-        marginVertical: hp("1%"),
+        height: hp("0.1%"),
+        marginVertical: hp("1.5%"),
     },
    
     closeButton: {
