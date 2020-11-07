@@ -5,8 +5,9 @@ const StatesContext = createContext()
 
 export const StatesProvider = ({children}) => {
     const [dispo, setDispo] = useState(1)
+    const [rangeConsultas, setRangeConsultas] = useState(2)
     return(
-        <StatesContext.Provider value={{dispo, setDispo}}>
+        <StatesContext.Provider value={{dispo, setDispo, rangeConsultas, setRangeConsultas}}>
             {children}
         </StatesContext.Provider>
     )
