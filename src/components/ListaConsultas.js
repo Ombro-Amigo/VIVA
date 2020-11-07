@@ -9,12 +9,19 @@ export default function ListaConsultas(props){
     const consultasPac = consultasPaciente.consultas
     const consultasPsico = consultasPsicologo.consultas
 
-    const { usuario } = props
+    const { user, height } = props
 
     return(
         <FlatList
-            style={styles.flatList}
-            data={usuario === "pc" ? consultasPac : consultasPsico}
+            style={{
+                backgroundColor: "#FFF",
+                height: hp("52%"),
+                borderRadius: 10,
+                borderStyle: 'solid',
+                paddingHorizontal: wp("4%"),
+                paddingVertical: hp("1%"),
+            }}
+            data={user === "pc" ? consultasPac : consultasPsico}
             renderItem={({item}) => 
                 <Card 
                     name={item.name}
@@ -28,16 +35,4 @@ export default function ListaConsultas(props){
             keyExtractor={item => item.id}
         />
     )
-    
 }
-
-const styles = StyleSheet.create({
-    flatList: {
-        backgroundColor: "#FFF",
-        height: hp("52%"),
-        borderRadius: 10,
-        borderStyle: 'solid',
-        paddingHorizontal: wp("4%"),
-        paddingVertical: hp("1%"),
-    },
-});
