@@ -218,6 +218,7 @@ export default function LoginPaciente({ navigation }) {
                   style={styles.btnLoginFacebook}
                   img={require('../../assets/icon/facebook.png')}
                   imgStyle={styles.icon}
+                  direction={"row-reverse"}
                   onPress={() => setFacebookLogin(true)}
                />
                <Botao
@@ -225,7 +226,8 @@ export default function LoginPaciente({ navigation }) {
                   corTexto={"#000"}
                   img={require('../../assets/icon/google.png')}
                   imgStyle={styles.icon}
-                  style={styles.btnLoginGoogle} 
+                  style={styles.btnLoginGoogle}
+                  direction={"row-reverse"}
                   onPress={() => setModalVisible(!modalVisible)}
                />
             </View>
