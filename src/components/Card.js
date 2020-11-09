@@ -51,7 +51,7 @@ export default function Card(props){
                 <View style={styles.line2}>
                     <TouchableHighlight
                         onPress={() => console.log("Clicou no chat.")}
-                        activeOpacity={0.90}
+                        activeOpacity={0.65}
                         underlayColor={"#34C5A2"}
                         style={styles.btnChat}
                     >
