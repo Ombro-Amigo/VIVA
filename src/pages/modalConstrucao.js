@@ -21,14 +21,11 @@ export default function ModalConstrucao({modalVisible, setModalVisible}) {
                      />
 							<Text style={styles.modalText}>Ainda estamos apertando alguns parafusos por aqui!</Text>
 
-							<TouchableHighlight
+                     <Botao
+                        title="OK!"
+                        style={styles.closeButton}
                         onPress={() => setModalVisible(!modalVisible)}
-							>
-                        <Botao
-                           title="OK!"
-                           style={styles.closeButton}
-                        />
-							</TouchableHighlight>
+                     />
 						</View>
 					</View>
 				</Modal>
