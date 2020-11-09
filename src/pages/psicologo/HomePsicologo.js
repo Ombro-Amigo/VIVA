@@ -4,10 +4,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen'
 import Fundo from '../../components/Fundo'
 import ModalStatus from '../modalStatus'
-import ModalRangeConsultas from '../modalRangeConsultas'
+import ModalPeriodoConsultas from '../modalPeriodoConsultas'
 import StatesContext from '../../contexts/states'
 import MensagemStatus from '../../components/MensagemStatus'
-import RangeConsultas from '../../components/RangeConsultas'
+import PeriodoConsultas from '../../components/PeriodoConsultas'
 import ListaConsultas from '../../components/ListaConsultas'
 
 export default function HomePsicologo({navigation}) {
@@ -35,7 +35,7 @@ export default function HomePsicologo({navigation}) {
                 
                     <TouchableOpacity onPress={() => setModalRangeVisible(!modalRangeVisible)}>
                         <View style={styles.periodoConsultas}>
-                            <RangeConsultas rangeConsultas={rangeConsultas}/>
+                            <PeriodoConsultas rangeConsultas={rangeConsultas}/>
                         </View>
                     </TouchableOpacity>
                 
@@ -43,7 +43,7 @@ export default function HomePsicologo({navigation}) {
             </View>
             
             <ModalStatus modalVisible={modalStatusVisible} setModalVisible={setModalStatusVisible}/>
-            <ModalRangeConsultas modalVisible={modalRangeVisible} setModalVisible={setModalRangeVisible}/>
+            <ModalPeriodoConsultas modalVisible={modalRangeVisible} setModalVisible={setModalRangeVisible}/>
         </Fundo>
     )
 }
