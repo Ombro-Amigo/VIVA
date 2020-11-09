@@ -5,23 +5,25 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import Botao from '../../components/Botao';
 import Fundo from '../../components/Fundo';
 
-import ModalConstrucao from '../modalConstrucao';
+import ModalConstrucao from '../modalConstrucao'
+import ModalExplicacaoChamadaEmergia from '../modalExplicacaoChamadaEmergencia';
 
 import FontContext from '../../contexts/styles/styles';
 
 export default function Encaminhamento({ navigation }) {
-	const [modalVisible, setModalVisible] = useState(false);
+	const [modalConstrucaoVisible, setModalConstrucaoVisible] = useState(false);
+	const [modalExplicacaoVisible, setModalExplicacaoVisible] = useState(false);
 
 	const StylesFontContext = useContext(FontContext);
 
 	return (
 		<Fundo>
 			<View style={styles.containerTitle}>
-				<Text style={StylesFontContext.title1}>O QUE DESEJA?</Text>
+				<Text style={styles.title1}>O QUE DESEJA?</Text>
 			</View>
 
 			<View style={styles.containerLogin}>
-					<Text style={StylesFontContext.spam}>Seguir para as opções de login</Text>
+					<Text style={styles.spam}>Seguir para as opções de login como:</Text>
 					<View style={styles.containerButtonLogin}>
 						<Botao
 							title="Paciente"
@@ -44,14 +46,16 @@ export default function Encaminhamento({ navigation }) {
 						corTexto='#000'
 						imgStyle={styles.iconEmergency}
 						img={require('../../assets/icon/icon_phone_emergency.png')}
-						onPress={() => setModalVisible(!modalVisible)}
+						direction={"row"}
+						onPress={() => setModalConstrucaoVisible(!modalExplicacaoVisible)}
 					/>
-					<TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+					<TouchableOpacity onPress={() => setModalExplicacaoVisible(!modalExplicacaoVisible)}>
 						<Text style={styles.txtEmergency}>Clique aqui para saber mais{"\n"}sobre a ligação de emergência</Text>
 					</TouchableOpacity>
 			</View>
 
-			<ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} />
+			<ModalConstrucao modalVisible={modalConstrucaoVisible} setModalVisible={setModalConstrucaoVisible}/>
+			<ModalExplicacaoChamadaEmergia modalVisible={modalExplicacaoVisible} setModalVisible={setModalExplicacaoVisible} />
 		</Fundo>
 	);
 }
@@ -63,10 +67,21 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
-
+	title1: {
+		color: "#186794",
+		fontSize: wp("6.5%"),
+		fontWeight: "bold",
+	},
 	// Login
 	containerLogin: {
 		flex: 2,
+	},
+	spam: {
+		color: "#186794",
+		fontSize: wp("4.2%"),
+		fontWeight: "bold",
+		marginBottom: hp("2%"),
+		textAlign: "center"
 	},
 	containerButtonLogin: {
 		flexDirection: 'row',
