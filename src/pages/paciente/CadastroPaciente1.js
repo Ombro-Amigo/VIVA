@@ -111,7 +111,9 @@ export default function CadastroPaciente1({ navigation }) {
                         />
                      </View>
 
-                     <InputDate name='nascimento' />
+                     <View style={styles.input}>
+                        <InputDate  name='nascimento' />
+                     </View>
                      
                      <View style={styles.input}>
                         <Text style={styles.txtSelecioneGenero}>Selecione seu gênero: </Text>
@@ -151,7 +153,7 @@ const styles = StyleSheet.create({
       alignSelf: "center",
    },
    input: {
-      marginTop: hp("4.5%")
+      marginTop: hp("4%")
    },
    txtSelecioneGenero: {
       color: "#FFF",
