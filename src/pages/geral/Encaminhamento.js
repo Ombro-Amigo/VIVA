@@ -6,7 +6,7 @@ import Botao from '../../components/Botao';
 import Fundo from '../../components/Fundo';
 
 import ModalConstrucao from '../modalConstrucao'
-import ModalExplicacaoChamadaEmergia from '../modalExplicacaoChamadaEmergencia';
+import ModalExplicacaoChamadaEmergencia from '../modalExplicacaoChamadaEmergencia';
 
 import FontContext from '../../contexts/styles/styles';
 
@@ -55,7 +55,7 @@ export default function Encaminhamento({ navigation }) {
 			</View>
 
 			<ModalConstrucao modalVisible={modalConstrucaoVisible} setModalVisible={setModalConstrucaoVisible}/>
-			<ModalExplicacaoChamadaEmergia modalVisible={modalExplicacaoVisible} setModalVisible={setModalExplicacaoVisible} />
+			<ModalExplicacaoChamadaEmergencia modalVisible={modalExplicacaoVisible} setModalVisible={setModalExplicacaoVisible} />
 		</Fundo>
 	);
 }
