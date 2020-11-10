@@ -49,19 +49,26 @@ export default function Card(props){
                     </View>
                 </View>
                 <View style={styles.line2}>
-                    <TouchableHighlight
+                    <Botao
+                        title={"Chat"}
+                        corFundo={null}
                         onPress={() => console.log("Clicou no chat.")}
-                        activeOpacity={0.65}
-                        underlayColor={"#34C5A2"}
+                        img={require('../assets/icon/chat.png')}
+                        imgStyle={[styles.icon, {marginRight: wp("3%")}]}
                         style={styles.btnChat}
-                    >
+                        highlight
+                        direction="row-reverse"
+                        activeOpacity={0.50}
+                        underlayColor={"#34C5A2"}
                         
-                        <View style={styles.containerBtn}>   
-                            <Image style={styles.icon} source={require('../assets/icon/chat.png')}/>
+                    />
+                        
+                        {/* <View style={styles.containerBtn}>   
+                            <Image  source={}/>
                             <Text style={styles.txt2}>Chat</Text>    
-                        </View>
+                        </View> */}
                         
-                    </TouchableHighlight>
+                    {/* </Botao> */}
                     <Text style={styles.txt2}>Status: <Text style={{color: "green"}}>Confirmada</Text></Text>
                 </View>
             </View>
@@ -144,16 +151,11 @@ const styles = StyleSheet.create({
         marginLeft: wp("2%"), 
     },
     btnChat: {
-        height: hp("5.5%"), //5
-        width: wp("30%"), //25
+        paddingVertical: hp("0.8%"),
+        paddingHorizontal: wp("4%"),
         borderRadius: 15,
         borderWidth: wp("0.8%"),
         borderColor: "#565656",
-        justifyContent: "center",
+        justifyContent: "space-around",
     },
-    containerBtn: {
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        alignItems: "center" 
-    }, 
 });
