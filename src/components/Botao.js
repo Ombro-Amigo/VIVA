@@ -47,7 +47,7 @@ export default function Botao(props) {
 					style={[
 						styles.botao,
 						{
-							backgroundColor: !corFundo ? "#34C5A2" : corFundo
+							backgroundColor: !corFundo && corFundo !== null ? "#34C5A2" : corFundo
 						},
 						style
 					]}
