@@ -1,24 +1,26 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React, { useState, useContext } from 'react'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import Fundo from '../../components/Fundo'
 import Botao from '../../components/Botao'
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { ScrollView } from 'react-native-gesture-handler'
+import RespostaValidacaoCrp from '../../components/RespostaValidacaoCrp'
+import StatesContext from '../../contexts/states'
+
 
 export default function ConfirmacaoCrp({navigation}) {
 
-   const [validade, setValidade] = useState(true)
+   const [validationComplete, setvalidationComplete] = useState(false)
+   const {validated} = useContext(StatesContext)
 
    return (
       <ScrollView style={styles.container}>
          <Fundo>
             <View style={styles.titleContainer}>
                <Text style={styles.title}>Quase lá</Text>
-               <Text style={styles.subTitle}>Seus dados foram registrados</Text>
             </View>
 
-            <View style={styles.mensagemContainer}>
-               <Text style={styles.mensagem}>Agora precisamos que aguarde
+            <View style={styles.subTitleContainer}>
+               <Text style={styles.subTitle}>Agora precisamos que aguarde
                      enquanto o processo de validação
                      do seu CRP é efetuado.
                </Text>
@@ -28,15 +30,26 @@ export default function ConfirmacaoCrp({navigation}) {
                <Text style={styles.exibeCrp}>Seu CRP: XX/XXXXXX</Text>
                <Text style={styles.exibeSituacaoValidacao}>
                   Situação da validação:
-                  <Text style={styles.status}> Status</Text>
+                  <Text style={{color: !validationComplete ? "#FF7A00" : "#FFF"}}> 
+                     {!validationComplete ? " Em andamento" : " Concluída" }
+                  </Text>
                </Text>
             </View>
 
+            <View style={styles.containerMensagem}>
+               {validationComplete ?
+                  <RespostaValidacaoCrp validate={validated} validationComplete={validationComplete}/>
+                  :
+                  <Text style={styles.txtAguarde}>Aguarde o processo de validação</Text>
+               }
+               
+            </View>
+
             <Botao 
-               corFundo={validade ? "#34C5A2" : "#C3C3C3"}
+               corFundo={validationComplete ? "#34C5A2" : "#C3C3C3"}
                style={styles.btn}
-               title="Concluir"
-               desabilitado={!validade}
+               title={validated ? "Concluir" : "Voltar para a tela inicial"}
+               desabilitado={!validated}
                onPress={() => navigation.navigate("LoginPsicologo")}
             />
 
@@ -57,39 +70,41 @@ const styles = StyleSheet.create({
       alignSelf: "center",
    },
    subTitle: {
-      color: "#186794",
-      marginTop: hp("3%"),
-      fontSize: wp("7%"),
-      fontWeight: "bold", 
-      textAlign: "center"
-   },
-   mensagem: {
       color: "#FFF",
-      marginTop: hp("8%"),
+      marginTop: hp("5%"),
       paddingHorizontal: wp("2%"),
-      fontSize: wp("4.7%"),
+      fontSize: wp("5%"),
       fontWeight: "bold",
-      textAlign: "justify",
+      textAlign: "center",
    },
    exibeCrp: {
       color: "#186794",
-      marginTop: hp("10%"),
+      marginTop: hp("6%"),
       fontSize: wp("6.1%"),
       fontWeight: "bold",
       alignSelf: "center"
    },
    exibeSituacaoValidacao: {
       color: "#000",
-      marginTop: hp("3%"),
+      marginTop: hp("1%"),
       fontSize: wp("5%"),
       fontWeight: "bold",
       alignSelf: "center",
    },
-   status: {
-      color: "#FF8000",
+   containerMensagem: {
+      backgroundColor: "#FFF",
+      borderRadius: 15,
+      height: hp("25%"),
+      marginVertical: hp("5%"),
+      paddingHorizontal: wp("8%"),
+      justifyContent: "center",
+      alignItems: "center"
+   },
+   txtAguarde:{
+      fontSize: wp("5%"),
+      fontWeight: "bold",
    },
    btn: {
-      marginTop: hp("6%"),
       paddingVertical: hp("2.5%"),
    }
 })
