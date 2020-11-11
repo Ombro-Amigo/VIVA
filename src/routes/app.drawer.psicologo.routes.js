@@ -19,7 +19,7 @@ const DrawerNavigatorPsicologo = () => {
          drawerPosition='right'
          drawerContent={props => <DrawerCustom {...props}/>}
       >
-         <Drawer.Screen name='Home' component={AppPsicologoRoutes}/>
+			<Drawer.Screen name="Home" component={AppPsicologoRoutes} />
          <Drawer.Screen name='Alterar informações da conta' component={editaInfoRoutes}/>
          <Drawer.Screen name='Configurações do aplicativo' component={configRoutes}/>
          <Drawer.Screen name='Saiba mais sobre nós' component={saibaMaisRoutes}/>
