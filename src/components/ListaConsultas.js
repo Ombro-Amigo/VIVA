@@ -12,7 +12,7 @@ export default function ListaConsultas(props) {
 	const consultasPac = consultasPaciente.consultas;
 	const consultasPsico = consultasPsicologo.consultas;
 
-	const { user, height } = props;
+	const { user, appointments } = props;
 
 	return (
 		<FlatList
@@ -24,7 +24,7 @@ export default function ListaConsultas(props) {
 				paddingHorizontal: wp('4%'),
 				paddingVertical: hp('1%'),
 			}}
-			data={user === 'pc' ? consultasPac : consultasPsico}
+			data={user === 'pc' ? appointments : consultasPsico}
 			renderItem={({ item }) => (
 				<Card
 					name={item.user.name}

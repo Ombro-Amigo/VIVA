@@ -4,15 +4,16 @@ import {
 	heightPercentageToDP as hp,
 	widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { useSelector } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import ListaConsultas from '../../components/ListaConsultas';
 import Fundo from '../../components/Fundo';
 import Botao from '../../components/Botao';
 
 import ModalConstrucao from '../modalConstrucao';
 
-export default function HomePaciente({ navigation }) {
+function HomePaciente({ navigation, appointments }) {
 	const [modalVisible, setModalVisible] = useState(false);
+	console.log('appointments', appointments);
 
 	return (
 		<Fundo>
@@ -20,7 +21,7 @@ export default function HomePaciente({ navigation }) {
 				<View style={styles.titleContainer}>
 					<Text style={styles.title}>Consultas Agendadas</Text>
 				</View>
-				<ListaConsultas user="pc" />
+				<ListaConsultas user="pc" appointments={appointments} />
 			</View>
 			<View style={styles.agendarConsulta}>
 				<Botao
@@ -107,3 +108,9 @@ const styles = StyleSheet.create({
 		fontSize: wp('6%'),
 	},
 });
+
+const mapStateToProps = state => ({
+	appointments: state.appointment.appointments,
+});
+
+export default connect(mapStateToProps)(HomePaciente);

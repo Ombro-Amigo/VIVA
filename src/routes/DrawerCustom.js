@@ -21,6 +21,8 @@ import ModalExplicacaoChamadaEmergencia from '../pages/modalExplicacaoChamadaEme
 import { Creators as AuthActions } from '../store/ducks/auth';
 
 function DrawerCustom(props) {
+	const { requestSignOut } = props;
+
 	const [modalConstrucaoVisible, setModalConstrucaoVisible] = useState(false);
 	const [modalExplicacaoVisible, setModalExplicacaoVisible] = useState(false);
 

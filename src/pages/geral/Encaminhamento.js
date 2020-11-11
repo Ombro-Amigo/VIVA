@@ -18,7 +18,7 @@ export default function Encaminhamento({ navigation }) {
 	const [modalConstrucaoVisible, setModalConstrucaoVisible] = useState(false);
 	const [modalExplicacaoVisible, setModalExplicacaoVisible] = useState(false);
 
-	const StylesFontContext = useContext(FontContext);
+	// const StylesFontContext = useContext(FontContext);
 
 	return (
 		<Fundo>
