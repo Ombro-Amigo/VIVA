@@ -1,20 +1,30 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import {
+	heightPercentageToDP as hp,
+	widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 import Botao from '../../components/Botao';
 import Fundo from '../../components/Fundo';
+import AuthContext from '../../contexts/auth/auth';
 
 import ModalConstrucao from '../modalConstrucao'
 import ModalExplicacaoChamadaEmergencia from '../modalExplicacaoChamadaEmergencia';
 
-import FontContext from '../../contexts/styles/styles';
+// import FontContext from '../../contexts/styles/styles';
 
 export default function Encaminhamento({ navigation }) {
+<<<<<<< Updated upstream
 	const [modalConstrucaoVisible, setModalConstrucaoVisible] = useState(false);
 	const [modalExplicacaoVisible, setModalExplicacaoVisible] = useState(false);
 
 	const StylesFontContext = useContext(FontContext);
+=======
+	const [modalVisible, setModalVisible] = useState(false);
+	// const StylesFontContext = useContext(FontContext);
+	const { setTypeUser } = useContext(AuthContext);
+>>>>>>> Stashed changes
 
 	return (
 		<Fundo>
@@ -23,6 +33,7 @@ export default function Encaminhamento({ navigation }) {
 			</View>
 
 			<View style={styles.containerLogin}>
+<<<<<<< Updated upstream
 					<Text style={styles.spam}>Seguir para as opções de login como:</Text>
 					<View style={styles.containerButtonLogin}>
 						<Botao
@@ -56,6 +67,50 @@ export default function Encaminhamento({ navigation }) {
 
 			<ModalConstrucao modalVisible={modalConstrucaoVisible} setModalVisible={setModalConstrucaoVisible}/>
 			<ModalExplicacaoChamadaEmergencia modalVisible={modalExplicacaoVisible} setModalVisible={setModalExplicacaoVisible} />
+=======
+				<Text style={styles.spam}>Seguir para as opções de login</Text>
+				<View style={styles.containerButtonLogin}>
+					<Botao
+						title="Paciente"
+						style={styles.buttonLogin}
+						onPress={() => {
+							navigation.navigate('LoginPaciente');
+							setTypeUser('paciente');
+						}}
+					/>
+					<Botao
+						title="Psicólogo"
+						style={styles.buttonLogin}
+						onPress={() => {
+							navigation.navigate('LoginPsicologo');
+							setTypeUser('psicologo');
+						}}
+					/>
+				</View>
+			</View>
+
+			<View style={styles.containerEmergency}>
+				<Botao
+					title="Ligar para a Emergência"
+					style={styles.buttonEmergency}
+					corFundo="#D4CA03"
+					corTexto="#000"
+					imgStyle={styles.iconEmergency}
+					img={require('../../assets/icon/icon_phone_emergency.png')}
+					onPress={() => setModalVisible(!modalVisible)}
+				/>
+				<TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+					<Text style={styles.txtEmergency}>
+						Clique aqui para saber mais{'\n'}sobre a ligação de emergência
+					</Text>
+				</TouchableOpacity>
+			</View>
+
+			<ModalConstrucao
+				modalVisible={modalVisible}
+				setModalVisible={setModalVisible}
+			/>
+>>>>>>> Stashed changes
 		</Fundo>
 	);
 }
@@ -68,10 +123,27 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	title1: {
+<<<<<<< Updated upstream
 		color: "#186794",
 		fontSize: wp("6.5%"),
 		fontWeight: "bold",
 	},
+=======
+		color: '#186794',
+		fontWeight: 'bold',
+		fontSize: wp('7%'),
+		// fontFamily: 'Signika_700Bold'
+	},
+	spam: {
+		color: '#186794',
+		fontWeight: 'bold',
+		fontSize: wp('5%'),
+		marginBottom: hp('3.2%'),
+		textAlign: 'center',
+		// fontFamily: 'Signika_700Bold'
+	},
+
+>>>>>>> Stashed changes
 	// Login
 	containerLogin: {
 		flex: 2,
@@ -88,8 +160,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-evenly',
 	},
 	buttonLogin: {
-		paddingHorizontal: wp("9.5%"),
-		paddingVertical: hp("3%"),
+		paddingHorizontal: wp('9.5%'),
+		paddingVertical: hp('3%'),
 	},
 
 	// Emergência
@@ -98,20 +170,25 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	buttonEmergency: {
-		paddingVertical: hp("1.5%"),
-		paddingHorizontal: wp("9%"),
+		paddingVertical: hp('1.5%'),
+		paddingHorizontal: wp('9%'),
 	},
 	iconEmergency: {
+<<<<<<< Updated upstream
 		width: wp("8.5%"),
 		height: hp("8.5%"),
 		marginLeft: wp("5%"),
+=======
+		width: wp('8.5%'),
+		height: hp('8.5%'),
+>>>>>>> Stashed changes
 		aspectRatio: 1,
 	},
 	txtEmergency: {
-		marginTop: hp("3%"),
+		marginTop: hp('3%'),
 		color: '#fff',
 		fontWeight: 'bold',
-		fontSize: wp("3.3%"),
+		fontSize: wp('3.3%'),
 		textAlign: 'center',
 	},
 });

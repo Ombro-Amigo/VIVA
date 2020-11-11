@@ -1,19 +1,39 @@
 import React from 'react';
+<<<<<<< Updated upstream
 import { Image, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 export default function Botao(props) {
 	const { title, style, imgStyle, corFundo, corTexto, img, 
 			highlight, activeOpcatity, underlayColor, onPress, desabilitado, direction } = props;
+=======
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import {
+	heightPercentageToDP as hp,
+	widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
-	function renderIcon(){
-		if(img) {
-			return (
-				<Image style={imgStyle} source={img} />
-			);
+export default function Botao(props) {
+	const {
+		title,
+		style,
+		imgStyle,
+		corFundo,
+		corTexto,
+		img,
+		onPress,
+		desabilitado,
+	} = props;
+>>>>>>> Stashed changes
+
+	function renderIcon() {
+		if (img) {
+			return <Image style={imgStyle} source={img} />;
 		}
 	}
 
+<<<<<<< Updated upstream
 	const conteudoBotao = () =>{
 		return(
 			<View style={[
@@ -26,10 +46,34 @@ export default function Botao(props) {
 							color: !corTexto ? '#FFF' : corTexto,
 						},
 						styles.txtBotao
+=======
+	return (
+		<View>
+			<TouchableOpacity
+				style={[
+					{
+						backgroundColor: !corFundo ? '#34C5A2' : corFundo,
+					},
+					styles.botao,
+					img ? styles.botaoComIcone : null,
+					style,
+				]}
+				onPress={onPress}
+				disabled={desabilitado}
+			>
+				<Text
+					style={[
+						{
+							color: !corTexto ? '#FFF' : corTexto,
+							marginRight: img ? wp('5%') : null,
+						},
+						styles.txtBotao,
+>>>>>>> Stashed changes
 					]}
 				>
 					{title}
 				</Text>
+<<<<<<< Updated upstream
 				{ renderIcon() }
 			</View>
 		)
@@ -71,6 +115,10 @@ export default function Botao(props) {
 				</TouchableOpacity>
 			}
 			
+=======
+				{renderIcon()}
+			</TouchableOpacity>
+>>>>>>> Stashed changes
 		</View>
 	);
 }
@@ -81,7 +129,7 @@ const styles = StyleSheet.create({
 	},
 	sombra: {
 		// IOS
-		shadowColor: "#000",
+		shadowColor: '#000',
 		shadowOffset: {
 			width: 0,
 			height: 2,
@@ -91,6 +139,10 @@ const styles = StyleSheet.create({
 
 		// ANDROID
 		elevation: 4,
+<<<<<<< Updated upstream
+=======
+		justifyContent: 'space-around',
+>>>>>>> Stashed changes
 	},
 	txtBotao: {
 		fontWeight: 'bold',
@@ -102,5 +154,5 @@ const styles = StyleSheet.create({
 	botaoComIcone: {
 		flexDirection: 'row',
 		alignItems: 'center',
-	}
-})
+	},
+});
