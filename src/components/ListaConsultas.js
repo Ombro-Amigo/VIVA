@@ -12,41 +12,19 @@ export default function ListaConsultas(props) {
 	const consultasPac = consultasPaciente.consultas;
 	const consultasPsico = consultasPsicologo.consultas;
 
-<<<<<<< Updated upstream
-    const { user, height } = props
-
-    return(
-        <FlatList
-            style={{
-                backgroundColor: "#FFF",
-                height: hp("52%"),
-                borderRadius: 10,
-                borderStyle: 'solid',
-                paddingHorizontal: wp("4%"),
-                paddingVertical: hp("1%"),
-            }}
-            data={user === "pc" ? consultasPac : consultasPsico}
-            renderItem={({item}) => 
-                <Card 
-                    name={item.name}
-                    date={item.date}
-                    crp={item.crp}
-                    start={item.start}
-                    end={item.end}
-                    status={item.status}
-                /> 
-            }
-            keyExtractor={item => item.id}
-        />
-    )
-}
-=======
-	const { usuario, appointments } = props;
+	const { user, height } = props;
 
 	return (
 		<FlatList
-			style={styles.flatList}
-			data={usuario === 'pc' ? appointments : consultasPsico}
+			style={{
+				backgroundColor: '#FFF',
+				height: hp('52%'),
+				borderRadius: 10,
+				borderStyle: 'solid',
+				paddingHorizontal: wp('4%'),
+				paddingVertical: hp('1%'),
+			}}
+			data={user === 'pc' ? consultasPac : consultasPsico}
 			renderItem={({ item }) => (
 				<Card
 					name={item.user.name}
@@ -61,15 +39,3 @@ export default function ListaConsultas(props) {
 		/>
 	);
 }
-
-const styles = StyleSheet.create({
-	flatList: {
-		backgroundColor: '#FFF',
-		height: hp('52%'),
-		borderRadius: 10,
-		borderStyle: 'solid',
-		paddingHorizontal: wp('4%'),
-		paddingVertical: hp('1%'),
-	},
-});
->>>>>>> Stashed changes

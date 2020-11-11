@@ -168,122 +168,12 @@ function LoginPaciente({ navigation, requestSignIn, error }) {
 				/>
 			</View>
 
-<<<<<<< Updated upstream
-   // if(loading) {
-   //    return <Loading />;
-   // }
-   
-   // if(!loading) {
-      return (
-         <ScrollView>
-            <Fundo>
-            <View>
-               <Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
-            </View>
-            
-            <Form initialData={initialData} ref={formRef} onSubmit={handleSubmit}>
-               <View>
-                  <View style={styles.login}>
-                     <Entrada
-                        name='email'
-                        icon={require('../../assets/icon/usuario-login.png')}
-                        placeholder="E-mail"
-                        value={email}
-                        // onChangeText={Value => setEmail(Value)}
-                        // msgError={errorCodesEmail(message)}
-                        // verificaCondicao
-                        // condicao={
-                        //    message
-                        //    ? false
-                        //    : null
-                        // }
-                     />
-                  </View>
-                  <View style={styles.senha}>
-                     <Entrada
-                        name='senha'
-                        style={styles.senha}
-                        icon={require('../../assets/icon/chave-login.png')}
-                        placeholder="Senha"
-                        value={senha}
-                        // onChangeText={Value => setSenha(Value)}
-                        onPress={Value => {setHidePassword(!hidePassword)}}
-                        secureTextEntry={hidePassword}
-                        tipoTexto="password"
-                        // msgError={errorCodesPassword(message)}
-                        verificaCondicao
-                        // condicao={
-                        //    message
-                        //    ? false
-                        //    : null
-                        // }
-                     />
-                  </View>
-   
-                  <View style={styles.areaMensagemErro}>
-                     {/* {renderMessage()} */}
-                  </View>
-               </View>
-   
-               <Botao title="Entrar" style={styles.btnLogin}
-                  onPress={() => formRef.current.submitForm()}
-               />
-            
-            </Form>
-            {/* setTypeUser('paciente') */}
-            
-   
-            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-               <Text style={styles.txtEsqueciSenha}>Esqueci minha senha</Text>
-            </TouchableOpacity>
-   
-            <TouchableOpacity 
-            onPress={() => navigation.navigate('CadastroPaciente1')}
-            >
-               <Text style={styles.txtCriarConta}>CRIAR UMA CONTA</Text>
-            </TouchableOpacity>
-   
-            <View style={styles.segundaOpcao}>
-               <Divider style={styles.divider}/>
-                  <Text style={styles.txtOu}>OU</Text>
-               <Divider style={styles.divider}/>
-            </View>
-   
-            <View>
-               <Botao
-                  title="Entrar com o Facebook"
-                  style={styles.btnLoginFacebook}
-                  img={require('../../assets/icon/facebook.png')}
-                  imgStyle={styles.icon}
-                  direction={"row-reverse"}
-                  onPress={() => setFacebookLogin(true)}
-               />
-               <Botao
-                  title="Entrar com o Google"
-                  corTexto={"#000"}
-                  img={require('../../assets/icon/google.png')}
-                  imgStyle={styles.icon}
-                  style={styles.btnLoginGoogle}
-                  direction={"row-reverse"}
-                  onPress={() => setModalVisible(!modalVisible)}
-               />
-            </View>
-   
-            <ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} />
-            </Fundo>
-         </ScrollView>
-      )
-   // }else{
-   //    return <Loading/>
-   // }
-=======
 			<ModalConstrucao
 				modalVisible={modalVisible}
 				setModalVisible={setModalVisible}
 			/>
 		</Fundo>
 	);
->>>>>>> Stashed changes
 }
 
 const styles = StyleSheet.create({
@@ -318,54 +208,6 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		fontSize: wp('3.8%'),
 		textAlign: 'center',
-<<<<<<< Updated upstream
-   },
-   txtCriarConta: {
-      color: "#186794",
-      marginTop: hp("4.5%"),
-      alignSelf: "center",
-      fontWeight: "bold",
-      fontSize: wp("4.5%"),
-   },
-   segundaOpcao: {
-      marginTop: hp("2.8%"),
-      justifyContent: "space-around",
-      alignItems: "center",
-      flexDirection: "row",
-   },
-   divider: {
-      backgroundColor: "#FFF",
-      width: wp("25%"),
-      height: hp("0.3"),
-   },
-   txtOu: {
-      color: "#186794",
-      fontWeight: "bold",
-      fontSize: wp("5%"),
-   },
-   btnLoginFacebook:{
-      backgroundColor: "#3B5998",
-      marginTop: hp("3.2%"),
-      paddingHorizontal: wp("2%"),
-      paddingVertical: hp("2.3%"),
-      flexDirection: "row-reverse",
-      justifyContent: "center"
-   },
-   btnLoginGoogle:{
-      backgroundColor: "#FFF",
-      marginTop: hp("2.5%"),
-      paddingHorizontal: wp("2%"),
-      paddingVertical: hp("2.3%"),
-      flexDirection: "row-reverse",
-      justifyContent: "center"
-   },
-   icon: {
-      width: wp("6%"),
-		marginRight: wp("5%"),
-		aspectRatio: 1,
-   },
-})
-=======
 	},
 	txtCriarConta: {
 		color: '#186794',
@@ -395,12 +237,21 @@ const styles = StyleSheet.create({
 		marginTop: hp('3.2%'),
 		paddingHorizontal: wp('2%'),
 		paddingVertical: hp('2.3%'),
+		flexDirection: 'row-reverse',
+		justifyContent: 'center',
 	},
 	btnLoginGoogle: {
 		backgroundColor: '#FFF',
 		marginTop: hp('2.5%'),
 		paddingHorizontal: wp('2%'),
 		paddingVertical: hp('2.3%'),
+		flexDirection: 'row-reverse',
+		justifyContent: 'center',
+	},
+	icon: {
+		width: wp('6%'),
+		marginRight: wp('5%'),
+		aspectRatio: 1,
 	},
 });
 
@@ -414,4 +265,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPaciente);
->>>>>>> Stashed changes

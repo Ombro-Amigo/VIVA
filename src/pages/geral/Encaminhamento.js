@@ -9,22 +9,16 @@ import Botao from '../../components/Botao';
 import Fundo from '../../components/Fundo';
 import AuthContext from '../../contexts/auth/auth';
 
-import ModalConstrucao from '../modalConstrucao'
+import ModalConstrucao from '../modalConstrucao';
 import ModalExplicacaoChamadaEmergencia from '../modalExplicacaoChamadaEmergencia';
 
 // import FontContext from '../../contexts/styles/styles';
 
 export default function Encaminhamento({ navigation }) {
-<<<<<<< Updated upstream
 	const [modalConstrucaoVisible, setModalConstrucaoVisible] = useState(false);
 	const [modalExplicacaoVisible, setModalExplicacaoVisible] = useState(false);
 
 	const StylesFontContext = useContext(FontContext);
-=======
-	const [modalVisible, setModalVisible] = useState(false);
-	// const StylesFontContext = useContext(FontContext);
-	const { setTypeUser } = useContext(AuthContext);
->>>>>>> Stashed changes
 
 	return (
 		<Fundo>
@@ -33,58 +27,19 @@ export default function Encaminhamento({ navigation }) {
 			</View>
 
 			<View style={styles.containerLogin}>
-<<<<<<< Updated upstream
-					<Text style={styles.spam}>Seguir para as opções de login como:</Text>
-					<View style={styles.containerButtonLogin}>
-						<Botao
-							title="Paciente"
-							style={styles.buttonLogin}
-							onPress={() => navigation.navigate('LoginPaciente')}
-						/>
-						<Botao
-							title="Psicólogo"
-							style={styles.buttonLogin}
-							onPress={() => navigation.navigate('LoginPsicologo')}
-						/>
-					</View>
-			</View>
-
-			<View style={styles.containerEmergency}>
-					<Botao
-						title="Ligar para a Emergência"
-						style={styles.buttonEmergency}
-						corFundo='#D4CA03'
-						corTexto='#000'
-						imgStyle={styles.iconEmergency}
-						img={require('../../assets/icon/icon_phone_emergency.png')}
-						direction={"row"}
-						onPress={() => setModalConstrucaoVisible(!modalExplicacaoVisible)}
-					/>
-					<TouchableOpacity onPress={() => setModalExplicacaoVisible(!modalExplicacaoVisible)}>
-						<Text style={styles.txtEmergency}>Clique aqui para saber mais{"\n"}sobre a ligação de emergência</Text>
-					</TouchableOpacity>
-			</View>
-
-			<ModalConstrucao modalVisible={modalConstrucaoVisible} setModalVisible={setModalConstrucaoVisible}/>
-			<ModalExplicacaoChamadaEmergencia modalVisible={modalExplicacaoVisible} setModalVisible={setModalExplicacaoVisible} />
-=======
-				<Text style={styles.spam}>Seguir para as opções de login</Text>
+				<Text style={styles.spam}>
+					Seguir para as opções de login como:
+				</Text>
 				<View style={styles.containerButtonLogin}>
 					<Botao
 						title="Paciente"
 						style={styles.buttonLogin}
-						onPress={() => {
-							navigation.navigate('LoginPaciente');
-							setTypeUser('paciente');
-						}}
+						onPress={() => navigation.navigate('LoginPaciente')}
 					/>
 					<Botao
 						title="Psicólogo"
 						style={styles.buttonLogin}
-						onPress={() => {
-							navigation.navigate('LoginPsicologo');
-							setTypeUser('psicologo');
-						}}
+						onPress={() => navigation.navigate('LoginPsicologo')}
 					/>
 				</View>
 			</View>
@@ -97,9 +52,16 @@ export default function Encaminhamento({ navigation }) {
 					corTexto="#000"
 					imgStyle={styles.iconEmergency}
 					img={require('../../assets/icon/icon_phone_emergency.png')}
-					onPress={() => setModalVisible(!modalVisible)}
+					direction="row"
+					onPress={() =>
+						setModalConstrucaoVisible(!modalExplicacaoVisible)
+					}
 				/>
-				<TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+				<TouchableOpacity
+					onPress={() =>
+						setModalExplicacaoVisible(!modalExplicacaoVisible)
+					}
+				>
 					<Text style={styles.txtEmergency}>
 						Clique aqui para saber mais{'\n'}sobre a ligação de emergência
 					</Text>
@@ -107,10 +69,13 @@ export default function Encaminhamento({ navigation }) {
 			</View>
 
 			<ModalConstrucao
-				modalVisible={modalVisible}
-				setModalVisible={setModalVisible}
+				modalVisible={modalConstrucaoVisible}
+				setModalVisible={setModalConstrucaoVisible}
 			/>
->>>>>>> Stashed changes
+			<ModalExplicacaoChamadaEmergencia
+				modalVisible={modalExplicacaoVisible}
+				setModalVisible={setModalExplicacaoVisible}
+			/>
 		</Fundo>
 	);
 }
@@ -123,37 +88,20 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	title1: {
-<<<<<<< Updated upstream
-		color: "#186794",
-		fontSize: wp("6.5%"),
-		fontWeight: "bold",
-	},
-=======
 		color: '#186794',
+		fontSize: wp('6.5%'),
 		fontWeight: 'bold',
-		fontSize: wp('7%'),
-		// fontFamily: 'Signika_700Bold'
 	},
-	spam: {
-		color: '#186794',
-		fontWeight: 'bold',
-		fontSize: wp('5%'),
-		marginBottom: hp('3.2%'),
-		textAlign: 'center',
-		// fontFamily: 'Signika_700Bold'
-	},
-
->>>>>>> Stashed changes
 	// Login
 	containerLogin: {
 		flex: 2,
 	},
 	spam: {
-		color: "#186794",
-		fontSize: wp("4.2%"),
-		fontWeight: "bold",
-		marginBottom: hp("2%"),
-		textAlign: "center"
+		color: '#186794',
+		fontSize: wp('4.2%'),
+		fontWeight: 'bold',
+		marginBottom: hp('2%'),
+		textAlign: 'center',
 	},
 	containerButtonLogin: {
 		flexDirection: 'row',
@@ -174,14 +122,9 @@ const styles = StyleSheet.create({
 		paddingHorizontal: wp('9%'),
 	},
 	iconEmergency: {
-<<<<<<< Updated upstream
-		width: wp("8.5%"),
-		height: hp("8.5%"),
-		marginLeft: wp("5%"),
-=======
 		width: wp('8.5%'),
 		height: hp('8.5%'),
->>>>>>> Stashed changes
+		marginLeft: wp('5%'),
 		aspectRatio: 1,
 	},
 	txtEmergency: {

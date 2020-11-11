@@ -14,50 +14,13 @@ import ModalConstrucao from '../modalConstrucao';
 export default function HomePaciente({ navigation }) {
 	const [modalVisible, setModalVisible] = useState(false);
 
-<<<<<<< Updated upstream
-    return (
-        <Fundo>
-            <View style={styles.areaConsultas}>
-                <View style={styles.titleContainer}>
-                    <Text style={styles.title}>Consultas Agendadas</Text>
-                </View>
-                <ListaConsultas user={"pc"}/>
-            </View>
-            <View style={styles.agendarConsulta}>
-                <Botao
-                    style={styles.buttonAgendarConsul}
-                    title={"AGENDAR UMA NOVA CONSULTA"}
-                    onPress={() => navigation.navigate('Agendamento1')}
-                />
-            </View>
-            <View style={styles.areaAnuncio}>
-                <Botao
-                    style={styles.buttonAssistirAnuncio}
-                    title={"ASSISTIR UM ANÚNCIO"}
-                    onPress={() => setModalVisible(!modalVisible)}
-                />
-                <View style={styles.areaPontos}>
-                    <Image
-                        style={styles.logoPontos}
-                        source={require('../../assets/icon/logo_header.png')}
-                    />
-                    <Text style={styles.txtPontos}>000</Text>
-                </View>
-            </View>
-            
-            <ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible} />
-        </Fundo>
-    );
-=======
-	const appointments = useSelector(state => state.appointment.appointments);
-
 	return (
 		<Fundo>
 			<View style={styles.areaConsultas}>
 				<View style={styles.titleContainer}>
 					<Text style={styles.title}>Consultas Agendadas</Text>
 				</View>
-				<ListaConsultas usuario="pc" appointments={appointments} />
+				<ListaConsultas user="pc" />
 			</View>
 			<View style={styles.agendarConsulta}>
 				<Botao
@@ -87,7 +50,6 @@ export default function HomePaciente({ navigation }) {
 			/>
 		</Fundo>
 	);
->>>>>>> Stashed changes
 }
 
 const styles = StyleSheet.create({
