@@ -3,9 +3,10 @@ import auth from '@react-native-firebase/auth';
 import {
    signIn as signInService,
    login as loginService,
-   currentUser,
    loginWithFacebook as facebookService,
-   signOut as signOutService
+   signOut as signOutService,
+   currentUser,
+   listenerAuth,
 }  from '../../services/auth';
 import { confirmTypeUser, setDataUser } from '../../services/database';
 // import { connect } from '../../config/firebaseConfig';
@@ -22,7 +23,7 @@ export const AuthProvider = ({ children }) => {
    const [user, setUser] = useState();
    const [authenticated, setAuthenticated] = useState(false);
    const [formInfo, setFormInfo] = useState({});
-   const [credentials, setCredentials] = useState();
+   const [credentials, setCredentials] = useState(null);
    const [typeUser, setTypeUser] = useState('');
    const [loading, setLoading] = useState(false);
    const [facebookLogin, setFacebookLogin] = useState(false);
@@ -32,13 +33,17 @@ export const AuthProvider = ({ children }) => {
       if(user){
          setUser(user);
       }
+      
+      if(user && typeUser && credentials)
+         confirmTypeUser(user.uid, typeUser, setAuthenticated)
+
       if(initializing) setInitializing(false);
    }
 
-   useEffect(() => {
-      const subscribrer = auth().onAuthStateChanged(onAuthStateChanged);
-      return subscribrer;
-   }, []);
+   // useEffect(() => {
+   //    const subscribrer = auth().onAuthStateChanged(onAuthStateChanged);
+   //    return subscribrer;
+   // }, [credentials]);
 
    // useEffect(() => {
    //    async function signIn() {
@@ -68,18 +73,15 @@ export const AuthProvider = ({ children }) => {
    useEffect(() => {
       async function logar() {
          await loginService(credentials.email, credentials.senha);
-         
-         auth().onAuthStateChanged(user => {
-            if(user && credentials)
-               setAuthenticated(confirmTypeUser(user.uid, credentials.tipo, setSignOut));
-         });
+         // setSignOut(authenticated);
+         auth().onAuthStateChanged(onAuthStateChanged);
          setLoading(false);
       }
 
       if(credentials)
          logar();
 
-      return () => {setCredentials()}
+      return setCredentials(undefined)
    }, [credentials]);
 
    useEffect(() => {
@@ -88,7 +90,7 @@ export const AuthProvider = ({ children }) => {
          setAuthenticated(false);
       }
 
-      if(signOut) sair();
+      if(signOut && user) sair();
 
       return setSignOut(false);
    }, [signOut])
