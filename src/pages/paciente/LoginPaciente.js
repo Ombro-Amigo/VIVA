@@ -10,6 +10,7 @@ import { Divider } from 'react-native-paper';
 import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
+import { formik } from 'formik';
 import Fundo from '../../components/Fundo';
 import Botao from '../../components/Botao';
 import { Entrada } from '../../components/form/index';
