@@ -91,93 +91,109 @@ function LoginPaciente({ navigation, requestSignIn, error }) {
 	}
 
 	return (
-		<Fundo>
-			<View>
-				<Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
-			</View>
-
-			<Form initialData={initialData} ref={formRef} onSubmit={handleSubmit}>
+		<ScrollView style={styles.container}>
+			<Fundo>
 				<View>
-					<View style={styles.login}>
-						<Entrada
-							name="email"
-							icon={require('../../assets/icon/usuario-login.png')}
-							placeholder="E-mail"
-							value={email}
-							// onChangeText={Value => setEmail(Value)}
-							msgError={errorCodesEmail(error)}
-							verificaCondicao
-							condicao={error ? false : null}
-						/>
-					</View>
-					<View style={styles.senha}>
-						<Entrada
-							name="password"
-							style={styles.senha}
-							icon={require('../../assets/icon/chave-login.png')}
-							placeholder="Senha"
-							value={senha}
-							// onChangeText={Value => setSenha(Value)}
-							onPress={Value => {
-								setHidePassword(!hidePassword);
-							}}
-							secureTextEntry={hidePassword}
-							tipoTexto="password"
-							msgError={errorCodesPassword(error)}
-							verificaCondicao
-							condicao={error ? false : null}
-						/>
-					</View>
-
-					<View style={styles.areaMensagemErro}>{renderError()}</View>
+					<Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
 				</View>
 
-				<Botao
-					title="Entrar"
-					style={styles.btnLogin}
-					onPress={() => formRef.current.submitForm()}
+				<Form
+					initialData={initialData}
+					ref={formRef}
+					onSubmit={handleSubmit}
+				>
+					<View>
+						<View style={styles.login}>
+							<Entrada
+								name="email"
+								icon={require('../../assets/icon/usuario-login.png')}
+								placeholder="E-mail"
+								value={email}
+								// onChangeText={Value => setEmail(Value)}
+								msgError={errorCodesEmail(error)}
+								verificaCondicao
+								condicao={error ? false : null}
+							/>
+						</View>
+						<View style={styles.senha}>
+							<Entrada
+								name="password"
+								style={styles.senha}
+								icon={require('../../assets/icon/chave-login.png')}
+								placeholder="Senha"
+								value={senha}
+								// onChangeText={Value => setSenha(Value)}
+								onPress={Value => {
+									setHidePassword(!hidePassword);
+								}}
+								secureTextEntry={hidePassword}
+								tipoTexto="password"
+								msgError={errorCodesPassword(error)}
+								verificaCondicao
+								condicao={error ? false : null}
+							/>
+						</View>
+
+						<View style={styles.areaMensagemErro}>{renderError()}</View>
+					</View>
+
+					<Botao
+						title="Entrar"
+						style={styles.btnLogin}
+						onPress={() => formRef.current.submitForm()}
+					/>
+				</Form>
+
+				<TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+					<Text style={styles.txtEsqueciSenha}>Esqueci minha senha</Text>
+				</TouchableOpacity>
+
+				<TouchableOpacity
+					style={styles.areaCriarConta}
+					onPress={() => navigation.navigate('CadastroPaciente1')}
+				>
+					<Text style={styles.txtCriarConta}>CRIAR UMA CONTA</Text>
+				</TouchableOpacity>
+
+				<View style={styles.segundaOpcao}>
+					<Divider style={styles.divider} />
+					<Text style={styles.txtOu}>OU</Text>
+					<Divider style={styles.divider} />
+				</View>
+
+				<View>
+					<Botao
+						title="Entrar com o Facebook"
+						style={styles.btnLoginFacebook}
+						img={require('../../assets/icon/facebook.png')}
+						imgStyle={styles.icon}
+						direction="row-reverse"
+						onPress={() => setFacebookLogin(true)}
+					/>
+					<Botao
+						title="Entrar com o Google"
+						corTexto="#000"
+						style={styles.btnLoginGoogle}
+						img={require('../../assets/icon/google.png')}
+						imgStyle={styles.icon}
+						direction="row-reverse"
+						onPress={() => setModalVisible(!modalVisible)}
+					/>
+				</View>
+
+				<ModalConstrucao
+					modalVisible={modalVisible}
+					setModalVisible={setModalVisible}
 				/>
-			</Form>
-
-			<TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-				<Text style={styles.txtEsqueciSenha}>Esqueci minha senha</Text>
-			</TouchableOpacity>
-
-			<TouchableOpacity
-				onPress={() => navigation.navigate('CadastroPaciente1')}
-			>
-				<Text style={styles.txtCriarConta}>CRIAR UMA CONTA</Text>
-			</TouchableOpacity>
-
-			<View style={styles.segundaOpcao}>
-				<Divider style={styles.divider} />
-				<Text style={styles.txtOu}>OU</Text>
-				<Divider style={styles.divider} />
-			</View>
-
-			<View>
-				<Botao
-					title="Entrar com o Facebook"
-					style={styles.btnLoginFacebook}
-					onPress={() => setFacebookLogin(true)}
-				/>
-				<Botao
-					title="Entrar com o Google"
-					corTexto="#000"
-					style={styles.btnLoginGoogle}
-					onPress={() => setModalVisible(!modalVisible)}
-				/>
-			</View>
-
-			<ModalConstrucao
-				modalVisible={modalVisible}
-				setModalVisible={setModalVisible}
-			/>
-		</Fundo>
+			</Fundo>
+		</ScrollView>
 	);
 }
 
 const styles = StyleSheet.create({
+	container: {
+		backgroundColor: "#6EB4E7",
+	},
 	txtFacaLogin: {
 		color: '#186794',
 		marginTop: hp('1.5%'),
@@ -199,7 +215,7 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	},
 	btnLogin: {
-		marginTop: hp('3%'),
+		marginTop: hp('1%'),
 		paddingHorizontal: wp('1.8%'),
 		paddingVertical: hp('2%'),
 	},
@@ -210,9 +226,11 @@ const styles = StyleSheet.create({
 		fontSize: wp('3.8%'),
 		textAlign: 'center',
 	},
+	areaCriarConta: {
+		marginTop: hp('4.5%'),
+	},
 	txtCriarConta: {
 		color: '#186794',
-		marginTop: hp('4.5%'),
 		alignSelf: 'center',
 		fontWeight: 'bold',
 		fontSize: wp('4.5%'),
@@ -238,7 +256,7 @@ const styles = StyleSheet.create({
 		marginTop: hp('3.2%'),
 		paddingHorizontal: wp('2%'),
 		paddingVertical: hp('2.3%'),
-		flexDirection: 'row-reverse',
+		alignItems: 'center',
 		justifyContent: 'center',
 	},
 	btnLoginGoogle: {
@@ -246,11 +264,12 @@ const styles = StyleSheet.create({
 		marginTop: hp('2.5%'),
 		paddingHorizontal: wp('2%'),
 		paddingVertical: hp('2.3%'),
-		flexDirection: 'row-reverse',
+		alignItems: 'center',
 		justifyContent: 'center',
 	},
 	icon: {
-		width: wp('6%'),
+		width: 22,
+		height: 22,
 		marginRight: wp('5%'),
 		aspectRatio: 1,
 	},

@@ -32,6 +32,12 @@
 		B4B95C06BE4B4E6D90BA27AC /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F1CFAE75A1B49168F6BA5CE /* Octicons.ttf */; };
 		FB3CA9B96C9E4C61989AB449 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB1CD68FFCB74B95A6DE67D2 /* SimpleLineIcons.ttf */; };
 		45361654F03D4C3CBFBF0F61 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6F63C012B5D48D78E608ADE /* Zocial.ttf */; };
+		5797ED968F0B4317A1C420B6 /* Signika-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79A935859D5A4872A712D89D /* Signika-Bold.ttf */; };
+		DFA589A89DC443A280577D21 /* Signika-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2C542AD0D0143908956B07A /* Signika-Light.ttf */; };
+		7DDEE4EE4EA94F45A8CF0E56 /* Signika-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E288E28E58914B59A37F7413 /* Signika-Medium.ttf */; };
+		F2F0231989064AA8B086850F /* Signika-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F97776C1927B4C398BBEC737 /* Signika-Regular.ttf */; };
+		BBFBEA8C464642BEB51E413E /* Signika-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0327AEAE2D74429AA767D2E1 /* Signika-SemiBold.ttf */; };
+		88CC9C8A3C624ED88491B8DF /* Signika-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87F97392373541F3B411E0B9 /* Signika-VariableFont_wght.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +89,12 @@
 		9F1CFAE75A1B49168F6BA5CE /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		AB1CD68FFCB74B95A6DE67D2 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		B6F63C012B5D48D78E608ADE /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		79A935859D5A4872A712D89D /* Signika-Bold.ttf */ = {isa = PBXFileReference; name = "Signika-Bold.ttf"; path = "../assets/fonts/Signika-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F2C542AD0D0143908956B07A /* Signika-Light.ttf */ = {isa = PBXFileReference; name = "Signika-Light.ttf"; path = "../assets/fonts/Signika-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E288E28E58914B59A37F7413 /* Signika-Medium.ttf */ = {isa = PBXFileReference; name = "Signika-Medium.ttf"; path = "../assets/fonts/Signika-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F97776C1927B4C398BBEC737 /* Signika-Regular.ttf */ = {isa = PBXFileReference; name = "Signika-Regular.ttf"; path = "../assets/fonts/Signika-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0327AEAE2D74429AA767D2E1 /* Signika-SemiBold.ttf */ = {isa = PBXFileReference; name = "Signika-SemiBold.ttf"; path = "../assets/fonts/Signika-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		87F97392373541F3B411E0B9 /* Signika-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Signika-VariableFont_wght.ttf"; path = "../assets/fonts/Signika-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +221,12 @@
 				9F1CFAE75A1B49168F6BA5CE /* Octicons.ttf */,
 				AB1CD68FFCB74B95A6DE67D2 /* SimpleLineIcons.ttf */,
 				B6F63C012B5D48D78E608ADE /* Zocial.ttf */,
+				79A935859D5A4872A712D89D /* Signika-Bold.ttf */,
+				F2C542AD0D0143908956B07A /* Signika-Light.ttf */,
+				E288E28E58914B59A37F7413 /* Signika-Medium.ttf */,
+				F97776C1927B4C398BBEC737 /* Signika-Regular.ttf */,
+				0327AEAE2D74429AA767D2E1 /* Signika-SemiBold.ttf */,
+				87F97392373541F3B411E0B9 /* Signika-VariableFont_wght.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -368,6 +386,12 @@
 				B4B95C06BE4B4E6D90BA27AC /* Octicons.ttf in Resources */,
 				FB3CA9B96C9E4C61989AB449 /* SimpleLineIcons.ttf in Resources */,
 				45361654F03D4C3CBFBF0F61 /* Zocial.ttf in Resources */,
+				5797ED968F0B4317A1C420B6 /* Signika-Bold.ttf in Resources */,
+				DFA589A89DC443A280577D21 /* Signika-Light.ttf in Resources */,
+				7DDEE4EE4EA94F45A8CF0E56 /* Signika-Medium.ttf in Resources */,
+				F2F0231989064AA8B086850F /* Signika-Regular.ttf in Resources */,
+				BBFBEA8C464642BEB51E413E /* Signika-SemiBold.ttf in Resources */,
+				88CC9C8A3C624ED88491B8DF /* Signika-VariableFont_wght.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

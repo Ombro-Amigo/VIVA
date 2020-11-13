@@ -71,6 +71,12 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>Signika-Bold.ttf</string>
+		<string>Signika-Light.ttf</string>
+		<string>Signika-Medium.ttf</string>
+		<string>Signika-Regular.ttf</string>
+		<string>Signika-SemiBold.ttf</string>
+		<string>Signika-VariableFont_wght.ttf</string>
 	</array>
 </dict>
 </plist>

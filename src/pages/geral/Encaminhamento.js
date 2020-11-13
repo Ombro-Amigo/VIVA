@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
 	title1: {
 		color: '#186794',
 		fontSize: wp('6.5%'),
-		fontWeight: 'bold',
+		// fontWeight: 'bold',
+		fontFamily: 'Signika-Bold',
 	},
 	// Login
 	containerLogin: {
