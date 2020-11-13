@@ -1,16 +1,16 @@
 import React, { useState, useRef, useContext } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Keyboard } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import {
 	heightPercentageToDP as hp,
 	widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { Divider } from 'react-native-paper';
+import { Divider, TextInput } from 'react-native-paper';
 import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
-import { formik } from 'formik';
+import { Formik } from 'formik';
 import Fundo from '../../components/Fundo';
 import Botao from '../../components/Botao';
 import { Entrada } from '../../components/form/index';
@@ -23,7 +23,14 @@ import { Creators as AuthActions } from '../../store/ducks/auth';
 import ModalConstrucao from '../modalConstrucao';
 import AuthContext from '../../contexts/auth/auth';
 
-function LoginPaciente({ navigation, requestSignIn, error }) {
+function LoginPaciente({
+	navigation,
+	requestSignIn,
+	clearAuthError,
+	error,
+	loading,
+	errorAuthFire,
+}) {
 	const [checked, setChecked] = useState(false);
 	const [hidePassword, setHidePassword] = useState(true);
 	const [modalVisible, setModalVisible] = useState(false);
@@ -31,6 +38,9 @@ function LoginPaciente({ navigation, requestSignIn, error }) {
 	const [email, setEmail] = useState('');
 
 	const formRef = useRef(null);
+
+	const user = useRef(null);
+	const password = useRef(null);
 
 	const {
 		setCredentials,
@@ -41,158 +51,137 @@ function LoginPaciente({ navigation, requestSignIn, error }) {
 
 	function renderError() {
 		if (
-			error &&
-			errorCodesEmail(error) === null &&
-			errorCodesPassword(error) === null
+			errorAuthFire &&
+			errorCodesEmail(errorAuthFire) === null &&
+			errorCodesPassword(errorAuthFire) === null
 		) {
 			return (
 				<View>
-					<Text style={styles.msgErro}>{errorCodes(error)}</Text>
+					<Text style={styles.msgErro}>{errorCodes(errorAuthFire)}</Text>
 				</View>
 			);
 		}
 		return null;
 	}
 
-	const initialData = {
-		email: 'paciente@mail.com',
-		password: '123123',
-	};
-
-	async function handleSubmit(data) {
-		try {
-			formRef.current.setErrors({});
-
-			const schema = Yup.object().shape({
-				email: Yup.string()
-					.email('Digite um e-mail válido')
-					.required('O email é obrigatório'),
-				password: Yup.string().required('A senha é obrigatória'),
-			});
-
-			await schema.validate(data, {
-				abortEarly: false,
-			});
-
-			data.type = 'paciente';
-
-			requestSignIn(data);
-		} catch (err) {
-			if (err instanceof Yup.ValidationError) {
-				const errorMessages = {};
-
-				err.inner.forEach(error => {
-					errorMessages[error.path] = error.message;
-				});
-
-				formRef.current.setErrors(errorMessages);
-			}
-		}
-	}
+	const FormSchema = Yup.object().shape({
+		email: Yup.string()
+			.email('Digite um e-mail válido')
+			.required('O email é obrigatório'),
+		password: Yup.string().required('A senha é obrigatória'),
+	});
 
 	return (
-		<ScrollView style={styles.container}>
-			<Fundo>
-				<View>
-					<Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
-				</View>
+		<Fundo>
+			<View>
+				<Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
+			</View>
 
-				<Form
-					initialData={initialData}
-					ref={formRef}
-					onSubmit={handleSubmit}
-				>
-					<View>
+			<Formik
+				initialValues={{
+					email: 'paciente@mail.com',
+					password: '123123',
+				}}
+				onSubmit={values => {
+					Keyboard.dismiss();
+					values.type = 'paciente';
+					requestSignIn(values);
+				}}
+				validationSchema={FormSchema}
+			>
+				{({ handleChange, handleSubmit, values, errors }) => (
+					<>
 						<View style={styles.login}>
 							<Entrada
-								name="email"
+								value={values.email}
+								onChangeText={handleChange('email')}
 								icon={require('../../assets/icon/usuario-login.png')}
 								placeholder="E-mail"
-								value={email}
-								// onChangeText={Value => setEmail(Value)}
-								msgError={errorCodesEmail(error)}
+								error={errors.email}
+								msgError={errorCodesEmail(errorAuthFire)}
 								verificaCondicao
-								condicao={error ? false : null}
+								condicao={errorAuthFire ? false : null}
+								onFocus={() => clearAuthError()}
 							/>
 						</View>
 						<View style={styles.senha}>
 							<Entrada
-								name="password"
+								value={values.password}
+								onChangeText={handleChange('password')}
 								style={styles.senha}
 								icon={require('../../assets/icon/chave-login.png')}
 								placeholder="Senha"
-								value={senha}
-								// onChangeText={Value => setSenha(Value)}
-								onPress={Value => {
+								onPress={() => {
 									setHidePassword(!hidePassword);
 								}}
 								secureTextEntry={hidePassword}
 								tipoTexto="password"
-								msgError={errorCodesPassword(error)}
+								error={errors.password}
+								msgError={errorCodesPassword(errorAuthFire)}
 								verificaCondicao
-								condicao={error ? false : null}
+								condicao={errorAuthFire ? false : null}
 							/>
 						</View>
-
 						<View style={styles.areaMensagemErro}>{renderError()}</View>
-					</View>
 
-					<Botao
-						title="Entrar"
-						style={styles.btnLogin}
-						onPress={() => formRef.current.submitForm()}
-					/>
-				</Form>
+						<Botao
+							title="Entrar"
+							style={styles.btnLogin}
+							onPress={handleSubmit}
+							loading={loading}
+						/>
+					</>
+				)}
+			</Formik>
 
-				<TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-					<Text style={styles.txtEsqueciSenha}>Esqueci minha senha</Text>
-				</TouchableOpacity>
+			<TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+				<Text style={styles.txtEsqueciSenha}>Esqueci minha senha</Text>
+			</TouchableOpacity>
 
-				<TouchableOpacity
-					style={styles.areaCriarConta}
-					onPress={() => navigation.navigate('CadastroPaciente1')}
-				>
-					<Text style={styles.txtCriarConta}>CRIAR UMA CONTA</Text>
-				</TouchableOpacity>
+			<TouchableOpacity
+				style={styles.areaCriarConta}
+				onPress={() => navigation.navigate('CadastroPaciente1')}
+			>
+				<Text style={styles.txtCriarConta}>CRIAR UMA CONTA</Text>
+			</TouchableOpacity>
 
-				<View style={styles.segundaOpcao}>
-					<Divider style={styles.divider} />
-					<Text style={styles.txtOu}>OU</Text>
-					<Divider style={styles.divider} />
-				</View>
+			<View style={styles.segundaOpcao}>
+				<Divider style={styles.divider} />
+				<Text style={styles.txtOu}>OU</Text>
+				<Divider style={styles.divider} />
+			</View>
 
-				<View>
-					<Botao
-						title="Entrar com o Facebook"
-						style={styles.btnLoginFacebook}
-						img={require('../../assets/icon/facebook.png')}
-						imgStyle={styles.icon}
-						direction="row-reverse"
-						onPress={() => setFacebookLogin(true)}
-					/>
-					<Botao
-						title="Entrar com o Google"
-						corTexto="#000"
-						style={styles.btnLoginGoogle}
-						img={require('../../assets/icon/google.png')}
-						imgStyle={styles.icon}
-						direction="row-reverse"
-						onPress={() => setModalVisible(!modalVisible)}
-					/>
-				</View>
-
-				<ModalConstrucao
-					modalVisible={modalVisible}
-					setModalVisible={setModalVisible}
+			<View>
+				<Botao
+					title="Entrar com o Facebook"
+					style={styles.btnLoginFacebook}
+					img={require('../../assets/icon/facebook.png')}
+					imgStyle={styles.icon}
+					direction="row-reverse"
+					onPress={() => setFacebookLogin(true)}
 				/>
-			</Fundo>
-		</ScrollView>
+				<Botao
+					title="Entrar com o Google"
+					corTexto="#000"
+					style={styles.btnLoginGoogle}
+					img={require('../../assets/icon/google.png')}
+					imgStyle={styles.icon}
+					direction="row-reverse"
+					onPress={() => setModalVisible(!modalVisible)}
+				/>
+			</View>
+
+			<ModalConstrucao
+				modalVisible={modalVisible}
+				setModalVisible={setModalVisible}
+			/>
+		</Fundo>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: "#6EB4E7",
+		backgroundColor: '#6EB4E7',
 	},
 	txtFacaLogin: {
 		color: '#186794',
@@ -278,10 +267,12 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = dispatch => ({
 	requestSignIn: credentials =>
 		dispatch(AuthActions.requestSignIn(credentials)),
+	clearAuthError: () => dispatch(AuthActions.clearAuthError()),
 });
 
 const mapStateToProps = state => ({
-	error: state.auth.error,
+	errorAuthFire: state.auth.error,
+	loading: state.auth.loading,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPaciente);

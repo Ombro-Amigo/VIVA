@@ -7,6 +7,7 @@ import {
 	TouchableHighlight,
 	TouchableOpacity,
 } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 import {
 	heightPercentageToDP as hp,
 	widthPercentageToDP as wp,
@@ -26,6 +27,7 @@ export default function Botao(props) {
 		onPress,
 		desabilitado,
 		direction,
+		loading,
 	} = props;
 
 	function renderIcon() {
@@ -35,6 +37,7 @@ export default function Botao(props) {
 	}
 
 	const conteudoBotao = () => {
+		if (loading) return <ActivityIndicator color="#fff" />;
 		return (
 			<View
 				style={

@@ -6,6 +6,7 @@ export const Types = {
 	REQUEST_SIGN_OUT: 'REQUEST_SIGN_OUT',
 	SUCCESS_SIGN_OUT: 'REQUEST_SIGN_OUT',
 	FAILURE_SIGN_OUT: 'REQUEST_SIGN_OUT',
+	CLEAR_AUTH_ERROR: 'CLEAR_AUTH_ERROR',
 };
 
 const INITIAL_STATE = {
@@ -52,6 +53,12 @@ export default function authReducer(state = INITIAL_STATE, action) {
 				error: action.error,
 				typeUser: action.typeUser,
 			};
+		case Types.CLEAR_AUTH_ERROR:
+			console.log('limpando erros de autenticação');
+			return {
+				...state,
+				error: null,
+			};
 		default:
 			return state;
 	}
@@ -64,5 +71,8 @@ export const Creators = {
 	}),
 	requestSignOut: () => ({
 		type: Types.REQUEST_SIGN_OUT,
+	}),
+	clearAuthError: () => ({
+		type: Types.CLEAR_AUTH_ERROR,
 	}),
 };

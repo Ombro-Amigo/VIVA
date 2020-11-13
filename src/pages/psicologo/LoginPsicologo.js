@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Keyboard } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import {
@@ -10,6 +10,7 @@ import { Divider } from 'react-native-paper';
 import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
+import { Formik } from 'formik';
 import Fundo from '../../components/Fundo';
 import Botao from '../../components/Botao';
 import { Entrada } from '../../components/form/index';
@@ -29,161 +30,106 @@ import Loading from '../Loading';
 
 import AuthContext from '../../contexts/auth/auth';
 
-function LoginPsicologo({ navigation, requestSignIn, error }) {
+function LoginPsicologo({
+	navigation,
+	requestSignIn,
+	clearAuthError,
+	errorAuthFire,
+	loading,
+}) {
 	const [checked, setChecked] = useState(false);
 	// const [loading, setLoading] = useState(false);
 	const [hidePassword, setHidePassword] = useState(true);
 	const [modalVisible, setModalVisible] = useState(false);
-	const [senha, setSenha] = useState('');
-	const [email, setEmail] = useState('');
-
-	const formRef = useRef(null);
-
-	// const {signIn, email, senha, setEmail, setSenha, message, loading, setTypeUser} = useContext(LoginContext);
-
-	const { setCredentials, typeUser, setLoading } = useContext(AuthContext);
-
-	useEffect(() => {
-		// const firebaseConfig = {
-		//    apiKey: "AIzaSyD_7bjlJPA5EAEb49d-NwxNdret4kGg1Ik",
-		//    authDomain: "viva-ca312.firebaseapp.com",
-		//    databaseURL: "https://viva-ca312.firebaseio.com",
-		//    projectId: "viva-ca312",
-		//    storageBucket: "viva-ca312.appspot.com",
-		//    messagingSenderId: "374644306933",
-		//    appId: "1:374644306933:web:418fd7c5a2e27b6b6e66bc",
-		//    // measurementId: "G-H5GYMVM386"
-		// };
-		// // Initialize Firebase
-		// if(firebase.apps.length === 0){
-		//    firebase.initializeApp(firebaseConfig);
-		// }
-		// firebase.analytics();
-	});
-
-	// function tryLogin() {
-	//    setLoading(true);
-	//    setMessage('');
-
-	//    const loginUserSuccess = user => {
-	//       console.log(user);
-	//       setLoading(false);
-	//       setMessage('Sucesso!');
-	//       navigation.navigate('HomePaciente')
-	//    }
-
-	//    const loginUserFailed = error => {
-	//       setLoading(false);
-	//       setMessage(error.code);
-	//    }
-
-	//    firebase
-	//       .auth()
-	//       .signInWithEmailAndPassword(email, senha)
-	//       .then(loginUserSuccess)
-	//       .catch(loginUserFailed)
-	// }
 
 	function renderError() {
 		if (
-			error &&
-			errorCodesEmail(error) === null &&
-			errorCodesPassword(error) === null
+			errorAuthFire &&
+			errorCodesEmail(errorAuthFire) === null &&
+			errorCodesPassword(errorAuthFire) === null
 		) {
 			return (
 				<View>
-					<Text style={styles.msgErro}>{errorCodes(error)}</Text>
+					<Text style={styles.msgErro}>{errorCodes(errorAuthFire)}</Text>
 				</View>
 			);
 		}
 		return null;
 	}
 
-	const initialData = {
-		email: 'psicologo@mail.com',
-		password: '123123',
-	};
+	const FormSchema = Yup.object().shape({
+		email: Yup.string()
+			.email('Digite um e-mail válido')
+			.required('O email é obrigatório'),
+		password: Yup.string().required('A senha é obrigatória'),
+	});
 
-	async function handleSubmit(data) {
-		try {
-			formRef.current.setErrors({});
-
-			const schema = Yup.object().shape({
-				email: Yup.string()
-					.email('Digite um e-mail válido')
-					.required('O email é obrigatório'),
-				password: Yup.string().required('A senha é obrigatória'),
-			});
-
-			await schema.validate(data, {
-				abortEarly: false,
-			});
-
-			data.type = 'psicologo';
-
-			requestSignIn(data);
-		} catch (err) {
-			if (err instanceof Yup.ValidationError) {
-				const errorMessages = {};
-
-				err.inner.forEach(error => {
-					errorMessages[error.path] = error.message;
-				});
-
-				formRef.current.setErrors(errorMessages);
-			}
-		}
-	}
-
-	// if(!loading) {
 	return (
 		<Fundo>
 			<View>
 				<Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
 			</View>
 
-			<Form initialData={initialData} ref={formRef} onSubmit={handleSubmit}>
-				<View>
-					<View style={styles.login}>
-						<Entrada
-							name="email"
-							icon={require('../../assets/icon/usuario-login.png')}
-							placeholder="Nome de Usuário"
-							value={email}
-							// onChangeText={Value => setEmail(Value)}
-							msgError={errorCodesEmail(error)}
-							verificaCondicao
-							condicao={error ? false : null}
-						/>
-					</View>
-					<View style={styles.senha}>
-						<Entrada
-							name="password"
-							style={styles.senha}
-							icon={require('../../assets/icon/chave-login.png')}
-							placeholder="Senha"
-							value={senha}
-							// onChangeText={Value => setSenha(Value)}
-							onPress={Value => {
-								setHidePassword(!hidePassword);
-							}}
-							secureTextEntry={hidePassword}
-							tipoTexto="password"
-							msgError={errorCodesPassword(error)}
-							verificaCondicao
-							condicao={error ? false : null}
-						/>
-					</View>
+			<Formik
+				initialValues={{
+					email: 'psicologo@mail.com',
+					password: '123123',
+				}}
+				onSubmit={values => {
+					Keyboard.dismiss();
+					values.type = 'psicologo';
+					requestSignIn(values);
+				}}
+				validationSchema={FormSchema}
+			>
+				{({ handleChange, handleSubmit, values, errors }) => (
+					<>
+						{console.log(
+							'error dentro do formik = ',
+							errorCodesEmail(errorAuthFire)
+						)}
+						<View style={styles.login}>
+							<Entrada
+								value={values.email}
+								onChangeText={handleChange('email')}
+								icon={require('../../assets/icon/usuario-login.png')}
+								placeholder="E-mail"
+								error={errors.email}
+								msgError={errorCodesEmail(errorAuthFire)}
+								verificaCondicao
+								condicao={errorAuthFire ? false : null}
+								onFocus={() => clearAuthError()}
+							/>
+						</View>
+						<View style={styles.senha}>
+							<Entrada
+								value={values.password}
+								onChangeText={handleChange('password')}
+								style={styles.senha}
+								icon={require('../../assets/icon/chave-login.png')}
+								placeholder="Senha"
+								onPress={() => {
+									setHidePassword(!hidePassword);
+								}}
+								secureTextEntry={hidePassword}
+								tipoTexto="password"
+								error={errors.password}
+								msgError={errorCodesPassword(errorAuthFire)}
+								verificaCondicao
+								condicao={errorAuthFire ? false : null}
+							/>
+						</View>
+						<View style={styles.areaMensagemErro}>{renderError()}</View>
 
-					<View style={styles.areaMensagemErro}>{renderError()}</View>
-				</View>
-
-				<Botao
-					title="Entrar"
-					style={styles.btnLogin}
-					onPress={() => formRef.current.submitForm()}
-				/>
-			</Form>
+						<Botao
+							title="Entrar"
+							style={styles.btnLogin}
+							onPress={handleSubmit}
+							loading={loading}
+						/>
+					</>
+				)}
+			</Formik>
 
 			<TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
 				<Text style={styles.txtEsqueciSenha}>Esqueci minha senha</Text>
@@ -201,9 +147,6 @@ function LoginPsicologo({ navigation, requestSignIn, error }) {
 			/>
 		</Fundo>
 	);
-	// }else{
-	//    return <Loading/>
-	// }
 }
 
 const styles = StyleSheet.create({
@@ -279,10 +222,12 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = dispatch => ({
 	requestSignIn: credentials =>
 		dispatch(AuthActions.requestSignIn(credentials)),
+	clearAuthError: () => dispatch(AuthActions.clearAuthError()),
 });
 
 const mapStateToProps = state => ({
-	error: state.auth.error,
+	errorAuthFire: state.auth.error,
+	loading: state.auth.loading,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPsicologo);

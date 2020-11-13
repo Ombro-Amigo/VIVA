@@ -11,7 +11,7 @@ import DrawerNavigatorPaciente from './app.drawer.paciente.routes';
 import DrawerNavigatorPsicologo from './app.drawer.psicologo.routes';
 import Loading from '../pages/Loading';
 
-const Routes = ({ user, typeUser, loading }) => {
+const Routes = ({ user, typeUser }) => {
 	// const [auth] = useAuth();
 
 	// // console.log(user);
@@ -26,9 +26,7 @@ const Routes = ({ user, typeUser, loading }) => {
 	//        typeUser === 'paciente' ?
 	//        <DrawerNavigatorPaciente /> : <DrawerNavigatorPsicologo />;
 
-	return loading ? (
-		<Loading />
-	) : !user && !typeUser ? (
+	return !user && !typeUser ? (
 		<AuthRoutes />
 	) : typeUser === 'paciente' ? (
 		<DrawerNavigatorPaciente />
