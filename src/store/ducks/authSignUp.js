@@ -7,6 +7,7 @@ export const Types = {
 	SUCCESS_SIGN_OUT: 'REQUEST_SIGN_OUT',
 	FAILURE_SIGN_OUT: 'REQUEST_SIGN_OUT',
 	CLEAR_AUTH_ERROR: 'CLEAR_AUTH_ERROR',
+	REQUEST_FACEBOOK_SIGN_IN: 'REQUEST_FACEBOOK_SIGN_IN',
 };
 
 const INITIAL_STATE = {
@@ -16,7 +17,7 @@ const INITIAL_STATE = {
 	error: null,
 };
 
-export default function authReducer(state = INITIAL_STATE, action) {
+export default function authSignUpReducer(state = INITIAL_STATE, action) {
 	switch (action.type) {
 		case Types.REQUEST_SIGN_IN:
 			return { ...state, loading: true };
@@ -74,5 +75,8 @@ export const Creators = {
 	}),
 	clearAuthError: () => ({
 		type: Types.CLEAR_AUTH_ERROR,
+	}),
+	requestFacebookSignIn: () => ({
+		type: Types.REQUEST_FACEBOOK_SIGN_IN,
 	}),
 };

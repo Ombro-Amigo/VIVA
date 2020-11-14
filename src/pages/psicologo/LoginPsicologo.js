@@ -19,7 +19,7 @@ import {
 	errorCodesPassword,
 	errorCodes,
 } from '../../utils/errorCodes';
-import { Creators as AuthActions } from '../../store/ducks/auth';
+import { Creators as AuthSignUpActions } from '../../store/ducks/authSignIn';
 
 // import firebase from '@firebase/app';
 // import '@firebase/auth'
@@ -221,8 +221,8 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => ({
 	requestSignIn: credentials =>
-		dispatch(AuthActions.requestSignIn(credentials)),
-	clearAuthError: () => dispatch(AuthActions.clearAuthError()),
+		dispatch(AuthSignUpActions.requestSignIn(credentials)),
+	clearAuthError: () => dispatch(AuthSignUpActions.clearAuthError()),
 });
 
 const mapStateToProps = state => ({

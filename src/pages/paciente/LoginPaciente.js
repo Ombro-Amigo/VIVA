@@ -19,7 +19,7 @@ import {
 	errorCodesPassword,
 	errorCodes,
 } from '../../utils/errorCodes';
-import { Creators as AuthActions } from '../../store/ducks/auth';
+import { Creators as AuthSignUpActions } from '../../store/ducks/authSignIn';
 import ModalConstrucao from '../modalConstrucao';
 import AuthContext from '../../contexts/auth/auth';
 
@@ -27,7 +27,7 @@ function LoginPaciente({
 	navigation,
 	requestSignIn,
 	clearAuthError,
-	error,
+	requestFacebookSignIn,
 	loading,
 	errorAuthFire,
 }) {
@@ -158,7 +158,7 @@ function LoginPaciente({
 					img={require('../../assets/icon/facebook.png')}
 					imgStyle={styles.icon}
 					direction="row-reverse"
-					onPress={() => setFacebookLogin(true)}
+					onPress={() => requestFacebookSignIn()}
 				/>
 				<Botao
 					title="Entrar com o Google"
@@ -266,8 +266,10 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => ({
 	requestSignIn: credentials =>
-		dispatch(AuthActions.requestSignIn(credentials)),
-	clearAuthError: () => dispatch(AuthActions.clearAuthError()),
+		dispatch(AuthSignUpActions.requestSignIn(credentials)),
+	requestFacebookSignIn: () =>
+		dispatch(AuthSignUpActions.requestFacebookSignIn()),
+	clearAuthError: () => dispatch(AuthSignUpActions.clearAuthError()),
 });
 
 const mapStateToProps = state => ({

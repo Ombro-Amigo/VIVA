@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 // import { firebaseReducer } from 'react-redux-firebase';
-import authReducer from './auth';
+import authSignInReducer from './authSignIn';
+import authSignUpReducer from './authSignUp';
 import appointmentReducer from './appointment';
 
 const rootReducer = combineReducers({
-	auth: authReducer,
+	authSignIn: authSignInReducer,
+	authSignUp: authSignUpReducer,
 	appointment: appointmentReducer,
 	// firebase: firebaseReducer,
 });

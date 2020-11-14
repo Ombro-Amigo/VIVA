@@ -1,5 +1,5 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
-import { auth } from '../services/auth';
+import { auth, getFacebookCredential } from '../services/auth';
 import { firestore } from '../services/database';
 
 function* getSignIn(action) {
@@ -44,8 +44,28 @@ function* getSignOut(action) {
 	}
 }
 
+function* getFacebookSignIn(action) {
+	try {
+		const facebookCredential = yield getFacebookCredential();
+
+		const { user } = yield call(
+			[auth(), auth().signInWithCredential],
+			facebookCredential
+		);
+
+		yield put({
+			type: 'SUCCESS_SIGN_IN',
+			user,
+			typeUser: 'paciente',
+		});
+	} catch (error) {
+		yield put({ type: 'FAILURE_SIGN_IN', error: error.code });
+	}
+}
+
 // function* é uma função do tipo generator, basicamente eu posso parar a execução dessa função ao chamar o yield
 export default function* root() {
 	yield all([takeLatest('REQUEST_SIGN_IN', getSignIn)]);
 	yield all([takeLatest('REQUEST_SIGN_OUT', getSignOut)]);
+	yield all([takeLatest('REQUEST_FACEBOOK_SIGN_IN', getFacebookSignIn)]);
 }

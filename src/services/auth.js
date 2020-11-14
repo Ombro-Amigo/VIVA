@@ -3,19 +3,20 @@ import { LoginManager, AccessToken } from 'react-native-fbsdk';
 
 export { auth };
 
-export const SignInWithFacebook = async () => {
+export function* getFacebookCredential() {
 	// Attempt login with permissions
-	const result = await LoginManager.logInWithPermissions([
+	const result = yield LoginManager.logInWithPermissions([
 		'public_profile',
 		'email',
 	]);
 
 	if (result.isCancelled) {
 		throw 'User cancelled the login process';
+		// throw new Error('User cancelled the login process');
 	}
 
 	// Once signed in, get the users AccesToken
-	const data = await AccessToken.getCurrentAccessToken();
+	const data = yield AccessToken.getCurrentAccessToken();
 
 	if (!data) {
 		throw 'Something went wrong obtaining access token';
@@ -26,12 +27,14 @@ export const SignInWithFacebook = async () => {
 		data.accessToken
 	);
 
-	// Sign-in the user with the credential
-	auth().signInWithCredential(facebookCredential);
-};
+	return facebookCredential;
 
-export const signUp = async (email, senha) => {
-	auth()
+	// Sign-in the user with the credential
+	// return yield auth().signInWithCredential(facebookCredential);
+}
+
+export function* signUp(email, senha) {
+	return yield auth()
 		.createUserWithEmailAndPassword(email, senha)
 		.then(() => {
 			console.log('inscreveu!');
@@ -39,7 +42,7 @@ export const signUp = async (email, senha) => {
 		.catch(error => {
 			console.log(`Erro ao criar usuário: ${error.code}`);
 		});
-};
+}
 
 export const signOut = async () => {
 	auth()

@@ -13,12 +13,11 @@ import {
 } from 'react-native-responsive-screen';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { connect } from 'react-redux';
-import AuthContext from '../contexts/auth/auth';
 import Botao from '../components/Botao';
 import MenuItem from '../components/ItemMenu';
 import ModalConstrucao from '../pages/modalConstrucao';
 import ModalExplicacaoChamadaEmergencia from '../pages/modalExplicacaoChamadaEmergencia';
-import { Creators as AuthActions } from '../store/ducks/auth';
+import { Creators as AuthSignUpActions } from '../store/ducks/authSignUp';
 
 function DrawerCustom(props) {
 	const { requestSignOut } = props;
@@ -235,7 +234,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-	requestSignOut: () => dispatch(AuthActions.requestSignOut()),
+	requestSignOut: () => dispatch(AuthSignUpActions.requestSignOut()),
 });
 
 export default connect(null, mapDispatchToProps)(DrawerCustom);
