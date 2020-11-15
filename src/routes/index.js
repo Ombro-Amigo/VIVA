@@ -18,9 +18,9 @@ const Routes = ({ user, typeUser }) => {
 };
 
 const mapStateToProps = state => ({
-	user: state.authSignUp.user,
-	typeUser: state.authSignUp.typeUser,
-	loading: state.authSignUp.loading,
+	user: state.authSignIn.user,
+	typeUser: state.authSignIn.typeUser,
+	loading: state.authSignIn.loading,
 });
 
 export default connect(mapStateToProps)(Routes);

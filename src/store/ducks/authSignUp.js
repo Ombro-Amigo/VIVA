@@ -1,82 +1,47 @@
+import { object } from 'yup';
+
 export const Types = {
-	REQUEST_SIGN_IN: 'REQUEST_SIGN_IN',
-	SUCCESS_SIGN_IN: 'SUCCESS_SIGN_IN',
-	FAILURE_SIGN_IN: 'FAILURE_SIGN_IN',
-	FAILURE_TYPE_USER: 'FAILURE_TYPE_USER',
-	REQUEST_SIGN_OUT: 'REQUEST_SIGN_OUT',
-	SUCCESS_SIGN_OUT: 'REQUEST_SIGN_OUT',
-	FAILURE_SIGN_OUT: 'REQUEST_SIGN_OUT',
+	SAVE_DATA_REGISTER: 'SAVE_DATA_REGISTER',
+	REQUEST_SIGN_UP: 'REQUEST_SIGN_UP',
+	FAILURE_SIGN_UP: 'FAILURE_SIGN_UP',
 	CLEAR_AUTH_ERROR: 'CLEAR_AUTH_ERROR',
-	REQUEST_FACEBOOK_SIGN_IN: 'REQUEST_FACEBOOK_SIGN_IN',
 };
 
 const INITIAL_STATE = {
-	user: null,
-	typeUser: null,
+	dataRegister: null,
 	loading: false,
 	error: null,
 };
 
 export default function authSignUpReducer(state = INITIAL_STATE, action) {
 	switch (action.type) {
-		case Types.REQUEST_SIGN_IN:
-			return { ...state, loading: true };
-		case Types.SUCCESS_SIGN_IN:
-			console.log('login success');
-			console.log('user: ', action.user);
-			return {
-				user: action.user,
-				loading: false,
-				error: null,
-				typeUser: action.typeUser,
-			};
-		case Types.FAILURE_SIGN_IN:
-			console.log('login error');
-			console.log('erro: ', action.error);
-			return { ...state, loading: false, error: action.error };
-		case Types.FAILURE_TYPE_USER:
-			console.log('Tipo usuário errado');
-			console.log(action.error);
-			return { user: null, loading: false, error: action.error };
-		case Types.SUCCESS_SIGN_OUT:
-			console.log('out success');
-			return {
-				user: null,
-				loading: false,
-				error: null,
-				typeUser: action.typeUser,
-			};
-		case Types.FAILURE_SIGN_OUT:
-			console.log('out error');
-			return {
-				user: null,
-				loading: false,
-				error: action.error,
-				typeUser: action.typeUser,
-			};
-		case Types.CLEAR_AUTH_ERROR:
-			console.log('limpando erros de autenticação');
+		case Types.SAVE_DATA_REGISTER:
+			console.log('partDataRegister', action.partDataRegister);
 			return {
 				...state,
-				error: null,
+				dataRegister: action.partDataRegister,
 			};
+		case Types.REQUEST_SIGN_UP:
+			return { ...state, loading: true };
+		case Types.FAILURE_SIGN_UP:
+			console.log('signUp error');
+			console.log('erro: ', action.error);
+			return { ...state, loading: false, error: action.error };
 		default:
 			return state;
 	}
 }
 
 export const Creators = {
-	requestSignIn: credentials => ({
-		type: Types.REQUEST_SIGN_IN,
-		credentials,
+	saveDataRegister: partDataRegister => ({
+		type: Types.SAVE_DATA_REGISTER,
+		partDataRegister,
 	}),
-	requestSignOut: () => ({
-		type: Types.REQUEST_SIGN_OUT,
+	requestSignUp: dataRegister => ({
+		type: Types.REQUEST_SIGN_UP,
+		dataRegister,
 	}),
 	clearAuthError: () => ({
 		type: Types.CLEAR_AUTH_ERROR,
-	}),
-	requestFacebookSignIn: () => ({
-		type: Types.REQUEST_FACEBOOK_SIGN_IN,
 	}),
 };

@@ -19,7 +19,7 @@ import {
 	errorCodesPassword,
 	errorCodes,
 } from '../../utils/errorCodes';
-import { Creators as AuthSignUpActions } from '../../store/ducks/authSignIn';
+import { Creators as AuthSignInActions } from '../../store/ducks/authSignIn';
 import ModalConstrucao from '../modalConstrucao';
 import AuthContext from '../../contexts/auth/auth';
 
@@ -80,7 +80,7 @@ function LoginPaciente({
 			<Formik
 				initialValues={{
 					email: 'paciente@mail.com',
-					password: '123123',
+					password: 'Paciente@123',
 				}}
 				onSubmit={values => {
 					Keyboard.dismiss();
@@ -266,15 +266,15 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => ({
 	requestSignIn: credentials =>
-		dispatch(AuthSignUpActions.requestSignIn(credentials)),
+		dispatch(AuthSignInActions.requestSignIn(credentials)),
 	requestFacebookSignIn: () =>
-		dispatch(AuthSignUpActions.requestFacebookSignIn()),
-	clearAuthError: () => dispatch(AuthSignUpActions.clearAuthError()),
+		dispatch(AuthSignInActions.requestFacebookSignIn()),
+	clearAuthError: () => dispatch(AuthSignInActions.clearAuthError()),
 });
 
 const mapStateToProps = state => ({
-	errorAuthFire: state.auth.error,
-	loading: state.auth.loading,
+	errorAuthFire: state.authSignIn.error,
+	loading: state.authSignIn.loading,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPaciente);

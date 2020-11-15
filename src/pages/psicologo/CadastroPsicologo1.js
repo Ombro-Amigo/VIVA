@@ -1,167 +1,172 @@
-import React, {useContext, useRef, useState} from 'react'
-import { View, Text, ScrollView, StyleSheet, TouchableWithoutFeedback } from 'react-native'
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import Fundo from '../../components/Fundo'
-import Botao from '../../components/Botao'
-import { Entrada, EscolhaGenero, InputDate } from '../../components/form/index'
-import DateTimePicker from 'react-native-modal-datetime-picker'
-import moment from 'moment'
-import { Form } from '@unform/mobile'
+import React from 'react';
+import { View, Text, StyleSheet, Keyboard } from 'react-native';
+import {
+	heightPercentageToDP as hp,
+	widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 import * as Yup from 'yup';
-import AuthContext from '../../contexts/auth/auth'
-   
+import { Formik } from 'formik';
+import { connect } from 'react-redux';
+import { Entrada, EscolhaGenero, InputDate } from '../../components/form/index';
+import Botao from '../../components/Botao';
+import FormBackground from '../../components/form/FormBackground';
+import { Creators as AuthSignUpActions } from '../../store/ducks/authSignUp';
+import { crpMask } from '../../utils/crpMask';
 
-export default function CadastroPsicologo1({ navigation }) {
-   const [nomeUser, setNomeUser] = useState('');
-   const [nome, setNome] = useState('');
-   const [sobrenome, setSobrenome] = useState('');
-   const [email, setEmail] = useState('')
-   const [genero, setGenero] = useState('');
+function CadastroPsicologo1({ navigation, saveDataRegister }) {
+	const FormSchema = Yup.object().shape({
+		name: Yup.string().required('O nome é obrigatório'),
+		lastName: Yup.string().required('O sobrenome é obrigatório'),
+		dateBirth: Yup.string().required('A data de nascimento é obrigatória'),
+		gender: Yup.string().required('O genero é obrigatório'),
+		// cpf: Yup.string().required('O cpf é obigatório'),
+		crp: Yup.string().required('O crp é obigatório'),
+	});
 
-   const formRef = useRef(null);
+	return (
+		<FormBackground>
+			<View style={styles.areaTitulo}>
+				<Text style={styles.titulo}>Crie sua conta</Text>
+			</View>
 
-   const { setFormInfo } = useContext(AuthContext);
+			<Formik
+				initialValues={{
+					name: '',
+					lastName: '',
+					dateBirth: '',
+					gender: '',
+					crp: '',
+				}}
+				onSubmit={values => {
+					console.log(values);
+					Keyboard.dismiss();
+					values.type = 'psicologo';
+					saveDataRegister({ personalInformations: values });
+					navigation.navigate('CadastroPsicologo2');
+				}}
+				validationSchema={FormSchema}
+			>
+				{({
+					handleChange,
+					handleSubmit,
+					setFieldValue,
+					values,
+					errors,
+				}) => (
+					<>
+						<View style={styles.input}>
+							<Entrada
+								value={values.name}
+								onChangeText={handleChange('name')}
+								placeholder="Nome"
+								tipoTexto="name"
+								obrigatorio
+								error={errors.name}
+							/>
+						</View>
 
-   async function handleSubmit(data) {
-      try {
-         formRef.current.setErrors({});
+						<View style={styles.input}>
+							<Entrada
+								value={values.lastName}
+								onChangeText={handleChange('lastName')}
+								placeholder="Sobrenome"
+								obrigatorio
+								error={errors.lastName}
+							/>
+						</View>
 
-         const schema = Yup.object().shape({
-            nomeUsuario: Yup.string().required('O nome de usuário é obigatório'),
-            nome: Yup.string().required('O nome é obrigatório'),
-            sobrenome: Yup.string().required('O sobrenome é obrigatório'),
-            email: Yup.string()
-               .email('Digite um e-mail válido')
-               .required('O email é obrigatório'),
-            nascimento: Yup.string().required('A data de nascimento é obrigatória'),
-            genero: Yup.string().required('O genero é obrigatório'),
-         });
+						<View style={styles.input}>
+							<InputDate
+								value={values.dateBirth}
+								onChange={dateString =>
+									setFieldValue('dateBirth', dateString)
+								}
+								error={errors.dateBirth}
+							/>
+						</View>
 
-         await schema.validate(data, {
-            abortEarly: false,
-         });
-         setFormInfo(data);
-         
-         navigation.navigate('CadastroPsicologo2');
-      } catch (err) {
-         if(err instanceof Yup.ValidationError) {
-            const errorMessages = {};
+						<View style={styles.input}>
+							<Text style={styles.txtSelecioneGenero}>
+								Selecione seu gênero:
+							</Text>
+							<EscolhaGenero
+								value={values.gender}
+								onValueChange={handleChange('gender')}
+								error={errors.gender}
+							/>
+						</View>
 
-            err.inner.forEach(error => {
-               errorMessages[error.path] = error.message;
-            });
+						{/* <View style={styles.input}>
+							<Entrada
+								value={values.cpf}
+								onChangeText={handleChange('cpf')}
+								placeholder="CPF"
+								obrigatorio
+								tipoTeclado="number-pad"
+								max={14}
+								error={errors.cpf}
+							/>
+						</View> */}
 
-            formRef.current.setErrors(errorMessages);
-         }
-      }
-   }
+						<View style={styles.input}>
+							<Entrada
+								value={values.crp}
+								// onChangeText={handleChange('crp')}
+								onChangeText={crpString =>
+									setFieldValue('crp', crpMask(crpString))
+								}
+								placeholder="CRP"
+								obrigatorio
+								tipoTeclado="number-pad"
+								max={14}
+								error={errors.crp}
+							/>
+						</View>
 
-   return (
-      <ScrollView style={styles.container}>
-         <Fundo>
-            <View style={styles.areaTitulo}>
-               <Text style={styles.titulo}>Crie sua conta</Text>
-            </View>
-
-            <View style={styles.form}>
-               <Form ref={formRef} onSubmit={handleSubmit}>
-                  {/* <Scope path='user'> */}
-                     <View style={styles.input}>
-                        <Entrada
-                           name="nomeUsuario"
-                           placeholder="Nome de usuário"
-                           // value={nomeUser}
-                           // onChangeText={Value => {setNomeUser(Value)}}
-                           tipoTexto={"username"}
-                           obrigatorio
-                        />
-                     </View>
-                     
-                     <View style={styles.input}>
-                        <Entrada
-                           name="nome"
-                           placeholder="Nome"
-                           // value={nome}
-                           // onChangeText={Value => {setNome(Value)}}
-                           tipoTexto={"name"}
-                           obrigatorio
-                        />
-                     </View>
-
-                     <View style={styles.input}>
-                        <Entrada
-                           name="sobrenome"
-                           placeholder="Sobrenome"
-                           // value={sobrenome}
-                           // onChangeText={Value => {setSobrenome(Value)}}
-                           obrigatorio
-                        />
-                     </View>
-
-                     <View style={styles.input}>
-                        <Entrada
-                           name="email"
-                           placeholder="Email"
-                           // value={email}
-                           // onChangeText={Value => {setEmail(Value)}}
-                           tipoTeclado={"email-address"}
-                           tipoTexto={"emailAddress"}
-                           obrigatorio
-                        />
-                     </View>
-
-                     <View style={styles.input}>
-                        <InputDate name='nascimento' />
-                     </View>
-                     
-                     <View style={styles.input}>
-                        <Text style={styles.txtSelecioneGenero}>Selecione seu gênero: </Text>
-                        <EscolhaGenero
-                        name='genero'
-                        onValueChange={value => setGenero(value)}
-                        value={genero}
-                     />
-                     </View>
-
-                     <View>
-                        <Botao
-                           style={styles.btn}
-                           title="Próximo"
-                           // onPress={() => navigation.navigate('CadastroPaciente2')}
-                           onPress={() => formRef.current.submitForm()}
-                        />
-                     </View>
-                  {/* </Scope> */}
-               </Form>
-            </View>
-         </Fundo>
-      </ScrollView>
-   )
+						<View>
+							<Botao
+								style={styles.btn}
+								title="Próximo"
+								onPress={handleSubmit}
+							/>
+						</View>
+					</>
+				)}
+			</Formik>
+		</FormBackground>
+	);
 }
 
 const styles = StyleSheet.create({
-   container: {
-      backgroundColor: "#6EB4E7",
-   },
-   titulo: {
-      color: "#186794",
-      marginTop: hp("4.5%"),
-      marginBottom: hp("2%"),
-      fontWeight: "bold",
-      fontSize: wp("7%"),
-      alignSelf: "center",
-   },
-   input: {
-      marginTop: hp("4%")
-   },
-   txtSelecioneGenero: {
-      color: "#FFF",
-      fontWeight: "bold",
-      fontSize: wp("4.6%"),
-   },
-   btn: {
-      paddingVertical: hp("2.5%"),
-      paddingHorizontal: wp("2%"),
-      marginTop: hp("3%")
-   }
-})
+	container: {
+		backgroundColor: '#6EB4E7',
+	},
+	titulo: {
+		color: '#186794',
+		marginTop: hp('4.5%'),
+		marginBottom: hp('2%'),
+		fontWeight: 'bold',
+		fontSize: wp('7%'),
+		alignSelf: 'center',
+	},
+	input: {
+		marginTop: hp('4%'),
+	},
+	txtSelecioneGenero: {
+		color: '#FFF',
+		fontWeight: 'bold',
+		fontSize: wp('4.6%'),
+	},
+	btn: {
+		paddingVertical: hp('2.5%'),
+		paddingHorizontal: wp('2%'),
+		marginTop: hp('3%'),
+	},
+});
+
+const mapDispatchToProps = dispatch => ({
+	saveDataRegister: partDataRegister =>
+		dispatch(AuthSignUpActions.saveDataRegister(partDataRegister)),
+});
+
+export default connect(null, mapDispatchToProps)(CadastroPsicologo1);

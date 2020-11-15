@@ -48,8 +48,6 @@ export default function EscolhaGenero(props) {
 			<View style={styles.areaMsgError}>
 				{error && <Text style={styles.msgError}>{error}</Text>}
 			</View>
-
-			<TextInput style={{ display: 'none' }} value={genero} />
 		</View>
 	);
 }

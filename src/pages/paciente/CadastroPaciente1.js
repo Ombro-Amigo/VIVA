@@ -7,19 +7,20 @@ import {
 } from 'react-native-responsive-screen';
 import { Formik } from 'formik';
 import moment from 'moment';
+import { connect } from 'react-redux';
 import Botao from '../../components/Botao';
 import { Entrada, EscolhaGenero, InputDate } from '../../components/form/index';
 import FormBackground from '../../components/form/FormBackground';
+import { Creators as AuthSignUpActions } from '../../store/ducks/authSignUp';
+import { cpfMask } from '../../utils/cpfMask';
 
-export default function CadastroPaciente1({ navigation }) {
+function CadastroPaciente1({ navigation, saveDataRegister }) {
 	const FormSchema = Yup.object().shape({
 		name: Yup.string().required('O nome é obrigatório'),
 		lastName: Yup.string().required('O sobrenome é obrigatório'),
-		email: Yup.string()
-			.email('Digite um e-mail válido')
-			.required('O email é obrigatório'),
 		dateBirth: Yup.string().required('A data de nascimento é obrigatória'),
 		gender: Yup.string().required('O genero é obrigatório'),
+		cpf: Yup.string().required('O cpf é obigatório'),
 	});
 	// abortEarly: false,
 
@@ -30,20 +31,19 @@ export default function CadastroPaciente1({ navigation }) {
 			</View>
 
 			<Formik
-				style={styles.inner}
 				initialValues={{
-					name: 'Douglas',
-					lastName: 'Silva',
-					email: 'douglas.s.o676@gmail.com',
-					dateBirth: '27/11/2020',
-					gender: 'Masculino',
+					name: '',
+					lastName: '',
+					dateBirth: '',
+					gender: '',
+					cpf: '',
 				}}
 				onSubmit={values => {
 					console.log(values);
 					Keyboard.dismiss();
-					navigation.navigate('CadastroPaciente2');
-					// values.type = 'paciente';
-					// requestSignIn(values);
+					values.type = 'paciente';
+					saveDataRegister({ personalInformations: values });
+					navigation.navigate('CadastroPsicologo2');
 				}}
 				validationSchema={FormSchema}
 			>
@@ -77,18 +77,6 @@ export default function CadastroPaciente1({ navigation }) {
 						</View>
 
 						<View style={styles.input}>
-							<Entrada
-								value={values.email}
-								onChangeText={handleChange('email')}
-								placeholder="Email"
-								tipoTeclado="email-address"
-								tipoTexto="emailAddress"
-								obrigatorio
-								error={errors.email}
-							/>
-						</View>
-
-						<View style={styles.input}>
 							<InputDate
 								value={values.dateBirth}
 								onChange={dateString =>
@@ -106,6 +94,21 @@ export default function CadastroPaciente1({ navigation }) {
 								value={values.gender}
 								onValueChange={handleChange('gender')}
 								error={errors.gender}
+							/>
+						</View>
+
+						<View style={styles.input}>
+							<Entrada
+								value={values.cpf}
+								// onChangeText={handleChange('cpf')}
+								onChangeText={cppString =>
+									setFieldValue('cpf', cpfMask(cppString))
+								}
+								placeholder="CPF"
+								obrigatorio
+								tipoTeclado="number-pad"
+								max={14}
+								error={errors.cpf}
 							/>
 						</View>
 
@@ -146,3 +149,10 @@ const styles = StyleSheet.create({
 		marginTop: hp('3%'),
 	},
 });
+
+const mapDispatchToProps = dispatch => ({
+	saveDataRegister: partDataRegister =>
+		dispatch(AuthSignUpActions.saveDataRegister(partDataRegister)),
+});
+
+export default connect(null, mapDispatchToProps)(CadastroPaciente1);

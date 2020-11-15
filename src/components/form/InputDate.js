@@ -33,7 +33,9 @@ function InputDate({ error, value, onChange }) {
 			</TouchableWithoutFeedback>
 
 			<DateTimePicker
-				date={value ? moment(value, 'DD/MM/YYYY').toDate() : null}
+				date={
+					value !== '' ? moment(value, 'DD/MM/YYYY').toDate() : new Date()
+				}
 				isVisible={show}
 				mode="date"
 				onConfirm={pickedDate => {
@@ -44,7 +46,7 @@ function InputDate({ error, value, onChange }) {
 				onCancel={() => {
 					setShow(false);
 				}}
-				minimumDate={new Date()}
+				maximumDate={new Date()}
 			/>
 		</View>
 	);

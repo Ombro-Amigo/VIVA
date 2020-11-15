@@ -19,7 +19,7 @@ import {
 	errorCodesPassword,
 	errorCodes,
 } from '../../utils/errorCodes';
-import { Creators as AuthSignUpActions } from '../../store/ducks/authSignIn';
+import { Creators as AuthSignInActions } from '../../store/ducks/authSignIn';
 
 // import firebase from '@firebase/app';
 // import '@firebase/auth'
@@ -221,13 +221,13 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => ({
 	requestSignIn: credentials =>
-		dispatch(AuthSignUpActions.requestSignIn(credentials)),
-	clearAuthError: () => dispatch(AuthSignUpActions.clearAuthError()),
+		dispatch(AuthSignInActions.requestSignIn(credentials)),
+	clearAuthError: () => dispatch(AuthSignInActions.clearAuthError()),
 });
 
 const mapStateToProps = state => ({
-	errorAuthFire: state.auth.error,
-	loading: state.auth.loading,
+	errorAuthFire: state.authSignIn.error,
+	loading: state.authSignIn.loading,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPsicologo);

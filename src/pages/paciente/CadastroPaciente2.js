@@ -7,6 +7,7 @@ import {
 	widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import { Formik } from 'formik';
+import { connect } from 'react-redux';
 import { Entrada } from '../../components/form/index';
 import Fundo from '../../components/Fundo';
 import CaixaSelecao from '../../components/CaixaSelecao';
@@ -14,52 +15,42 @@ import Botao from '../../components/Botao';
 import { cpfMask } from '../../utils/cpfMask';
 import AuthContext from '../../contexts/auth/auth';
 import FormBackground from '../../components/form/FormBackground';
+import { Creators as AuthSignUpActions } from '../../store/ducks/authSignUp';
 
-export default function CadastroPaciente2({ navigation }) {
-	const [cpf, setCpf] = useState('');
-	const [senha, setSenha] = useState('');
-	const [confirmacaoSenha, setConfirmacaoSenha] = useState('');
-	const [checkTermos, setCheckedTermos] = useState('');
-	const [checkPolitas, setCheckedPoliticas] = useState('');
+function CadastroPaciente2({
+	saveDataRegister,
+	requestSignUp,
+	dataRegister,
+	loading,
+}) {
+	const [senha] = useState('');
+	const [confirmacaoSenha] = useState('');
 	const [hidePassword, setHidePassword] = useState(true);
 	const [hidePasswordTwo, setHidePasswordTwo] = useState(true);
 
-	const formRef = useRef(null);
-
-	const { formInfo, setFormInfo, setTypeUser } = useContext(AuthContext);
-
-	async function handleSubmit(data) {
-		try {
-			formRef.current.setErrors({});
-
-			const schema = Yup.object().shape({
-				cpf: Yup.string().required('O cpf é obigatório'),
-				senha: Yup.string().required('A senha é obrigatória'),
-				confirmaSenha: Yup.string().required(
-					'A confirmação de senha é obrigatória'
-				),
-			});
-
-			await schema.validate(data, {
-				abortEarly: false,
-			});
-
-			const allForm = { ...formInfo, ...data };
-
-			setTypeUser('paciente');
-			setFormInfo(allForm);
-		} catch (err) {
-			if (err instanceof Yup.ValidationError) {
-				const errorMessages = {};
-
-				err.inner.forEach(error => {
-					errorMessages[error.path] = error.message;
-				});
-
-				formRef.current.setErrors(errorMessages);
-			}
-		}
-	}
+	const FormSchema = Yup.object().shape({
+		email: Yup.string()
+			.email('Digite um e-mail válido')
+			.required('O email é obrigatório'),
+		password: Yup.string()
+			.required('A senha é obrigatória')
+			.min(8, 'A senha deve ter pelo menos 8 caracteres')
+			.matches(
+				/^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+				'Sua senha deve conter, pelo menos, caracteres maiúsuclos, minúsuculos, numéricos e especiais (!@#$%^&*()\\-_=+{};:,<.>)'
+			),
+		passwordConfirm: Yup.string()
+			.oneOf([Yup.ref('password'), null], 'As senhas precisam ser iguais')
+			.required('Insira a sua senha novamente'),
+		checkPoliticas: Yup.bool().oneOf(
+			[true],
+			'Você precisa aceitar nossos termos de uso'
+		),
+		checkTermos: Yup.bool().oneOf(
+			[true],
+			'Você precisa aceitar nossas políticas de privacidade'
+		),
+	});
 
 	return (
 		<FormBackground>
@@ -70,20 +61,19 @@ export default function CadastroPaciente2({ navigation }) {
 			<Formik
 				style={styles.inner}
 				initialValues={{
-					cpf: '123.123.123-54',
-					password: '123123',
-					passwordConfirm: '123123',
+					email: '',
+					password: '',
+					passwordConfirm: '',
 					checkPoliticas: false,
 					checkTermos: false,
 				}}
 				onSubmit={values => {
-					console.log(values);
+					// console.log(values);
 					Keyboard.dismiss();
-					// navigation.navigate('CadastroPaciente2');
-					// values.type = 'paciente';
-					// requestSignIn(values);
+					saveDataRegister({ ...dataRegister, credentials: values });
+					requestSignUp({ ...dataRegister, credentials: values });
 				}}
-				// validationSchema={FormSchema}
+				validationSchema={FormSchema}
 			>
 				{({
 					handleChange,
@@ -95,13 +85,13 @@ export default function CadastroPaciente2({ navigation }) {
 					<>
 						<View style={styles.input}>
 							<Entrada
-								value={values.cpf}
-								onChangeText={handleChange('cpf')}
-								placeholder="CPF"
+								value={values.email}
+								onChangeText={handleChange('email')}
+								placeholder="Email"
+								tipoTeclado="email-address"
+								tipoTexto="emailAddress"
 								obrigatorio
-								tipoTeclado="number-pad"
-								max={14}
-								error={errors.cpf}
+								error={errors.email}
 							/>
 						</View>
 						<View style={styles.input}>
@@ -142,6 +132,7 @@ export default function CadastroPaciente2({ navigation }) {
 										setFieldValue('checkTermos', checked)
 									}
 									color="#FFF"
+									error={errors.checkTermos}
 								/>
 								<View style={styles.areaTxt}>
 									<Text style={styles.txtSelecao}>
@@ -160,6 +151,7 @@ export default function CadastroPaciente2({ navigation }) {
 										setFieldValue('checkPoliticas', checked)
 									}
 									color="#FFF"
+									error={errors.checkPoliticas}
 								/>
 								<View style={styles.areaTxt}>
 									<Text style={styles.txtSelecao}>
@@ -177,17 +169,12 @@ export default function CadastroPaciente2({ navigation }) {
 								style={styles.btn}
 								title="Concluir Cadastrado"
 								onPress={handleSubmit}
+								loading={loading}
 							/>
 						</View>
 					</>
 				)}
 			</Formik>
-
-			{/* <Form ref={formRef} onSubmit={handleSubmit}>
-               <View style={styles.form}>
-
-               </View>
-            </Form> */}
 		</FormBackground>
 	);
 }
@@ -234,3 +221,17 @@ const styles = StyleSheet.create({
 		marginTop: hp('3%'),
 	},
 });
+
+const mapStateToProps = state => ({
+	dataRegister: state.authSignUp.dataRegister,
+	loading: state.authSignUp.loading,
+});
+
+const mapDispatchToProps = dispatch => ({
+	saveDataRegister: partDataRegister =>
+		dispatch(AuthSignUpActions.saveDataRegister(partDataRegister)),
+	requestSignUp: dataRegister =>
+		dispatch(AuthSignUpActions.requestSignUp(dataRegister)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CadastroPaciente2);

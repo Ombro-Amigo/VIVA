@@ -27,7 +27,7 @@ function LogoTitle() {
 
 const AuthRoutes = () => (
 	<AuthStack.Navigator
-		initialRouteName="CadastroPaciente1"
+		initialRouteName="Encaminhamento"
 		screenOptions={{
 			headerTitleAlign: 'center',
 			headerTitle: props => <LogoTitle {...props} />,

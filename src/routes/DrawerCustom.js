@@ -17,7 +17,7 @@ import Botao from '../components/Botao';
 import MenuItem from '../components/ItemMenu';
 import ModalConstrucao from '../pages/modalConstrucao';
 import ModalExplicacaoChamadaEmergencia from '../pages/modalExplicacaoChamadaEmergencia';
-import { Creators as AuthSignUpActions } from '../store/ducks/authSignUp';
+import { Creators as AuthSignInActions } from '../store/ducks/authSignIn';
 
 function DrawerCustom(props) {
 	const { requestSignOut } = props;
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-	requestSignOut: () => dispatch(AuthSignUpActions.requestSignOut()),
+	requestSignOut: () => dispatch(AuthSignInActions.requestSignOut()),
 });
 
 export default connect(null, mapDispatchToProps)(DrawerCustom);

@@ -11,7 +11,7 @@ export default function FormBackground({ children }) {
 		<ScrollView>
 			<KeyboardAwareScrollView
 				style={styles.container}
-				extraHeight={50}
+				extraHeight={100}
 				enableOnAndroid
 			>
 				{children}
