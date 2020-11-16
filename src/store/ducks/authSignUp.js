@@ -1,5 +1,3 @@
-import { object } from 'yup';
-
 export const Types = {
 	SAVE_DATA_REGISTER: 'SAVE_DATA_REGISTER',
 	REQUEST_SIGN_UP: 'REQUEST_SIGN_UP',

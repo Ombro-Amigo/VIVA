@@ -3,12 +3,13 @@ import { combineReducers } from 'redux';
 import authSignInReducer from './authSignIn';
 import authSignUpReducer from './authSignUp';
 import appointmentReducer from './appointment';
+import schedulingReducer from './scheduling';
 
 const rootReducer = combineReducers({
 	authSignIn: authSignInReducer,
 	authSignUp: authSignUpReducer,
 	appointment: appointmentReducer,
-	// firebase: firebaseReducer,
+	scheduling: schedulingReducer,
 });
 
 export default rootReducer;

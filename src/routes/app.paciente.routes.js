@@ -19,18 +19,18 @@ function LogoTitle() {
 }
 
 const AppPacienteRoutes = ({ navigation }) => (
-   <AppStack.Navigator 
+   <AppStack.Navigator
       initialRouteName='HomePaciente'
       screenOptions={{
          headerTitleAlign: 'center',
          headerTitle: props => <LogoTitle {...props} />
       }}
    >
-      <AppStack.Screen name='HomePaciente' component={HomePaciente} 
+      <AppStack.Screen name='HomePaciente' component={HomePaciente}
          options={{
             headerRight: () => (
                <TouchableRipple onPress={() => navigation.openDrawer()}>
-                  <Image 
+                  <Image
                   style={{width: 25, height: 25, aspectRatio: 1, marginRight: 15}}
                   source={require('../assets/icon/menu.png')}/>
                </TouchableRipple>

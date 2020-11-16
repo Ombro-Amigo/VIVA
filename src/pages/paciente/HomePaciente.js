@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import {
 	heightPercentageToDP as hp,
@@ -8,12 +8,22 @@ import { connect, useSelector } from 'react-redux';
 import ListaConsultas from '../../components/ListaConsultas';
 import Fundo from '../../components/Fundo';
 import Botao from '../../components/Botao';
+import { Creators as appointmentActions } from '../../store/ducks/appointment';
 
 import ModalConstrucao from '../modalConstrucao';
 
-function HomePaciente({ navigation, appointments }) {
+function HomePaciente({
+	navigation,
+	listAppointments,
+	uid,
+	loading,
+	requestAppointments,
+}) {
 	const [modalVisible, setModalVisible] = useState(false);
-	console.log('appointments', appointments);
+
+	useEffect(() => {
+		requestAppointments(uid, 'paciente');
+	}, []);
 
 	return (
 		<Fundo>
@@ -21,7 +31,10 @@ function HomePaciente({ navigation, appointments }) {
 				<View style={styles.titleContainer}>
 					<Text style={styles.title}>Consultas Agendadas</Text>
 				</View>
-				<ListaConsultas user="pc" appointments={appointments} />
+				<ListaConsultas
+					listAppointments={listAppointments}
+					loading={loading}
+				/>
 			</View>
 			<View style={styles.agendarConsulta}>
 				<Botao
@@ -110,7 +123,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-	appointments: state.appointment.appointments,
+	uid: state.authSignIn.user.uid,
+	listAppointments: state.appointment.listAppointments,
+	loading: state.appointment.loading,
 });
 
-export default connect(mapStateToProps)(HomePaciente);
+const mapDsipatchToProps = dispatch => ({
+	requestAppointments: (uid, typeUser) =>
+		dispatch(appointmentActions.requestAppointments(uid, typeUser)),
+});
+
+export default connect(mapStateToProps, mapDsipatchToProps)(HomePaciente);
