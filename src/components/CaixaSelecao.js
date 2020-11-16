@@ -14,10 +14,13 @@ export default function CaixaSelecao(props) {
 				uncheckedColor={uncheckedColor || '#ccc'}
 				color={color || '#0f0'}
 			/>
-			<Text>{title}</Text>
 
-			<View style={styles.areaMsgError}>
-				{error && <Text style={styles.msgError}>{error}</Text>}
+			<View style={styles.subcontainer}>
+				<Text>{title}</Text>
+
+				<View style={styles.areaMsgError}>
+					{error && <Text style={styles.msgError}>{error}</Text>}
+				</View>
 			</View>
 		</View>
 	);
@@ -34,4 +37,7 @@ const styles = StyleSheet.create({
 	msgError: {
 		color: '#f00',
 	},
+	subcontainer: {
+		flexDirection: 'column'
+	}
 });

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen'
@@ -9,8 +9,16 @@ import StatesContext from '../../contexts/states'
 import MensagemStatus from '../../components/MensagemStatus'
 import PeriodoConsultas from '../../components/PeriodoConsultas'
 import ListaConsultas from '../../components/ListaConsultas'
+import { Creators as appointmentActions } from '../../store/ducks/appointment'
+import { connect } from 'react-redux'
 
-export default function HomePsicologo({navigation}) {
+function HomePsicologo({
+	navigation,
+	listAppointments,
+	uid,
+	loading,
+	requestAppointments,
+}) {
 
     const [modalStatusVisible, setModalStatusVisible] = useState(false)
     const [modalRangeVisible, setModalRangeVisible] = useState(false)
@@ -18,7 +26,11 @@ export default function HomePsicologo({navigation}) {
     const {dispo} = useContext(StatesContext)
     const {rangeConsultas} = useContext(StatesContext)
 
-    console.log(rangeConsultas)
+	//  console.log(rangeConsultas)
+
+	 useEffect(() => {
+		requestAppointments(uid, 'psicologo');
+	}, []);
 
     return (
         <Fundo>
@@ -27,21 +39,24 @@ export default function HomePsicologo({navigation}) {
                     <Text style={styles.txtStatus}>Seu status: </Text>
                     <TouchableOpacity  onPress={() => setModalStatusVisible(!modalStatusVisible)}>
                         <MensagemStatus dispo={dispo}/>
-                    </TouchableOpacity>    
-                </View>   
+                    </TouchableOpacity>
+                </View>
             </View>
             <View style={styles.areaListaConsultas}>
                 <Text style={styles.title}>Consultas Agendadas</Text>
-                
+
                     <TouchableOpacity onPress={() => setModalRangeVisible(!modalRangeVisible)}>
                         <View style={styles.periodoConsultas}>
                             <PeriodoConsultas rangeConsultas={rangeConsultas}/>
                         </View>
                     </TouchableOpacity>
-                
-                <ListaConsultas style={styles.listaConsultas} user="ps"/>
+
+					 <ListaConsultas style={styles.listaConsultas}
+						listAppointments={listAppointments}
+						loading={loading}
+					/>
             </View>
-            
+
             <ModalStatus modalVisible={modalStatusVisible} setModalVisible={setModalStatusVisible}/>
             <ModalPeriodoConsultas modalVisible={modalRangeVisible} setModalVisible={setModalRangeVisible}/>
         </Fundo>
@@ -87,3 +102,16 @@ const styles = StyleSheet.create({
         marginTop: hp("1.5%"),
     },
 })
+
+const mapStateToProps = state => ({
+	uid: state.authSignIn.user.uid,
+	listAppointments: state.appointment.listAppointments,
+	loading: state.appointment.loading,
+});
+
+const mapDsipatchToProps = dispatch => ({
+	requestAppointments: (uid, typeUser) =>
+		dispatch(appointmentActions.requestAppointments(uid, typeUser)),
+});
+
+export default connect(mapStateToProps, mapDsipatchToProps)(HomePsicologo);
