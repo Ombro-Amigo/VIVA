@@ -9,11 +9,8 @@ import {
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
 import { Entrada } from '../../components/form/index';
-import Fundo from '../../components/Fundo';
-import CaixaSelecao from '../../components/CaixaSelecao';
+import { CaixaSelecao } from '../../components/CaixaSelecao';
 import Botao from '../../components/Botao';
-import { cpfMask } from '../../utils/cpfMask';
-import AuthContext from '../../contexts/auth/auth';
 import FormBackground from '../../components/form/FormBackground';
 import { Creators as AuthSignUpActions } from '../../store/ducks/authSignUp';
 
@@ -53,129 +50,131 @@ function CadastroPaciente2({
 	});
 
 	return (
-		<FormBackground>
-			<View style={styles.areaTitulo}>
-				<Text style={styles.titulo}>Quase lá</Text>
-			</View>
+		<ScrollView>
+			<FormBackground>
+				<View style={styles.areaTitulo}>
+					<Text style={styles.titulo}>Quase lá</Text>
+				</View>
 
-			<Formik
-				style={styles.inner}
-				initialValues={{
-					email: '',
-					password: '',
-					passwordConfirm: '',
-					checkPoliticas: false,
-					checkTermos: false,
-				}}
-				onSubmit={values => {
-					// console.log(values);
-					Keyboard.dismiss();
-					saveDataRegister({ ...dataRegister, credentials: values });
-					requestSignUp({ ...dataRegister, credentials: values });
-				}}
-				validationSchema={FormSchema}
-			>
-				{({
-					handleChange,
-					handleSubmit,
-					setFieldValue,
-					values,
-					errors,
-				}) => (
-					<>
-						<View style={styles.input}>
-							<Entrada
-								value={values.email}
-								onChangeText={handleChange('email')}
-								placeholder="Email"
-								tipoTeclado="email-address"
-								tipoTexto="emailAddress"
-								obrigatorio
-								error={errors.email}
-							/>
-						</View>
-						<View style={styles.input}>
-							<Entrada
-								value={values.password}
-								onChangeText={handleChange('password')}
-								placeholder="Senha"
-								onPress={() => setHidePassword(!hidePassword)}
-								obrigatorio
-								tipoTexto="password"
-								secureTextEntry={hidePassword}
-								error={errors.password}
-							/>
-						</View>
-						<View style={styles.input}>
-							<Entrada
-								value={values.passwordConfirm}
-								onChangeText={handleChange('passwordConfirm')}
-								placeholder="Confirme sua senha"
-								onPress={() => {
-									setHidePasswordTwo(!hidePasswordTwo);
-								}}
-								obrigatorio
-								tipoTexto="password"
-								secureTextEntry={hidePasswordTwo}
-								msgError="As senha não são correspondentes."
-								msgSucesso="As senhas correspondem."
-								verificaCondicao={!!(senha && confirmacaoSenha)}
-								condicao={senha === confirmacaoSenha}
-								error={errors.passwordConfirm}
-							/>
-						</View>
-						<View style={styles.confirmacoesLeitura}>
-							<View style={styles.confirmacaoContainer}>
-								<CaixaSelecao
-									value={values.checkTermos}
-									setChecked={checked =>
-										setFieldValue('checkTermos', checked)
-									}
-									color="#FFF"
-									error={errors.checkTermos}
+				<Formik
+					style={styles.inner}
+					initialValues={{
+						email: '',
+						password: '',
+						passwordConfirm: '',
+						checkPoliticas: false,
+						checkTermos: false,
+					}}
+					onSubmit={values => {
+						// console.log(values);
+						Keyboard.dismiss();
+						saveDataRegister({ ...dataRegister, credentials: values });
+						requestSignUp({ ...dataRegister, credentials: values });
+					}}
+					validationSchema={FormSchema}
+				>
+					{({
+						handleChange,
+						handleSubmit,
+						setFieldValue,
+						values,
+						errors,
+					}) => (
+						<>
+							<View style={styles.input}>
+								<Entrada
+									value={values.email}
+									onChangeText={handleChange('email')}
+									placeholder="Email"
+									tipoTeclado="email-address"
+									tipoTexto="emailAddress"
+									obrigatorio
+									error={errors.email}
 								/>
-								<View style={styles.areaTxt}>
-									<Text style={styles.txtSelecao}>
-										Li e concordo com os{' '}
-										<Text style={styles.txtSublinhado}>
-											Termos de Uso.
+							</View>
+							<View style={styles.input}>
+								<Entrada
+									value={values.password}
+									onChangeText={handleChange('password')}
+									placeholder="Senha"
+									onPress={() => setHidePassword(!hidePassword)}
+									obrigatorio
+									tipoTexto="password"
+									secureTextEntry={hidePassword}
+									error={errors.password}
+								/>
+							</View>
+							<View style={styles.input}>
+								<Entrada
+									value={values.passwordConfirm}
+									onChangeText={handleChange('passwordConfirm')}
+									placeholder="Confirme sua senha"
+									onPress={() => {
+										setHidePasswordTwo(!hidePasswordTwo);
+									}}
+									obrigatorio
+									tipoTexto="password"
+									secureTextEntry={hidePasswordTwo}
+									msgError="As senha não são correspondentes."
+									msgSucesso="As senhas correspondem."
+									verificaCondicao={!!(senha && confirmacaoSenha)}
+									condicao={senha === confirmacaoSenha}
+									error={errors.passwordConfirm}
+								/>
+							</View>
+							<View style={styles.confirmacoesLeitura}>
+								<View style={styles.confirmacaoContainer}>
+									<CaixaSelecao
+										value={values.checkTermos}
+										setChecked={checked =>
+											setFieldValue('checkTermos', checked)
+										}
+										color="#FFF"
+										error={errors.checkTermos}
+									/>
+									<View style={styles.areaTxt}>
+										<Text style={styles.txtSelecao}>
+											Li e concordo com os{' '}
+											<Text style={styles.txtSublinhado}>
+												Termos de Uso.
+											</Text>
 										</Text>
-									</Text>
+									</View>
+								</View>
+
+								<View style={styles.confirmacaoContainer}>
+									<CaixaSelecao
+										value={values.checkPoliticas}
+										setChecked={checked =>
+											setFieldValue('checkPoliticas', checked)
+										}
+										color="#FFF"
+										error={errors.checkPoliticas}
+									/>
+									<View style={styles.areaTxt}>
+										<Text style={styles.txtSelecao}>
+											Li e concordo com as{' '}
+											<Text style={styles.txtSublinhado}>
+												Políticas de Privacidade.
+											</Text>
+										</Text>
+									</View>
 								</View>
 							</View>
 
-							<View style={styles.confirmacaoContainer}>
-								<CaixaSelecao
-									value={values.checkPoliticas}
-									setChecked={checked =>
-										setFieldValue('checkPoliticas', checked)
-									}
-									color="#FFF"
-									error={errors.checkPoliticas}
+							<View>
+								<Botao
+									style={styles.btn}
+									title="Concluir Cadastrado"
+									onPress={handleSubmit}
+									loading={loading}
 								/>
-								<View style={styles.areaTxt}>
-									<Text style={styles.txtSelecao}>
-										Li e concordo com as{' '}
-										<Text style={styles.txtSublinhado}>
-											Políticas de Privacidade.
-										</Text>
-									</Text>
-								</View>
 							</View>
-						</View>
-
-						<View>
-							<Botao
-								style={styles.btn}
-								title="Concluir Cadastrado"
-								onPress={handleSubmit}
-								loading={loading}
-							/>
-						</View>
-					</>
-				)}
-			</Formik>
-		</FormBackground>
+						</>
+					)}
+				</Formik>
+			</FormBackground>
+		</ScrollView>
 	);
 }
 

@@ -13,6 +13,7 @@ import { Entrada, EscolhaGenero, InputDate } from '../../components/form/index';
 import FormBackground from '../../components/form/FormBackground';
 import { Creators as AuthSignUpActions } from '../../store/ducks/authSignUp';
 import { cpfMask } from '../../utils/cpfMask';
+import { ScrollView } from 'react-native-gesture-handler';
 
 function CadastroPaciente1({ navigation, saveDataRegister }) {
 	const FormSchema = Yup.object().shape({
@@ -25,104 +26,106 @@ function CadastroPaciente1({ navigation, saveDataRegister }) {
 	// abortEarly: false,
 
 	return (
-		<FormBackground>
-			<View style={styles.areaTitulo}>
-				<Text style={styles.titulo}>Crie sua conta</Text>
-			</View>
+		<ScrollView>
+			<FormBackground>
+				<View style={styles.areaTitulo}>
+					<Text style={styles.titulo}>Crie sua conta</Text>
+				</View>
 
-			<Formik
-				initialValues={{
-					name: '',
-					lastName: '',
-					dateBirth: '',
-					gender: '',
-					cpf: '',
-				}}
-				onSubmit={values => {
-					console.log(values);
-					Keyboard.dismiss();
-					values.type = 'paciente';
-					saveDataRegister({ personalInformations: values });
-					navigation.navigate('CadastroPsicologo2');
-				}}
-				validationSchema={FormSchema}
-			>
-				{({
-					handleChange,
-					handleSubmit,
-					setFieldValue,
-					values,
-					errors,
-				}) => (
-					<>
-						<View style={styles.input}>
-							<Entrada
-								value={values.name}
-								onChangeText={handleChange('name')}
-								placeholder="Nome"
-								tipoTexto="name"
-								obrigatorio
-								error={errors.name}
-							/>
-						</View>
+				<Formik
+					initialValues={{
+						name: '',
+						lastName: '',
+						dateBirth: '',
+						gender: '',
+						cpf: '',
+					}}
+					onSubmit={values => {
+						console.log(values);
+						Keyboard.dismiss();
+						values.type = 'paciente';
+						saveDataRegister({ personalInformations: values });
+						navigation.navigate('CadastroPsicologo2');
+					}}
+					validationSchema={FormSchema}
+				>
+					{({
+						handleChange,
+						handleSubmit,
+						setFieldValue,
+						values,
+						errors,
+					}) => (
+						<>
+							<View style={styles.input}>
+								<Entrada
+									value={values.name}
+									onChangeText={handleChange('name')}
+									placeholder="Nome"
+									tipoTexto="name"
+									obrigatorio
+									error={errors.name}
+								/>
+							</View>
 
-						<View style={styles.input}>
-							<Entrada
-								value={values.lastName}
-								onChangeText={handleChange('lastName')}
-								placeholder="Sobrenome"
-								obrigatorio
-								error={errors.lastName}
-							/>
-						</View>
+							<View style={styles.input}>
+								<Entrada
+									value={values.lastName}
+									onChangeText={handleChange('lastName')}
+									placeholder="Sobrenome"
+									obrigatorio
+									error={errors.lastName}
+								/>
+							</View>
 
-						<View style={styles.input}>
-							<InputDate
-								value={values.dateBirth}
-								onChange={dateString =>
-									setFieldValue('dateBirth', dateString)
-								}
-								error={errors.dateBirth}
-							/>
-						</View>
+							<View style={styles.input}>
+								<InputDate
+									value={values.dateBirth}
+									onChange={dateString =>
+										setFieldValue('dateBirth', dateString)
+									}
+									error={errors.dateBirth}
+								/>
+							</View>
 
-						<View style={styles.input}>
-							<Text style={styles.txtSelecioneGenero}>
-								Selecione seu gênero:
-							</Text>
-							<EscolhaGenero
-								value={values.gender}
-								onValueChange={handleChange('gender')}
-								error={errors.gender}
-							/>
-						</View>
+							<View style={styles.input}>
+								<Text style={styles.txtSelecioneGenero}>
+									Selecione seu gênero:
+								</Text>
+								<EscolhaGenero
+									value={values.gender}
+									onValueChange={handleChange('gender')}
+									error={errors.gender}
+								/>
+							</View>
 
-						<View style={styles.input}>
-							<Entrada
-								value={values.cpf}
-								// onChangeText={handleChange('cpf')}
-								onChangeText={cppString =>
-									setFieldValue('cpf', cpfMask(cppString))
-								}
-								placeholder="CPF"
-								obrigatorio
-								tipoTeclado="number-pad"
-								max={14}
-								error={errors.cpf}
-							/>
-						</View>
+							<View style={styles.input}>
+								<Entrada
+									value={values.cpf}
+									// onChangeText={handleChange('cpf')}
+									onChangeText={cppString =>
+										setFieldValue('cpf', cpfMask(cppString))
+									}
+									placeholder="CPF"
+									obrigatorio
+									tipoTeclado="number-pad"
+									max={14}
+									error={errors.cpf}
+								/>
+							</View>
 
-						<View>
-							<Botao
-								style={styles.btn}
-								title="Próximo"
-								onPress={handleSubmit}
-							/>
-						</View>
-					</>
-				)}
-			</Formik>
-		</FormBackground>
+							<View>
+								<Botao
+									style={styles.btn}
+									title="Próximo"
+									onPress={handleSubmit}
+								/>
+							</View>
+						</>
+					)}
+				</Formik>
+			</FormBackground>
+		</ScrollView>
 	);
 }
 

@@ -19,62 +19,64 @@ function Agendamento1({ navigation, saveDataScheduling }) {
 	});
 
    return (
-		<FormBackground>
-			<View style={styles.containerAgendeConsulta}>
-				<Text style={styles.txtAgendeConsulta}>Agende sua Consulta</Text>
-			</View>
+		<ScrollView>
+			<FormBackground>
+				<View style={styles.containerAgendeConsulta}>
+					<Text style={styles.txtAgendeConsulta}>Agende sua Consulta</Text>
+				</View>
 
-			<Formik
-				initialValues={{
-					typeConsultation: 'Gratuita',
-					dateConsultation: '2020-11-24',
-				}}
-				onSubmit={values => {
-					console.log(values);
-					Keyboard.dismiss();
-					saveDataScheduling(values);
-					navigation.navigate('Agendamento2');
-				}}
-				validationSchema={FormSchema}
-			>
-				{({
-					handleChange,
-					handleSubmit,
-					setFieldValue,
-					values,
-					errors,
-				}) => (
-					<>
-						<View style={styles.escolhaTipoConsulta}>
-							<Text style={styles.titleEscolha}>Escolha o tipo de consulta:</Text>
-							<TipoConsultas
-								value={values.typeConsultation}
-								onValueChange={handleChange('typeConsultation')}
-								error={errors.typeConsultation}
-							/>
-						</View>
+				<Formik
+					initialValues={{
+						typeConsultation: 'Gratuita',
+						dateConsultation: '2020-11-24',
+					}}
+					onSubmit={values => {
+						console.log(values);
+						Keyboard.dismiss();
+						saveDataScheduling(values);
+						navigation.navigate('Agendamento2');
+					}}
+					validationSchema={FormSchema}
+				>
+					{({
+						handleChange,
+						handleSubmit,
+						setFieldValue,
+						values,
+						errors,
+					}) => (
+						<>
+							<View style={styles.escolhaTipoConsulta}>
+								<Text style={styles.titleEscolha}>Escolha o tipo de consulta:</Text>
+								<TipoConsultas
+									value={values.typeConsultation}
+									onValueChange={handleChange('typeConsultation')}
+									error={errors.typeConsultation}
+								/>
+							</View>
 
-						<View style={styles.escolhaDiaConsulta}>
-							<Text style={styles.titleEscolha}>Escolha um dia:</Text>
-							<Calendario
-								value={values.dateConsultation}
-								onValueChange={dateString =>
-									setFieldValue('dateConsultation', dateString)
-								}
-								error={errors.dateConsultation}
-							/>
-						</View>
-						<View style={styles.areaProximo}>
-							<Botao
-								style={styles.buttonProximo}
-								title={"Próximo"}
-								onPress={handleSubmit}
-							/>
-						</View>
-					</>
-				)}
-			</Formik>
-		</FormBackground>
+							<View style={styles.escolhaDiaConsulta}>
+								<Text style={styles.titleEscolha}>Escolha um dia:</Text>
+								<Calendario
+									value={values.dateConsultation}
+									onValueChange={dateString =>
+										setFieldValue('dateConsultation', dateString)
+									}
+									error={errors.dateConsultation}
+								/>
+							</View>
+							<View style={styles.areaProximo}>
+								<Botao
+									style={styles.buttonProximo}
+									title={"Próximo"}
+									onPress={handleSubmit}
+								/>
+							</View>
+						</>
+					)}
+				</Formik>
+			</FormBackground>
+		</ScrollView>
    )
 }
 
