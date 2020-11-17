@@ -92,19 +92,22 @@ const styles = StyleSheet.create({
 	areaAnuncio: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		marginTop: 5,
+		marginTop: hp("3%"),
 	},
 	buttonAssistirAnuncio: {
 		backgroundColor: '#34C5A2',
 		alignItems: 'center',
-		marginTop: hp('2.5%'),
+		// marginTop: hp('2.5%'),
 		paddingVertical: hp('2.5%'),
-		paddingHorizontal: wp('2.5%'),
+		paddingHorizontal: wp('5%'),
 		borderRadius: 15,
+	},
+	txtPontos: {
+		fontSize: 22,
 	},
 	areaPontos: {
 		borderColor: '#FFF',
-		marginTop: 15,
+		// marginTop: 15,
 		padding: 5,
 		flexDirection: 'row',
 		alignItems: 'flex-end',
@@ -117,9 +120,7 @@ const styles = StyleSheet.create({
 		width: 45,
 		height: 45,
 	},
-	txtPontos: {
-		fontSize: wp('6%'),
-	},
+
 });
 
 const mapStateToProps = state => ({
