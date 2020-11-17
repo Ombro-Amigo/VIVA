@@ -43,7 +43,7 @@ export default function Botao(props) {
 			<View
 				style={
 					([img ? styles.botaoComIcone : null],
-					{ flexDirection: direction })
+					{ flexDirection: direction, alignItems: "center" })
 				}
 			>
 				<Text
@@ -104,6 +104,7 @@ export default function Botao(props) {
 const styles = StyleSheet.create({
 	botao: {
 		borderRadius: 15,
+		justifyContent: "center"
 	},
 	sombra: {
 		// IOS
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
 	},
 	txtBotao: {
 		fontWeight: 'bold',
-		fontSize: wp('4.5%'),
+		fontSize: 15,
 		alignSelf: 'center',
 	},
 
