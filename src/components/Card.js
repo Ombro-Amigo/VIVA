@@ -1,94 +1,96 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
 	View,
 	Text,
 	TouchableOpacity,
 	Image,
 	StyleSheet,
-	TouchableHighlight,
+	TouchableWithoutFeedback,
 } from 'react-native';
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import { Divider } from 'react-native-paper';
-import Botao from './Botao';
-import { connect } from 'react-redux';
 import { Creators as SchedulingActions } from '../store/ducks/scheduling';
+import { connect } from 'react-redux';
+import Botao from './Botao';
+import ModalConstrucao from '../pages/modalConstrucao'
+
 
 function Card({ data, requestDeleteScheduling, user, typeUser }) {
 	const { photo, psicologo, crp, date, start, end, status, id } = data;
+	const [modalVisible, setModalVisible] = useState(false)
 
 	return (
-		<View style={styles.card}>
-			<View style={styles.infoUsuario}>
-				<View style={{ flexDirection: 'row' }}>
-					<Image
-						style={styles.foto}
-						source={require('../assets/icon/usuario-cards-e-menu.png')}
-					/>
-					<View style={styles.containerCrpNome}>
-						<Text style={styles.txt1}>{crp}</Text>
-						<Text style={styles.txt1}>{psicologo}</Text>
+		<TouchableWithoutFeedback>
+			<>
+				<View style={styles.card}>
+					<View style={styles.infoUsuario}>
+						<View style={{ flexDirection: 'row', alignItems: "center"}}>
+							<Image
+								style={styles.foto}
+								source={require('../assets/icon/usuario-cards-e-menu.png')}
+							/>
+							<View style={styles.containerCrpNome}>
+								<Text style={styles.txt1}>{crp}</Text>
+								<Text style={styles.txt1}>{psicologo}</Text>
+							</View>
+						</View>
+
+						<TouchableOpacity
+							style={styles.cliqueExcluir}
+							onPress={() => requestDeleteScheduling(id, user, typeUser)}
+						>
+							<Image
+								style={styles.excluirConsulta}
+								source={require('../assets/icon/button-fechar.png')}
+							/>
+						</TouchableOpacity>
+					</View>
+					<Divider style={styles.divider} />
+					<View style={styles.areaInfoConsulta}>
+						<View style={styles.line}>
+							<View style={styles.group}>
+								<Image
+									style={styles.icon}
+									source={require('../assets/icon/calendario.png')}
+								/>
+								<Text style={styles.txt2}>{date}</Text>
+							</View>
+							<View style={styles.group}>
+								<Image
+									style={styles.icon}
+									source={require('../assets/icon/relogio.png')}
+								/>
+								<Text style={styles.txt2}>
+									{start} - {end}
+								</Text>
+							</View>
+						</View>
+						<View style={styles.line2}>
+							<Botao
+								title="Chat"
+								corFundo={null}
+								onPress={() => setModalVisible(!modalVisible)}
+								img={require('../assets/icon/chat.png')}
+								imgStyle={[styles.icon, { marginRight: wp('3%') }]}
+								style={styles.btnChat}
+								highlight
+								direction="row-reverse"
+								activeOpacity={0.5}
+								underlayColor="#34C5A2"
+							/>
+							<Text style={styles.txt2}>
+								Status: <Text style={{ color: 'green' }}>Confirmada</Text>
+							</Text>
+						</View>
 					</View>
 				</View>
 
-				<TouchableOpacity
-					style={styles.cliqueExcluir}
-					onPress={() => requestDeleteScheduling(id, user, typeUser)}
-				>
-					<Image
-						style={styles.excluirConsulta}
-						source={require('../assets/icon/button-fechar.png')}
-					/>
-				</TouchableOpacity>
-			</View>
-			<Divider style={styles.divider} />
-			<View style={styles.areaInfoConsulta}>
-				<View style={styles.line}>
-					<View style={styles.group}>
-						<Image
-							style={styles.icon}
-							source={require('../assets/icon/calendario.png')}
-						/>
-						<Text style={styles.txt2}>{date}</Text>
-					</View>
-					<View style={styles.group}>
-						<Image
-							style={styles.icon}
-							source={require('../assets/icon/relogio.png')}
-						/>
-						<Text style={styles.txt2}>
-							{start} - {end}
-						</Text>
-					</View>
-				</View>
-				<View style={styles.line2}>
-					<Botao
-						title="Chat"
-						corFundo={null}
-						onPress={() => console.log('Clicou no chat.')}
-						img={require('../assets/icon/chat.png')}
-						imgStyle={[styles.icon, { marginRight: wp('3%') }]}
-						style={styles.btnChat}
-						highlight
-						direction="row-reverse"
-						activeOpacity={0.5}
-						underlayColor="#34C5A2"
-					/>
-
-					{/* <View style={styles.containerBtn}>
-                            <Image  source={}/>
-                            <Text style={styles.txt2}>Chat</Text>
-                        </View> */}
-
-					{/* </Botao> */}
-					<Text style={styles.txt2}>
-						Status: <Text style={{ color: 'green' }}>Confirmada</Text>
-					</Text>
-				</View>
-			</View>
-		</View>
+				<ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+			</>
+		</TouchableWithoutFeedback>
 	);
 }
 
@@ -123,7 +125,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 	},
 	txt1: {
-		fontSize: wp('4.5%'),
+		fontSize: 18,
 		fontWeight: 'bold',
 	},
 	cliqueExcluir: {
@@ -154,6 +156,7 @@ const styles = StyleSheet.create({
 	group: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+		alignItems: "center",
 	},
 	icon: {
 		width: 20,
@@ -161,7 +164,7 @@ const styles = StyleSheet.create({
 	},
 	txt2: {
 		color: '#FFF',
-		fontSize: wp('5%'),
+		fontSize: 18,
 		fontWeight: 'bold',
 		marginLeft: wp('2%'),
 	},
