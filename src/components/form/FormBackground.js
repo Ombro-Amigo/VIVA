@@ -5,26 +5,26 @@ import {
 	heightPercentageToDP as hp,
 	widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import Fundo from '../Fundo'
 
 export default function FormBackground({ children }) {
 	return (
-		<ScrollView>
-			<KeyboardAwareScrollView
-				style={styles.container}
-				extraHeight={100}
-				enableOnAndroid
-			>
+
+		<KeyboardAwareScrollView
+			style={styles.container}
+			extraHeight={100}
+			enableOnAndroid
+		>
+			<Fundo>
 				{children}
-			</KeyboardAwareScrollView>
-		</ScrollView>
+			</Fundo>
+		</KeyboardAwareScrollView>
+
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		flexDirection: 'column',
-		backgroundColor: '#6EB4E7',
-		padding: wp('4%'),
 	},
 });
