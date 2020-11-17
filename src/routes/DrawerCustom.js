@@ -91,6 +91,7 @@ function DrawerCustom(props) {
 							style={styles.buttonEmergency}
 							corFundo="#D4CA03"
 							corTexto="#000"
+							styleTexto={styles.txtBtnEmergencia}
 							imgStyle={styles.iconEmergency}
 							img={require('../assets/icon/icon_phone_emergency.png')}
 							direction="row"
@@ -218,9 +219,12 @@ const styles = StyleSheet.create({
 		paddingVertical: hp('1.5%'),
 		paddingHorizontal: wp('5%'),
 	},
+	txtBtnEmergencia: {
+		fontSize: wp("4%"),
+	},
 	iconEmergency: {
-		width: wp('8.5%'),
-		height: hp('8.5%'),
+		width: 25,
+		height: 25,
 		marginLeft: wp('5%'),
 		aspectRatio: 1,
 	},

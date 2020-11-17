@@ -20,6 +20,7 @@ export default function Botao(props) {
 		imgStyle,
 		corFundo,
 		corTexto,
+		styleTexto,
 		img,
 		highlight,
 		activeOpcatity,
@@ -51,6 +52,7 @@ export default function Botao(props) {
 							color: !corTexto ? '#FFF' : corTexto,
 						},
 						styles.txtBotao,
+						styleTexto,
 					]}
 				>
 					{title}
