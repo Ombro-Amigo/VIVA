@@ -51,6 +51,18 @@ function DrawerCustom(props) {
 					</View>
 
 					<View style={styles.menuSection}>
+
+						<MenuItem
+							title="Página inicial"
+							titleStyle={styles.txtMenu}
+							icon={require('../assets/icon/home.png')}
+							iconStyle={styles.icon}
+							styleContainer={styles.containerItem}
+							styleItem={styles.itemMenu}
+							underlayColor="#DCD2D277"
+							onPress={() => {navigation.navigate('Home')}}
+						/>
+
 						<MenuItem
 							title="Alterar informações da conta"
 							titleStyle={styles.txtMenu}
@@ -144,6 +156,7 @@ const styles = StyleSheet.create({
 	},
 	drawerContent: {
 		flex: 1,
+
 	},
 	infoUsuario: {
 		flexDirection: 'row',
@@ -220,7 +233,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: wp('5%'),
 	},
 	txtBtnEmergencia: {
-		fontSize: wp("4%"),
+		fontSize: 15,
 	},
 	iconEmergency: {
 		width: 25,
