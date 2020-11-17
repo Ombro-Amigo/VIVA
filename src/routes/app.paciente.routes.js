@@ -24,7 +24,7 @@ const AppPacienteRoutes = ({ navigation }) => (
       screenOptions={{
          headerTitleAlign: 'center',
          headerTitle: props => <LogoTitle {...props} />
-      }}
+		}}
    >
       <AppStack.Screen name='HomePaciente' component={HomePaciente}
          options={{

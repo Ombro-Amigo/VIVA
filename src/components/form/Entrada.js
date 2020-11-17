@@ -44,7 +44,7 @@ export default function Entrada(props) {
 
 	function renderMsg() {
 		if (verificaCondicao) {
-			console.log('errorRdx = ', msgError);
+			// console.log('errorRdx = ', msgError);
 			if (condicao && msgSucesso) {
 				return <Text style={styles.senhaCorreta}>{msgSucesso}</Text>;
 			}

@@ -3,6 +3,7 @@ import SaibaMais from '../../pages/drawer/SaibaMais';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { Image } from 'react-native';
+import { TouchableRipple } from 'react-native-paper';
 
 const AppStack = createStackNavigator();
 
@@ -16,15 +17,25 @@ function LogoTitle() {
    );
 }
 
-const saibaMaisRoutes = () => (
-   <AppStack.Navigator 
+const saibaMaisRoutes = ({ navigation }) => (
+   <AppStack.Navigator
       initialRouteName='HomePaciente'
       screenOptions={{
          headerTitleAlign: 'center',
          headerTitle: props => <LogoTitle {...props} />
       }}
    >
-      <AppStack.Screen name='SaibaMais' component={SaibaMais} />
+      <AppStack.Screen name='SaibaMais' component={SaibaMais}
+         options={{
+            headerRight: () => (
+               <TouchableRipple onPress={() => navigation.openDrawer()}>
+                  <Image
+                  style={{width: 25, height: 25, aspectRatio: 1, marginRight: 15}}
+                  source={require('../../assets/icon/menu.png')}/>
+               </TouchableRipple>
+            )
+         }}
+      />
    </AppStack.Navigator>
 )
 

@@ -20,7 +20,7 @@ import ModalExplicacaoChamadaEmergencia from '../pages/modalExplicacaoChamadaEme
 import { Creators as AuthSignInActions } from '../store/ducks/authSignIn';
 
 function DrawerCustom(props) {
-	const { requestSignOut } = props;
+	const { requestSignOut, navigation } = props;
 
 	const [modalConstrucaoVisible, setModalConstrucaoVisible] = useState(false);
 	const [modalExplicacaoVisible, setModalExplicacaoVisible] = useState(false);
@@ -59,7 +59,7 @@ function DrawerCustom(props) {
 							styleContainer={styles.containerItem}
 							styleItem={styles.itemMenu}
 							underlayColor="#DCD2D277"
-							onPress={() => {}}
+							onPress={() => {navigation.navigate('Alterar informações da conta')}}
 						/>
 
 						<MenuItem
@@ -70,7 +70,7 @@ function DrawerCustom(props) {
 							styleContainer={styles.containerItem}
 							styleItem={styles.itemMenu}
 							underlayColor="#DCD2D277"
-							onPress={() => {}}
+							onPress={() => {navigation.navigate('Configurações do aplicativo')}}
 						/>
 
 						<MenuItem
@@ -81,7 +81,7 @@ function DrawerCustom(props) {
 							styleContainer={styles.containerItem}
 							styleItem={styles.itemMenu}
 							underlayColor="#DCD2D277"
-							onPress={() => {}}
+							onPress={() => {navigation.navigate('Saiba mais sobre nós')}}
 						/>
 					</View>
 

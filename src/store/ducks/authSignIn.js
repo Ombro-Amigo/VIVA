@@ -55,7 +55,7 @@ export default function authSignInReducer(state = INITIAL_STATE, action) {
 				typeUser: action.typeUser,
 			};
 		case Types.CLEAR_AUTH_ERROR:
-			console.log('limpando erros de autenticação');
+			// console.log('limpando erros de autenticação');
 			return {
 				...state,
 				error: null,
