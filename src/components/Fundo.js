@@ -1,10 +1,11 @@
 import React from 'react'
 import { StyleSheet, View, ScrollView } from 'react-native'
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 export default function Fundo(props) {
-   const { children } = props;
+   const { children, padding } = props;
    return (
-      <View style={styles.container}>
+      <View style={[styles.container, {padding: padding !== null ? wp("4%") : padding}]}>
          {children}
       </View>
    )
@@ -13,7 +14,6 @@ export default function Fundo(props) {
 const styles = StyleSheet.create({
    container: {
       flex: 1,
-      padding: 15,
       backgroundColor: "#6EB4E7",
    },
 })

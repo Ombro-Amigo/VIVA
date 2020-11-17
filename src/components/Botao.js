@@ -1,68 +1,113 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import {
+	Image,
+	StyleSheet,
+	Text,
+	View,
+	TouchableHighlight,
+	TouchableOpacity,
+} from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
+import {
+	heightPercentageToDP as hp,
+	widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 export default function Botao(props) {
-	const { title, style, imgStyle, corFundo, corTexto, img, onPress } = props;
-	if(!img){
+	const {
+		title,
+		style,
+		imgStyle,
+		corFundo,
+		corTexto,
+		styleTexto,
+		img,
+		highlight,
+		activeOpcatity,
+		underlayColor,
+		onPress,
+		desabilitado,
+		direction,
+		loading,
+	} = props;
+
+	function renderIcon() {
+		if (img) {
+			return <Image style={imgStyle} source={img} />;
+		}
+	}
+
+	const conteudoBotao = () => {
+		if (loading) return <ActivityIndicator color="#fff" />;
 		return (
-			<View>
-				<TouchableOpacity 
+			<View
+				style={
+					([img ? styles.botaoComIcone : null],
+					{ flexDirection: direction })
+				}
+			>
+				<Text
 					style={[
 						{
-							backgroundColor: !corFundo ? '#34C5A2' : corFundo
-						},
-						styles.botao,
-						style
-					]}
-					onPress={onPress}
-				>
-					<Text style={[
-						{
-							color: !corTexto ? '#FFF' : corTexto
-						},
-						styles.txtBotao
-					]}>
-						{title}
-					</Text>
-				</TouchableOpacity>
-			</View>
-		);
-	}else{
-		return (
-			<View>
-				<TouchableOpacity style={[
-					{backgroundColor: !corFundo ? '#34C5A2' : corFundo},
-					styles.botao,
-					styles.botaoComIcone,
-					style
-				]}>
-					<Text style={[
-						{
 							color: !corTexto ? '#FFF' : corTexto,
-							marginRight: 30
 						},
 						styles.txtBotao,
-					]}>
-						{title}
-					</Text>
-					<Image
-						style={imgStyle}
-						source={img}
-					/>
-				</TouchableOpacity>
+						styleTexto,
+					]}
+				>
+					{title}
+				</Text>
+				{renderIcon()}
 			</View>
 		);
-	}
+	};
+
+	return (
+		<View>
+			{highlight ? (
+				<TouchableHighlight
+					onPress={onPress}
+					disabled={desabilitado}
+					activeOpacity={activeOpcatity}
+					underlayColor={underlayColor}
+					style={[
+						styles.botao,
+						{
+							backgroundColor:
+								!corFundo && corFundo !== null ? '#34C5A2' : corFundo,
+						},
+						style,
+					]}
+				>
+					{conteudoBotao()}
+				</TouchableHighlight>
+			) : (
+				<TouchableOpacity
+					onPress={onPress}
+					disabled={desabilitado}
+					style={[
+						styles.botao,
+						styles.sombra,
+						{
+							backgroundColor: !corFundo ? '#34C5A2' : corFundo,
+						},
+						style,
+					]}
+				>
+					{conteudoBotao()}
+				</TouchableOpacity>
+			)}
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
 	botao: {
 		borderRadius: 15,
-
+	},
+	sombra: {
 		// IOS
-		shadowColor: "#000",
+		shadowColor: '#000',
 		shadowOffset: {
 			width: 0,
 			height: 2,
@@ -75,13 +120,13 @@ const styles = StyleSheet.create({
 	},
 	txtBotao: {
 		fontWeight: 'bold',
-		fontSize: hp('2.5%'),
-		alignSelf: 'center'
+		fontSize: wp('4.5%'),
+		alignSelf: 'center',
 	},
 
 	// Caso o botão tenha algum icone
 	botaoComIcone: {
 		flexDirection: 'row',
 		alignItems: 'center',
-	}
-})
+	},
+});

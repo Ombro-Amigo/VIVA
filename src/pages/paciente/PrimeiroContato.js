@@ -1,8 +1,8 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import Fundo from '../../components/Fundo'
+import Botao from '../../components/Botao'
 
 export default function PrimeiroContato() {
    return (
@@ -11,17 +11,16 @@ export default function PrimeiroContato() {
             <Text style={styles.mensagemBoasVindas}>Seja bem-vindo</Text>
          </View>
          <View style={styles.explicacao}>
-            <Text style={styles.mensagemExplicacao}>Como esta é sua primeira vez aqui, escolha como deseja continuar:</Text>
+            <Text style={styles.mensagemExplicacao}>
+               Como esta é a sua primeira vez aqui, precisamos colher algumas
+               informações importantes para seus futuros atendimentos em nosso
+               aplicativo. Clique no botão para seguir para a triagem. 
+            </Text>
          </View>
-         <View style={styles.opcoes}>
-            <TouchableOpacity style={styles.buttonAtendimento}>
-               <Text style={styles.txtAtendimento}>SEGUIR PARA UM ATENDIMENTO COM UM PSICÓLOGO</Text>
-            </TouchableOpacity>
-            <Text style={styles.txtMeio}>OU</Text>
-            <TouchableOpacity style={styles.buttonTriagem}>
-               <Text style={styles.txtTriagem}>SEGUIR PARA O PROCESSO DE TRIAGEM</Text>
-            </TouchableOpacity>
-         </View>
+         <Botao
+            title="Seguir para a triagem"
+            style={styles.btn}
+         />
       </Fundo>
    )
 }
@@ -30,54 +29,25 @@ const styles = StyleSheet.create({
    mensagemBoasVindas: {
       color: "#186794",
       textAlign: "center",
-      fontSize: hp("6%"),
+      fontSize: wp("9%"),
       fontWeight: "bold",
       marginTop: hp('2%'),
    },
+   explicacao: {
+      backgroundColor: "#FFF",
+      borderRadius: 15,
+      marginVertical: hp("10%"),
+      padding: wp("5%")
+   },
    mensagemExplicacao: {
-      color: "#FFF",
-      fontSize: 22,
-      fontWeight: "bold",
-      textAlign: "center",
-      marginVertical: hp('10%'),
-   },
-   opcoes: {
-      // flex: 1
-   },
-   buttonAtendimento: {
-      height: hp('9%'),
-      borderStyle: "solid",
-      borderColor: "#565656",
-      borderWidth: 3,
-      borderRadius: 10,
-      padding: 5,
-      justifyContent: "center",
-   },
-   txtAtendimento: {
-      color: "#FFF",
-      fontSize: 18,
+      color: "#6EB4E7",
+      fontSize: wp("6%"),
       fontWeight: "bold",
       textAlign: "center",
    },
-   txtMeio: {
-      fontSize: 18,
-      fontWeight: "bold",
-      textAlign: "center",
-      marginVertical: hp('1%'),
-   },
-   buttonTriagem: {
-      height: hp('9%'),
-      borderStyle: "solid",
-      borderColor: "#565656",
-      borderWidth: 3,
-      borderRadius: 10,
-      padding: 5,
-      justifyContent: "center"
-   },
-   txtTriagem: {
-      color: "#FFF",
-      fontSize: 18,
-      fontWeight: "bold",
-      textAlign: "center",
+   btn: {
+      paddingVertical: hp("2.5%"),
+      paddingHorizontal: wp("2%"),
+      
    }
 })

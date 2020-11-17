@@ -3,29 +3,29 @@ import ListaPsicologo from './ListaPsicologos'
 import { Text, View, FlatList, StyleSheet} from "react-native";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen"
 
-const ListaHorarios = () =>{
-    
+const ListaHorarios = ({ value, onValueChange, error }) =>{
+
     const horarios = [
         {
             id: "1",
             inicio: "9h30",
-            termino: "11h:00",
+            termino: "11h00",
         },
         {
             id: "2",
             inicio: "11h30",
-            termino: "13h:00",
-            
+            termino: "13h00",
+
         },
         {
             id: "3",
             inicio: "13h30",
-            termino: "15:00",
+            termino: "15h00",
         },
         {
             id: "4",
             inicio: "15h30",
-            termino: "17h:30",
+            termino: "17h30",
         }
     ]
 
@@ -46,8 +46,8 @@ const ListaHorarios = () =>{
                     borderRadius: 10,
                     borderStyle: "solid",
                     borderColor: "#4B53FF",
-                    borderWidth: itemId === item.id ? 2.5 : 0
-                }} onTouchStart={() => setItemId(item.id)}
+                    borderWidth: itemId === item.id ? 2.5 : 0,
+                }} onTouchStart={() => {setItemId(item.id); onValueChange(item);}}
                 >
                     <Text style={styles.txtHorario}>{item.inicio} - {item.termino}</Text>
                 </View>
@@ -70,6 +70,6 @@ const styles = StyleSheet.create({
     },
     txtHorario: {
         fontSize: wp("4.5%"),
-        fontWeight: "bold"
+        fontWeight: "bold",
     }
 })

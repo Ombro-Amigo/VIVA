@@ -1,25 +1,43 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { Checkbox } from 'react-native-paper'
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { Checkbox } from 'react-native-paper';
 
 export default function CaixaSelecao(props) {
-   const { status, onPress, uncheckedColor, color, title } = props
-   return (
-      <View style={styles.container}>
-         <Checkbox
-            status={status}
-            onPress={onPress}
-            uncheckedColor={uncheckedColor ? uncheckedColor : '#ccc'}
-            color={color ? color : '#0f0'}
-         />
-         <Text>{title}</Text>
-      </View>
-   )
+	const { value, setChecked, uncheckedColor, color, title, error } = props;
+	return (
+		<View style={styles.container}>
+			<Checkbox.Android
+				status={value ? 'checked' : 'unchecked'}
+				onPress={() => {
+					setChecked(!value);
+				}}
+				uncheckedColor={uncheckedColor || '#ccc'}
+				color={color || '#0f0'}
+			/>
+
+			<View style={styles.subcontainer}>
+				<Text>{title}</Text>
+
+				<View style={styles.areaMsgError}>
+					{error && <Text style={styles.msgError}>{error}</Text>}
+				</View>
+			</View>
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
-   container: {
-      flexDirection: 'row',
-      alignItems: 'center',
-   }
-})
+	container: {
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	areaMsgError: {
+		alignItems: 'center',
+	},
+	msgError: {
+		color: '#f00',
+	},
+	subcontainer: {
+		flexDirection: 'column'
+	}
+});

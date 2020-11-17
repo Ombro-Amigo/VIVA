@@ -4,22 +4,29 @@ import {RadioButton} from "react-native-paper"
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 
-const TipoConsultas = () => {
+const TipoConsultas = ({ onValueChange, value, error }) => {
     const [escolha, setEscolha] = useState("Gratuita")
-    
+
     return (
-        <RadioButton.Group onValueChange={value => setEscolha(value)} value={escolha}>
-            <View style={styles.areaEscolha}>
-                <View style={styles.escolhaGratuita}>
-                    <RadioButton value="Gratuita" color="#34C5A2"/>
-                    <Text style={styles.txtGratuita}>Gratuita</Text>
-                </View>
-                <View style={styles.escolhaPaga} >
-                    <RadioButton value="Paga" color="#34C5A2"/>
-                    <Text style={styles.txtPaga}>Paga</Text>
-                </View>
-            </View>
-        </RadioButton.Group>
+		 <>
+			<RadioButton.Group onValueChange={onValueChange} value={value}>
+					<View style={styles.areaEscolha}>
+						<View style={styles.escolha}>
+							<RadioButton value="Gratuita" color="#34C5A2"/>
+							<Text style={styles.txtOpcoes}>Gratuita</Text>
+						</View>
+						<View style={styles.escolha} >
+							<RadioButton value="Paga" color="#34C5A2"/>
+							<Text style={styles.txtOpcoes}>Paga</Text>
+						</View>
+					</View>
+			</RadioButton.Group>
+
+
+				<View style={styles.areaMsgError}>
+					{error && <Text style={styles.msgError}>{error}</Text>}
+				</View>
+		</>
     )
 }
 
@@ -34,22 +41,17 @@ const styles = StyleSheet.create({
         borderWidth: wp("0.8%"),
         borderColor: "#80C6F9",
         borderRadius: 10,
-        padding: 4,
+        padding: wp("1.5%"),
     },
-    escolhaGratuita: {
+    escolha: {
         flexDirection: "row",
         alignItems: "center",
     },
-    txtGratuita: {
-        fontSize: hp("2.7%"),
+    txtOpcoes: {
+        fontSize: wp("5%"),
         fontWeight: "bold",
-    },
-    escolhaPaga: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    txtPaga: {
-        fontSize: hp("2.7%"),
-        fontWeight: "bold",
-    }
+	 },
+	 msgError: {
+		 color: '#f00'
+	 }
 })

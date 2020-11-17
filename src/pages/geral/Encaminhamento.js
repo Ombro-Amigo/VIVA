@@ -1,44 +1,83 @@
-// import { StatusBar } from 'expo-status-bar';
-
-import React from 'react';
-import { Image, View, Text, StyleSheet } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import {
+	heightPercentageToDP as hp,
+	widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 import Botao from '../../components/Botao';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Fundo from '../../components/Fundo';
+import AuthContext from '../../contexts/auth/auth';
 
-export default function Encaminhamento() {
-return (
-	<Fundo>
-		<View style={styles.containerTitle}>
-				<Text style={styles.title}>O QUE DESEJA?</Text>
-		</View>
+import ModalConstrucao from '../modalConstrucao';
+import ModalExplicacaoChamadaEmergencia from '../modalExplicacaoChamadaEmergencia';
 
-		<View style={styles.containerLogin}>
-				<View style={styles.containerTxtLogin}>
-					<Text style={styles.txtLogin}>Seguir para as opções de login</Text>
-				</View>
+// import FontContext from '../../contexts/styles/styles';
+
+export default function Encaminhamento({ navigation }) {
+	const [modalConstrucaoVisible, setModalConstrucaoVisible] = useState(false);
+	const [modalExplicacaoVisible, setModalExplicacaoVisible] = useState(false);
+
+	// const StylesFontContext = useContext(FontContext);
+
+	return (
+		<Fundo>
+			<View style={styles.containerTitle}>
+				<Text style={styles.title1}>O QUE DESEJA?</Text>
+			</View>
+
+			<View style={styles.containerLogin}>
+				<Text style={styles.spam}>
+					Seguir para as opções de login como:
+				</Text>
 				<View style={styles.containerButtonLogin}>
-					<Botao title="Paciente" style={styles.buttonLogin} />
-					<Botao title="Psicólogo" style={styles.buttonLogin} />
+					<Botao
+						title="Paciente"
+						style={styles.buttonLogin}
+						onPress={() => navigation.navigate('LoginPaciente')}
+					/>
+					<Botao
+						title="Psicólogo"
+						style={styles.buttonLogin}
+						onPress={() => navigation.navigate('LoginPsicologo')}
+					/>
 				</View>
-		</View>
+			</View>
 
-		<View style={styles.containerEmergency}>
+			<View style={styles.containerEmergency}>
 				<Botao
 					title="Ligar para a Emergência"
 					style={styles.buttonEmergency}
-					corFundo='#D4CA03'
-					corTexto='#000'
+					corFundo="#D4CA03"
+					corTexto="#000"
 					imgStyle={styles.iconEmergency}
-					img={require('../../../assets/icon_phone_emergency.png')}
+					img={require('../../assets/icon/icon_phone_emergency.png')}
+					direction="row"
+					onPress={() =>
+						setModalConstrucaoVisible(!modalExplicacaoVisible)
+					}
 				/>
-				<TouchableOpacity>
-					<Text style={styles.txtEmergency}>Clique aqui para saber mais{"\n"}sobre a ligação de emergência</Text>
+				<TouchableOpacity
+					onPress={() =>
+						setModalExplicacaoVisible(!modalExplicacaoVisible)
+					}
+				>
+					<Text style={styles.txtEmergency}>
+						Clique aqui para saber mais{'\n'}sobre a ligação de emergência
+					</Text>
 				</TouchableOpacity>
-		</View>
-	</Fundo>
-);
+			</View>
+
+			<ModalConstrucao
+				modalVisible={modalConstrucaoVisible}
+				setModalVisible={setModalConstrucaoVisible}
+			/>
+			<ModalExplicacaoChamadaEmergencia
+				modalVisible={modalExplicacaoVisible}
+				setModalVisible={setModalExplicacaoVisible}
+			/>
+		</Fundo>
+	);
 }
 
 const styles = StyleSheet.create({
@@ -47,59 +86,53 @@ const styles = StyleSheet.create({
 		flex: 3,
 		alignItems: 'center',
 		justifyContent: 'center',
-		// backgroundColor: '#f00',
 	},
-	title: {
+	title1: {
 		color: '#186794',
-		fontWeight: 'bold',
-		fontSize: 24,
+		fontSize: wp('6.5%'),
+		// fontWeight: 'bold',
+		fontFamily: 'Signika-Bold',
 	},
-
 	// Login
 	containerLogin: {
 		flex: 2,
-		// backgroundColor: '#0f0',
 	},
-	containerTxtLogin: {
-		alignItems: 'center',
-		// flex: 1,
-	},
-	txtLogin: {
+	spam: {
 		color: '#186794',
+		fontSize: wp('4.2%'),
 		fontWeight: 'bold',
-		fontSize: 14,
-		marginBottom: 20,
+		marginBottom: hp('2%'),
+		textAlign: 'center',
 	},
 	containerButtonLogin: {
-		// flex: 2,
 		flexDirection: 'row',
 		justifyContent: 'space-evenly',
 	},
 	buttonLogin: {
-		paddingHorizontal: 35,
-		paddingVertical: 17,
+		paddingHorizontal: wp('9.5%'),
+		paddingVertical: hp('3%'),
 	},
 
 	// Emergência
 	containerEmergency: {
 		flex: 3,
 		alignItems: 'center',
-		// backgroundColor: '#00f',
 	},
 	buttonEmergency: {
-		paddingVertical: 10,
-		paddingHorizontal: 32,
+		paddingVertical: hp('1.5%'),
+		paddingHorizontal: wp('9%'),
 	},
 	iconEmergency: {
-		width: 35,
-		height: 35,
+		width: wp('8.5%'),
+		height: hp('8.5%'),
+		marginLeft: wp('5%'),
 		aspectRatio: 1,
 	},
 	txtEmergency: {
-		marginTop: 20,
+		marginTop: hp('3%'),
 		color: '#fff',
 		fontWeight: 'bold',
-		fontSize: 12,
+		fontSize: wp('3.3%'),
 		textAlign: 'center',
 	},
 });

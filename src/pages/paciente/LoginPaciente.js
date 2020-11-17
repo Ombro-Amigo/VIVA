@@ -1,154 +1,280 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, Button } from 'react-native';
+import React, { useState, useRef, useContext } from 'react';
+import { View, Text, StyleSheet, ScrollView, Keyboard } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import {
+	heightPercentageToDP as hp,
+	widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
+import { Divider, TextInput } from 'react-native-paper';
+import { Form } from '@unform/mobile';
+import * as Yup from 'yup';
+import { connect } from 'react-redux';
+import { Formik } from 'formik';
 import Fundo from '../../components/Fundo';
 import Botao from '../../components/Botao';
-import Entrada from '../../components/Entrada';
+import { Entrada } from '../../components/form/index';
+import {
+	errorCodesEmail,
+	errorCodesPassword,
+	errorCodes,
+} from '../../utils/errorCodes';
+import { Creators as AuthSignInActions } from '../../store/ducks/authSignIn';
+import ModalConstrucao from '../modalConstrucao';
+import AuthContext from '../../contexts/auth/auth';
 
-import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import { Checkbox } from 'react-native-paper';
-import { Icon, Divider } from 'react-native-elements';
-import firebase from '@firebase/app';
-import '@firebase/auth';
-import CaixaSelecao from '../../components/CaixaSelecao';
+function LoginPaciente({
+	navigation,
+	requestSignIn,
+	clearAuthError,
+	requestFacebookSignIn,
+	loading,
+	errorAuthFire,
+}) {
+	const [checked, setChecked] = useState(false);
+	const [hidePassword, setHidePassword] = useState(true);
+	const [modalVisible, setModalVisible] = useState(false);
+	const [senha, setSenha] = useState('');
+	const [email, setEmail] = useState('');
 
-export default function LoginPaciente() {
-   const [email, setEmail] = useState('');
-   const [senha, setSenha] = useState('');
-   const [checked, setChecked] = useState(false);
-   const [message, setMessage] = useState('');
-   const [loading, setLoading] = useState(false);
+	const formRef = useRef(null);
 
-   useEffect(() => {
-      const firebaseConfig = {
-         apiKey: "AIzaSyD_7bjlJPA5EAEb49d-NwxNdret4kGg1Ik",
-         authDomain: "viva-ca312.firebaseapp.com",
-         databaseURL: "https://viva-ca312.firebaseio.com",
-         projectId: "viva-ca312",
-         storageBucket: "viva-ca312.appspot.com",
-         messagingSenderId: "374644306933",
-         appId: "1:374644306933:web:418fd7c5a2e27b6b6e66bc",
-         // measurementId: "G-H5GYMVM386"
-      };
-      // Initialize Firebase
-      if(firebase.apps.length === 0){
-         firebase.initializeApp(firebaseConfig);
-      }
-      // firebase.analytics();
-   });
+	const user = useRef(null);
+	const password = useRef(null);
 
-   function tryLogin() {
-      setLoading(true);
-      setMessage('');
+	const {
+		setCredentials,
+		setLoading,
+		setFacebookLogin,
+		typeUser,
+	} = useContext(AuthContext);
 
-      const loginUserSuccess = user => {
-         setMessage('Sucesso!');
-      }
+	function renderError() {
+		if (
+			errorAuthFire &&
+			errorCodesEmail(errorAuthFire) === null &&
+			errorCodesPassword(errorAuthFire) === null
+		) {
+			return (
+				<View>
+					<Text style={styles.msgErro}>{errorCodes(errorAuthFire)}</Text>
+				</View>
+			);
+		}
+		return null;
+	}
 
-      const loginUserFailed = error => {
-         setMessage(error.code);
-      }
+	const FormSchema = Yup.object().shape({
+		email: Yup.string()
+			.email('Digite um e-mail válido')
+			.required('O email é obrigatório'),
+		password: Yup.string().required('A senha é obrigatória'),
+	});
 
-      firebase
-         .auth()
-         .signInWithEmailAndPassword(email, senha)
-         .then(loginUserSuccess)
-         .catch(loginUserFailed)
-         .then(setLoading(false))
-   }
-   
+	return (
+		<Fundo>
+			<View>
+				<Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
+			</View>
 
-   function renderButton() {
-      if (loading)
-         return <ActivityIndicator size='large' color='#f00' />;
-      
-      return <Botao title="Entrar" style={styles.btnLogin} onPress={() => tryLogin()}/>
-   }
+			<Formik
+				initialValues={{
+					email: '',
+					password: '',
+				}}
+				onSubmit={values => {
+					Keyboard.dismiss();
+					values.type = 'paciente';
+					requestSignIn(values);
+				}}
+				validationSchema={FormSchema}
+			>
+				{({ handleChange, handleSubmit, values, errors }) => (
+					<>
+						<View style={styles.login}>
+							<Entrada
+								value={values.email}
+								onChangeText={handleChange('email')}
+								icon={require('../../assets/icon/usuario-login.png')}
+								placeholder="E-mail"
+								error={errors.email}
+								msgError={errorCodesEmail(errorAuthFire)}
+								verificaCondicao
+								condicao={errorAuthFire ? false : null}
+								onFocus={() => clearAuthError()}
+							/>
+						</View>
+						<View style={styles.senha}>
+							<Entrada
+								value={values.password}
+								onChangeText={handleChange('password')}
+								style={styles.senha}
+								icon={require('../../assets/icon/chave-login.png')}
+								placeholder="Senha"
+								onPress={() => {
+									setHidePassword(!hidePassword);
+								}}
+								secureTextEntry={hidePassword}
+								tipoTexto="password"
+								error={errors.password}
+								msgError={errorCodesPassword(errorAuthFire)}
+								verificaCondicao
+								condicao={errorAuthFire ? false : null}
+							/>
+						</View>
+						<View style={styles.areaMensagemErro}>{renderError()}</View>
 
-   function renderMessage() {
-      if(!message)
-         return null;
-      
-      return (
-         <View>
-            <Text>
-               { message }
-            </Text>
-         </View>
-      )
-   }
+						<Botao
+							title="Entrar"
+							style={styles.btnLogin}
+							onPress={handleSubmit}
+							loading={loading}
+						/>
+					</>
+				)}
+			</Formik>
 
-   return (
-      <Fundo>
-         <Text style={styles.txtFacaLogin}>FAÇA SEU LOGIN</Text>
-         <View>
-            <Entrada
-               icon={require('../../../assets/usuario-login.png')}
-               placeholder="Nome de Usuário"
-               value={email}
-               onChangeText={Value => {setEmail(Value), console.log(Value)}}
-            />
-            <Entrada
-               icon={require('../../../assets/chave-login.png')}
-               placeholder="Senha"
-               value={senha}
-               onChangeText={Value => {setSenha(Value), console.log(Value)}}
-               secureTextEntry
-            />
-         </View>
+			<TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+				<Text style={styles.txtEsqueciSenha}>Esqueci minha senha</Text>
+			</TouchableOpacity>
 
-         <CaixaSelecao
-            status={checked ? 'checked' : 'unchecked'}
-            onPress={() => setChecked(!checked)}
-            title='Mantenha-me conectado'
-         />
+			<TouchableOpacity
+				style={styles.areaCriarConta}
+				onPress={() => navigation.navigate('CadastroPaciente1')}
+			>
+				<Text style={styles.txtCriarConta}>CRIAR UMA CONTA</Text>
+			</TouchableOpacity>
 
-         {renderButton()}
-         {renderMessage()}
+			<View style={styles.segundaOpcao}>
+				<Divider style={styles.divider} />
+				<Text style={styles.txtOu}>OU</Text>
+				<Divider style={styles.divider} />
+			</View>
 
-         
-         <TouchableOpacity>
-            <Text style={styles.link}>Esqueci minha senha</Text>
-         </TouchableOpacity>
+			<View>
+				<Botao
+					title="Entrar com o Facebook"
+					style={styles.btnLoginFacebook}
+					img={require('../../assets/icon/facebook.png')}
+					imgStyle={styles.icon}
+					direction="row-reverse"
+					onPress={() => requestFacebookSignIn()}
+				/>
+				<Botao
+					title="Entrar com o Google"
+					corTexto="#000"
+					style={styles.btnLoginGoogle}
+					img={require('../../assets/icon/google.png')}
+					imgStyle={styles.icon}
+					direction="row-reverse"
+					onPress={() => setModalVisible(!modalVisible)}
+				/>
+			</View>
 
-         <TouchableOpacity>
-            <Text>CRIAR UMA CONTA</Text>
-         </TouchableOpacity>
-         <Divider/>
-         <Text>OU</Text>
-         <Divider/>
-         
-         <Botao title="Entrar com o Facebook" style={styles.btnLogin} />
-         <Botao title="Entrar com o Google" style={styles.btnLogin} />
-
-      </Fundo>
-   )
+			<ModalConstrucao
+				modalVisible={modalVisible}
+				setModalVisible={setModalVisible}
+			/>
+		</Fundo>
+	);
 }
 
 const styles = StyleSheet.create({
-   txtFacaLogin:{
-      color: "#186794",
-      fontWeight: "bold",
-      fontSize: hp("3.5%"),
-      alignSelf: "center"
-   },
-   input: {
-      paddingHorizontal: wp("5%")
-   },
-   inputContainer: {
-      paddingHorizontal: wp("5%"),
-      margin: 0
-   },
-	btnLogin: {
-		paddingHorizontal: 35,
-		paddingVertical: 17,
+	container: {
+		backgroundColor: '#6EB4E7',
 	},
-	link: {
-		marginTop: 20,
-		color: '#000',
+	txtFacaLogin: {
+		color: '#186794',
+		marginTop: hp('1.5%'),
 		fontWeight: 'bold',
-		fontSize: 18,
+		fontSize: wp('6.5%'),
+		alignSelf: 'center',
+	},
+	login: {
+		marginTop: hp('3.5%'),
+	},
+	senha: {
+		marginTop: hp('1.5%'),
+	},
+	areaMensagemErro: {
+		height: hp('3%'),
+	},
+	msgErro: {
+		color: '#F00',
 		textAlign: 'center',
 	},
-})
+	btnLogin: {
+		marginTop: hp('1%'),
+		paddingHorizontal: wp('1.8%'),
+		paddingVertical: hp('2%'),
+	},
+	txtEsqueciSenha: {
+		marginTop: hp('1%'),
+		color: '#000',
+		fontWeight: 'bold',
+		fontSize: wp('3.8%'),
+		textAlign: 'center',
+	},
+	areaCriarConta: {
+		marginTop: hp('4.5%'),
+	},
+	txtCriarConta: {
+		color: '#186794',
+		alignSelf: 'center',
+		fontWeight: 'bold',
+		fontSize: wp('4.5%'),
+	},
+	segundaOpcao: {
+		marginTop: hp('2.8%'),
+		justifyContent: 'space-around',
+		alignItems: 'center',
+		flexDirection: 'row',
+	},
+	divider: {
+		backgroundColor: '#FFF',
+		width: wp('25%'),
+		height: hp('0.3'),
+	},
+	txtOu: {
+		color: '#186794',
+		fontWeight: 'bold',
+		fontSize: wp('5%'),
+	},
+	btnLoginFacebook: {
+		backgroundColor: '#3B5998',
+		marginTop: hp('3.2%'),
+		paddingHorizontal: wp('2%'),
+		paddingVertical: hp('2.3%'),
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	btnLoginGoogle: {
+		backgroundColor: '#FFF',
+		marginTop: hp('2.5%'),
+		paddingHorizontal: wp('2%'),
+		paddingVertical: hp('2.3%'),
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	icon: {
+		width: 22,
+		height: 22,
+		marginRight: wp('5%'),
+		aspectRatio: 1,
+	},
+});
+
+const mapDispatchToProps = dispatch => ({
+	requestSignIn: credentials =>
+		dispatch(AuthSignInActions.requestSignIn(credentials)),
+	requestFacebookSignIn: () =>
+		dispatch(AuthSignInActions.requestFacebookSignIn()),
+	clearAuthError: () => dispatch(AuthSignInActions.clearAuthError()),
+});
+
+const mapStateToProps = state => ({
+	errorAuthFire: state.authSignIn.error,
+	loading: state.authSignIn.loading,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPaciente);

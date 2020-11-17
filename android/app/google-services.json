@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "185720691230",
+    "firebase_url": "https://viva-75f70.firebaseio.com",
+    "project_id": "viva-75f70",
+    "storage_bucket": "viva-75f70.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185720691230:android:05fb55f7b5c3d3623bec0f",
+        "android_client_info": {
+          "package_name": "com.viva"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185720691230-5g121caii847k16hurj6ckdpnc87q3cu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.viva",
+            "certificate_hash": "490c20dccf052ec4965b85303c71d420775e91f4"
+          }
+        },
+        {
+          "client_id": "185720691230-9d1n4vkffue4vbrlcn4alss5osu9vm7k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk5kh9dMpQel0KxW5CwJJTpC1aUoZQY-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185720691230-9d1n4vkffue4vbrlcn4alss5osu9vm7k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
