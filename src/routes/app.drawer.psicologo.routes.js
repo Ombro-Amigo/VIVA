@@ -1,4 +1,5 @@
 import React from 'react';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -16,7 +17,8 @@ const DrawerNavigatorPsicologo = () => {
    return(
       <Drawer.Navigator
          initialRouteName='Home'
-         drawerPosition='right'
+			drawerPosition='right'
+			drawerStyle={{width: ("85%")}}
          drawerContent={props => <DrawerCustom {...props}/>}
       >
 			<Drawer.Screen name="Home" component={AppPsicologoRoutes} options={{headerShown: false}} />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -14,8 +15,10 @@ const Drawer = createDrawerNavigator();
 const DrawerNavigatorPaciente = () => {
    return(
       <Drawer.Navigator
-         drawerPosition='right'
+			drawerPosition='right'
+			drawerStyle={{width: wp("85%")}}
 			drawerContent={props => <DrawerCustom {...props}/>}
+
       >
          <Drawer.Screen name='Home' component={AppPacienteRoutes} options={{headerShown: false}}/>
          <Drawer.Screen name='Alterar informações da conta' component={editaInfoRoutes} options={{headerShown: false}}/>
