@@ -1,13 +1,15 @@
 import React from 'react'
-import { StyleSheet, View, ScrollView } from 'react-native'
+import { StyleSheet, View, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 export default function Fundo(props) {
    const { children, padding } = props;
    return (
-      <View style={[styles.container, {padding: padding !== null ? wp("4%") : padding}]}>
-         {children}
-      </View>
+		<TouchableWithoutFeedback onPress={() =>{Keyboard.dismiss()}}>
+			<View style={[styles.container, {padding: padding !== null ? wp("4%") : padding}]}>
+				{children}
+			</View>
+		</TouchableWithoutFeedback>
    )
 }
 
