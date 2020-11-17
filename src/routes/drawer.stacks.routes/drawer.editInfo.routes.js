@@ -1,5 +1,5 @@
 import React from 'react';
-import EditarInfo from '../../pages/drawer/EditarInfo';
+import EditarInfo from '../../pages/drawer/MenuAltInfosConta';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { Image } from 'react-native';

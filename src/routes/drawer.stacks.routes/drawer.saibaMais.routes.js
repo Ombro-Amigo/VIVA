@@ -1,5 +1,5 @@
 import React from 'react';
-import SaibaMais from '../../pages/drawer/SaibaMais';
+import SaibaMais from '../../pages/drawer/MenuSaibaMais';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { Image } from 'react-native';
