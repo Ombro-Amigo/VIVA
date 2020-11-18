@@ -1,5 +1,5 @@
 import React from 'react';
-import SaibaMais from '../../pages/drawer/MenuSaibaMais';
+import MenuSaibaMais from '../../pages/drawer/MenuSaibaMais';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { Image } from 'react-native';
@@ -25,7 +25,7 @@ const saibaMaisRoutes = ({ navigation }) => (
          headerTitle: props => <LogoTitle {...props} />
       }}
    >
-      <AppStack.Screen name='SaibaMais' component={SaibaMais}
+      <AppStack.Screen name='SaibaMais' component={MenuSaibaMais}
          options={{
             headerRight: () => (
                <TouchableRipple onPress={() => navigation.openDrawer()}>

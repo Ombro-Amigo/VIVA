@@ -1,5 +1,5 @@
 import React from 'react';
-import EditarInfo from '../../pages/drawer/MenuAltInfosConta';
+import MenuAltInfosConta from '../../pages/drawer/MenuAltInfosConta';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { Image } from 'react-native';
@@ -24,7 +24,7 @@ const editaInfoRoutes = ({ navigation }) => (
          headerTitle: props => <LogoTitle {...props} />
       }}
    >
-      <AppStack.Screen name='EditarInfo' component={EditarInfo}
+      <AppStack.Screen name='EditarInfo' component={MenuAltInfosConta}
          options={{
             headerRight: () => (
                <TouchableRipple onPress={() => navigation.openDrawer()}>

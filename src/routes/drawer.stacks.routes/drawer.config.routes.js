@@ -1,5 +1,5 @@
 import React from 'react';
-import Configuracoes from '../../pages/drawer/Configuracoes';
+import MenuConfigAplicativo from '../../pages/drawer/MenuConfigAplicativo';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { Image } from 'react-native';
@@ -25,7 +25,7 @@ const configRoutes = ({ navigation }) => (
          headerTitle: props => <LogoTitle {...props} />
       }}
    >
-      <AppStack.Screen name='Configuracoes' component={Configuracoes}
+      <AppStack.Screen name='Configuracoes' component={MenuConfigAplicativo}
          options={{
             headerRight: () => (
                <TouchableRipple onPress={() => navigation.openDrawer()}>
