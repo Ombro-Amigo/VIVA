@@ -134,8 +134,8 @@ const styles = StyleSheet.create({
 		color: '#186794',
 		marginTop: hp('4.5%'),
 		marginBottom: hp('2%'),
-		fontWeight: 'bold',
-		fontSize: wp('7%'),
+		fontFamily: "Signika-Bold",
+		fontSize: 26,
 		alignSelf: 'center',
 	},
 	input: {
@@ -143,8 +143,8 @@ const styles = StyleSheet.create({
 	},
 	txtSelecioneGenero: {
 		color: '#FFF',
-		fontWeight: 'bold',
-		fontSize: wp('4.6%'),
+		fontFamily: "Signika-Bold",
+		fontSize: 18,
 	},
 	btn: {
 		paddingVertical: hp('2.5%'),

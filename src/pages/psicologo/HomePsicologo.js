@@ -79,16 +79,16 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     txtStatus: {
-        fontSize: wp("5.5%"),
-        fontWeight: "bold",
+		  fontFamily: "Signika-Bold",
+		  fontSize: 20,
     },
     areaListaConsultas: {
         marginTop: wp("8%"),
     },
     title: {
-        color: "#FFF",
-        fontWeight: "bold",
-        fontSize: wp("5.5%"),
+			color: "#FFF",
+			fontFamily: "Signika-Bold",
+			fontSize: 20,
     },
     periodoConsultas: {
         backgroundColor: "#80C6F9",

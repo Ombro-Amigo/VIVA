@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         paddingVertical: hp("1.2%"),
     },
     txtHorario: {
-        fontSize: wp("4.5%"),
-        fontWeight: "bold",
+		fontFamily: "Signika-Bold",
+		fontSize: 16,
     }
 })

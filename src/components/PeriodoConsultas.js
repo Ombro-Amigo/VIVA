@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     txt: {
         color: "#186794",
         marginLeft: wp("5%"),
-        fontSize: wp("5.5%"),
-        fontWeight: "bold",
+		  fontFamily: "Signika-Bold",
+		  fontSize: 20,
     }
 })

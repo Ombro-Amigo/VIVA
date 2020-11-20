@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
    txtAgendeConsulta: {
       color: "#186794",
       marginTop: hp("1%"),
-      fontWeight: "bold",
-      fontSize: wp('7%'),
+		fontFamily: "Signika-Bold",
+		fontSize: 25,
       textAlign: "center",
    },
    escolhaTipoConsulta: {
@@ -96,11 +96,11 @@ const styles = StyleSheet.create({
    },
    titleEscolha: {
       color: "#FFF",
-      fontSize: wp("5.2%"),
-      fontWeight: "bold",
+		fontFamily: "Signika-Bold",
+		fontSize: 18,
    },
    escolhaDiaConsulta: {
-      marginTop: hp("3%"),
+      marginTop: hp("3.5%"),
    },
    buttonProximo: {
       backgroundColor: "#34C5A2",

@@ -6,6 +6,7 @@ import {
 	Image,
 	StyleSheet,
 	TouchableWithoutFeedback,
+	TouchableHighlight
 } from 'react-native';
 import {
 	widthPercentageToDP as wp,
@@ -15,7 +16,7 @@ import { Divider } from 'react-native-paper';
 import { Creators as SchedulingActions } from '../store/ducks/scheduling';
 import { connect } from 'react-redux';
 import Botao from './Botao';
-import ModalConstrucao from '../pages/modalConstrucao'
+import ModalConstrucao from '../pages/modalConstrucao';
 
 
 function Card({ data, requestDeleteScheduling, user, typeUser }) {
@@ -23,7 +24,7 @@ function Card({ data, requestDeleteScheduling, user, typeUser }) {
 	const [modalVisible, setModalVisible] = useState(false)
 
 	return (
-		<TouchableWithoutFeedback>
+		<TouchableHighlight>
 			<>
 				<View style={styles.card}>
 					<View style={styles.infoUsuario}>
@@ -90,7 +91,7 @@ function Card({ data, requestDeleteScheduling, user, typeUser }) {
 
 				<ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible}/>
 			</>
-		</TouchableWithoutFeedback>
+		</TouchableHighlight>
 	);
 }
 

@@ -30,9 +30,9 @@ export default function modalStatus({modalVisible, setModalVisible}){
                             <TouchableOpacity onPress={() => {setModalVisible(!modalVisible), setDispo(1)}}>
                                 <Text style={styles.status1}>Disponível</Text>
                             </TouchableOpacity>
-                             
+
                             <Divider style={styles.divider}/>
-                            
+
                             <TouchableOpacity onPress={() => {setModalVisible(!modalVisible), setDispo(2)}}>
                                 <Text style={styles.status2}>Em consulta</Text>
                             </TouchableOpacity>
@@ -47,9 +47,9 @@ export default function modalStatus({modalVisible, setModalVisible}){
 
 					</View>
 				</View>
-            </Modal>    
+            </Modal>
         </View>
-        
+
     )
 }
 
@@ -86,26 +86,26 @@ const styles = StyleSheet.create({
         marginTop: hp("2.5%"),
         marginBottom: hp("2.5%"),
         textAlign: "center",
-        fontSize: wp("6%"),
-        fontWeight: 'bold',
+        fontFamily: "Signika-Bold",
+        fontSize: 21,
     },
     areaEscolha: {
         alignItems: "center"
     },
     status1: {
-        color: "green", 
-        fontWeight: "bold", 
-        fontSize: wp("5%")
+        color: "green",
+        fontFamily: "Signika-Medium",
+        fontSize: 18,
     },
     status2: {
-        color: "orange", 
-        fontWeight: "bold", 
-        fontSize: wp("5%")
+        color: "orange",
+        fontFamily: "Signika-Medium",
+        fontSize: 18,
     },
     status3: {
-        color: "red", 
-        fontWeight: "bold", 
-        fontSize: wp("5%")
+        color: "red",
+        fontFamily: "Signika-Medium",
+        fontSize: 18,
     },
     divider: {
         backgroundColor: "#C4C4C4",
@@ -114,11 +114,10 @@ const styles = StyleSheet.create({
         height: hp("0.1%"),
         marginVertical: hp("1.5%"),
     },
-   
+
     closeButton: {
         marginTop: hp("2%"),
         paddingHorizontal: wp("25%"),
         paddingVertical: hp("2%"),
     },
  })
- 

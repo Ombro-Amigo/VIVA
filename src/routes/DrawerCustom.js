@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
 	},
 	drawerContent: {
 		flex: 1,
-
 	},
 	infoUsuario: {
 		flexDirection: 'row',
@@ -183,8 +182,8 @@ const styles = StyleSheet.create({
 	},
 	txtNome: {
 		color: '#186794',
-		fontSize: wp('4.5%'),
-		fontWeight: 'bold',
+		fontFamily: "Signika-Bold",
+		fontSize: 16,
 		marginLeft: wp('2%'),
 	},
 	menuSection: {
@@ -209,8 +208,8 @@ const styles = StyleSheet.create({
 	},
 	txtMenu: {
 		color: '#FFF',
-		fontSize: wp('4.5%'),
-		fontWeight: 'bold',
+		fontFamily: "Signika-Bold",
+		fontSize: 17,
 		marginLeft: wp('3%'),
 	},
 	bottomDrawerSection: {
@@ -219,8 +218,8 @@ const styles = StyleSheet.create({
 	},
 	txtSair: {
 		color: '#186794',
-		fontSize: wp('4.5%'),
-		fontWeight: 'bold',
+		fontFamily: "Signika-Bold",
+		fontSize: 16,
 		marginRight: wp('3%'),
 	},
 	containerEmergency: {
@@ -244,8 +243,8 @@ const styles = StyleSheet.create({
 	txtEmergency: {
 		marginTop: hp('2%'),
 		color: '#fff',
-		fontWeight: 'bold',
-		fontSize: wp('3.3%'),
+		fontFamily: "Signika-SemiBold",
+		fontSize: 12,
 		textAlign: 'center',
 	},
 });

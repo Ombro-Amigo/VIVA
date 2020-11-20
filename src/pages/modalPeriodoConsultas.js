@@ -27,9 +27,9 @@ export default function modalRangeConsultas({modalVisible, setModalVisible}){
                             <TouchableOpacity onPress={() => {setModalVisible(!modalVisible), setRangeConsultas(1)}}>
                                 <Text style={styles.range}>Hoje</Text>
                             </TouchableOpacity>
-                                
+
                             <Divider style={styles.divider}/>
-                            
+
                             <TouchableOpacity onPress={() => {setModalVisible(!modalVisible), setRangeConsultas(2)}}>
                                 <Text style={styles.range}>Esta semana</Text>
                             </TouchableOpacity>
@@ -91,17 +91,17 @@ const styles = StyleSheet.create({
     title: {
         marginTop: hp("2.5%"),
         marginBottom: hp("2.5%"),
-        textAlign: "center",
-        fontSize: wp("6%"),
-        fontWeight: 'bold',
+		  textAlign: "center",
+		  fontFamily: "Signika-Bold",
+        fontSize: 20,
     },
     areaEscolha: {
         alignItems: "center",
     },
     range: {
         color: "#186794",
-        fontWeight: "bold", 
-        fontSize: wp("5%")
+		  fontFamily: "Signika-Bold",
+		  fontSize: 18,
     },
     divider: {
         backgroundColor: "#C4C4C4",
