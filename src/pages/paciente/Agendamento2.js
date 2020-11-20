@@ -44,7 +44,7 @@ function Agendamento2({ navigation, requestPsicoCreateScheduling, requestCreateS
 				}) => (
 					<>
 						<View style={styles.areaEscolhaPsicologo}>
-							<Text style={styles.txtEscolhaPsicologo}>Escolha um dos psicólogos disponíveis:</Text>
+							<Text style={styles.titleEscolha}>Escolha um dos psicólogos disponíveis:</Text>
 							<ListaPsicologo
 								value={values.psicologo}
 								// onValueChange={handleChange('psicologo')}
@@ -56,7 +56,7 @@ function Agendamento2({ navigation, requestPsicoCreateScheduling, requestCreateS
 							/>
 						</View>
 						<View style={styles.areaEscolhaDiaConsulta}>
-							<Text style={styles.txtEscolhaDiaConsulta}>Esses são os horários disponíveis do psicólogo escolhido:</Text>
+							<Text style={styles.titleEscolha}>Esses são os horários disponíveis do psicólogo escolhido:</Text>
 							<ListaHorarios
 								value={values.hora}
 								onValueChange={dateString =>
@@ -83,17 +83,11 @@ const styles = StyleSheet.create({
       backgroundColor: "#6EB4E7",
       padding: 15,
    },
-   txtEscolhaPsicologo: {
+   titleEscolha: {
       color: "#FFF",
-      marginTop: hp("2%"),
-      fontSize: wp("5.2%"),
-      fontWeight: "bold",
-   },
-   txtEscolhaDiaConsulta: {
-      color: "#FFF",
-      marginTop: hp("3%"),
-      fontSize: wp("5.2%"),
-      fontWeight: "bold",
+      marginTop: hp("3.5%"),
+      fontFamily: "Signika-Bold",
+		fontSize: 18,
    },
    buttonFinalizarAgendamento: {
       alignItems: "center",

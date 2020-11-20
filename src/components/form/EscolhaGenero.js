@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
 		marginHorizontal: wp('1%'),
 	},
 	txtOpcoes: {
-		fontSize: wp('4%'),
-		fontWeight: 'bold',
+		fontFamily: "Signika-Bold",
+		fontSize: 16,
 	},
 	areaMsgError: {
 		alignItems: 'center',

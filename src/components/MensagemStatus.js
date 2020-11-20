@@ -19,7 +19,7 @@ export default function MensagemStatus({dispo}){
     return(
         <View style={styles.areaMsg}>
             <View style={{backgroundColor: cor, width: 15, height: 15, borderRadius: 100}}/>
-            <Text style={{color: cor, fontWeight: "bold", fontSize: wp("5%"), marginLeft: wp("3%")}}>{msg}</Text>
+            <Text style={{color: cor, fontFamily: "Signika-Bold", fontSize: 18, marginLeft: wp("3%")}}>{msg}</Text>
         </View>
     )
 }
@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     circle: {
-        width: 15, 
-        height: 15, 
+        width: 15,
+        height: 15,
         borderRadius: 100,
     }
 

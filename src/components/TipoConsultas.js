@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     txtOpcoes: {
-        fontSize: wp("5%"),
-        fontWeight: "bold",
+		  fontFamily: "Signika-Bold",
+		  fontSize: 18,
 	 },
 	 msgError: {
 		 color: '#f00'

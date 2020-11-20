@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
 	title: {
 		marginBottom: 15,
 		textAlign: 'center',
-		fontSize: wp('6%'),
-		fontWeight: 'bold',
+		fontFamily: "Signika-Bold",
+		fontSize: 21
 	},
 	icone: {
 		width: 100,
@@ -76,8 +76,9 @@ const styles = StyleSheet.create({
 		paddingVertical: hp('2%'),
 	},
 	modalText: {
-		marginBottom: 15,
+		marginVertical: 15,
 		textAlign: 'center',
-		fontSize: wp('5%'),
+		fontFamily: "Signika-Medium",
+		fontSize: 18,
 	},
 });

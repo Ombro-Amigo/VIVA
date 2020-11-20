@@ -79,8 +79,8 @@ function LoginPaciente({
 
 			<Formik
 				initialValues={{
-					email: '',
-					password: '',
+					email: 'paciente@mail.com',
+					password: 'Paciente@123',
 				}}
 				onSubmit={values => {
 					Keyboard.dismiss();
@@ -186,8 +186,8 @@ const styles = StyleSheet.create({
 	txtFacaLogin: {
 		color: '#186794',
 		marginTop: hp('1.5%'),
-		fontWeight: 'bold',
-		fontSize: wp('6.5%'),
+		fontFamily: "Signika-Bold",
+		fontSize: 23,
 		alignSelf: 'center',
 	},
 	login: {
@@ -199,10 +199,6 @@ const styles = StyleSheet.create({
 	areaMensagemErro: {
 		height: hp('3%'),
 	},
-	msgErro: {
-		color: '#F00',
-		textAlign: 'center',
-	},
 	btnLogin: {
 		marginTop: hp('1%'),
 		paddingHorizontal: wp('1.8%'),
@@ -211,8 +207,8 @@ const styles = StyleSheet.create({
 	txtEsqueciSenha: {
 		marginTop: hp('1%'),
 		color: '#000',
-		fontWeight: 'bold',
-		fontSize: wp('3.8%'),
+		fontFamily: "Signika-Bold",
+		fontSize: 13,
 		textAlign: 'center',
 	},
 	areaCriarConta: {
@@ -221,8 +217,8 @@ const styles = StyleSheet.create({
 	txtCriarConta: {
 		color: '#186794',
 		alignSelf: 'center',
-		fontWeight: 'bold',
-		fontSize: wp('4.5%'),
+		fontFamily: "Signika-Bold",
+		fontSize: 19,
 	},
 	segundaOpcao: {
 		marginTop: hp('2.8%'),
@@ -237,8 +233,8 @@ const styles = StyleSheet.create({
 	},
 	txtOu: {
 		color: '#186794',
-		fontWeight: 'bold',
-		fontSize: wp('5%'),
+		fontFamily: "Signika-Bold",
+		fontSize: 18,
 	},
 	btnLoginFacebook: {
 		backgroundColor: '#3B5998',

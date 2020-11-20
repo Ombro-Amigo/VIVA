@@ -70,9 +70,9 @@ const styles = StyleSheet.create({
         borderRadius: 100,
     },
     nomePsicologo: {
-        fontSize: wp("4%"),
-        fontWeight: "bold",
-        marginLeft: wp("3%"),
+			fontFamily: "Signika-Medium",
+			fontSize: 14,
+			marginLeft: wp("3%"),
     },
     tresPontos: {
         width: 20,

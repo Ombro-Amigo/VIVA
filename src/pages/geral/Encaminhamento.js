@@ -89,8 +89,7 @@ const styles = StyleSheet.create({
 	},
 	title1: {
 		color: '#186794',
-		fontSize: wp('6.5%'),
-		// fontWeight: 'bold',
+		fontSize: 28,
 		fontFamily: 'Signika-Bold',
 	},
 	// Login
@@ -99,8 +98,8 @@ const styles = StyleSheet.create({
 	},
 	spam: {
 		color: '#186794',
-		fontSize: wp('4.2%'),
-		fontWeight: 'bold',
+		fontSize: 16,
+		fontFamily: "Signika-Bold",
 		marginBottom: hp('2%'),
 		textAlign: 'center',
 	},
@@ -131,8 +130,8 @@ const styles = StyleSheet.create({
 	txtEmergency: {
 		marginTop: hp('3%'),
 		color: '#fff',
-		fontWeight: 'bold',
-		fontSize: wp('3.3%'),
+		fontFamily: "Signika-SemiBold",
+		fontSize: 12,
 		textAlign: 'center',
 	},
 });

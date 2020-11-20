@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
 		elevation: 4,
 	},
 	txtBotao: {
-		fontWeight: 'bold',
-		fontSize: 15,
+		fontFamily: "Signika-Bold",
+		fontSize: 16,
 		alignSelf: 'center',
 	},
 

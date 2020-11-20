@@ -26,7 +26,7 @@ export default function modalExplicacaoChamadaEmergencia({modalVisible, setModal
                         style={styles.closeButton}
                         onPress={() => setModalVisible(!modalVisible)}
                         />
-						
+
 					</View>
 				</View>
             </Modal>
@@ -67,18 +67,18 @@ const styles = StyleSheet.create({
     title: {
         color: "#186794",
         marginTop: hp("2.5%"),
-        marginBottom: hp("2.5%"),
+		  marginBottom: hp("2.5%"),
+		  fontFamily: "Signika-Bold",
+		  fontSize: 21,
         textAlign: "center",
-        fontSize: wp("6%"),
-        fontWeight: 'bold',
     },
     areaEscolha: {
         alignItems: "center",
     },
     modalText: {
         color: "#000",
-        fontWeight: "bold", 
-        fontSize: wp("5%"),
+		  fontFamily: "Signika-Medium",
+		  fontSize: 18,
         textAlign: "center"
     },
     closeButton: {

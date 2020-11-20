@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		color: '#FFF',
-		fontWeight: 'bold',
-		fontSize: wp('5.5%'),
+		fontFamily: "Signika-Bold",
+		fontSize: 20,
 	},
 	areaConsultas: {
 		flex: 1,
