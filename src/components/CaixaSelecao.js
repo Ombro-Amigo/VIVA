@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { StyleSheet, Text, View } from 'react-native';
 import { Checkbox } from 'react-native-paper';
 
-export default function CaixaSelecao(props) {
+function CaixaSelecao(props) {
 	const { value, setChecked, uncheckedColor, color, title, error } = props;
 	return (
 		<View style={styles.container}>
@@ -38,6 +39,8 @@ const styles = StyleSheet.create({
 		color: '#f00',
 	},
 	subcontainer: {
-		flexDirection: 'column'
-	}
+		flexDirection: 'column',
+	},
 });
+
+export default CaixaSelecao;

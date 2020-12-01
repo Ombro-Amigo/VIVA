@@ -3,7 +3,8 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Image } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
-import HomePsicologo from '../pages/psicologo/HomePsicologo';
+
+import HomePsicologo from '../pages/Private/Psicologo/HomePsicologo';
 
 const AppStack = createStackNavigator();
 
@@ -18,14 +19,14 @@ function LogoTitle() {
 
 const AppPsicologoRoutes = ({ navigation }) => (
 	<AppStack.Navigator
-		initialRouteName="HomePsicologo"
+		initialRouteName='HomePsicologo'
 		screenOptions={{
 			headerTitleAlign: 'center',
 			headerTitle: props => <LogoTitle {...props} />,
 		}}
 	>
 		<AppStack.Screen
-			name="HomePsicologo"
+			name='HomePsicologo'
 			component={HomePsicologo}
 			options={{
 				headerRight: () => (

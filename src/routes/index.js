@@ -2,10 +2,9 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import AuthRoutes from './auth.routes';
-
 import DrawerNavigatorPaciente from './app.drawer.paciente.routes';
 import DrawerNavigatorPsicologo from './app.drawer.psicologo.routes';
+import AuthRoutes from './auth.routes';
 
 const Routes = ({ user, typeUser }) => {
 	return !user && !typeUser ? (

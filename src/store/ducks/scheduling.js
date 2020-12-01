@@ -23,7 +23,7 @@ export default function schedulingReducer(state = INITIAL_STATE, action) {
 				dataScheduling: action.partDataScheduling,
 			};
 		case Types.SUCCESS_PSICO_CREATE_SCHEDULING:
-			console.log('reducer list', action.listPisco)
+			console.log('reducer list', action.listPisco);
 			return { ...state, loading: false, listPisco: action.listPisco };
 		case Types.REQUEST_CREATE_SCHEDULING:
 			return { ...state, loading: true };

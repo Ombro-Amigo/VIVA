@@ -1,34 +1,34 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+
 import {
 	View,
 	Text,
 	TouchableOpacity,
 	Image,
 	StyleSheet,
-	TouchableWithoutFeedback,
-	TouchableHighlight
+	TouchableHighlight,
 } from 'react-native';
+import { Divider } from 'react-native-paper';
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { Divider } from 'react-native-paper';
-import { Creators as SchedulingActions } from '../store/ducks/scheduling';
 import { connect } from 'react-redux';
-import Botao from './Botao';
-import ModalConstrucao from '../pages/modalConstrucao';
 
+import { Creators as SchedulingActions } from '../store/ducks/scheduling';
+import Botao from './Botao';
+import ModalConstrucao from './modalConstrucao';
 
 function Card({ data, requestDeleteScheduling, user, typeUser }) {
 	const { photo, psicologo, crp, date, start, end, status, id } = data;
-	const [modalVisible, setModalVisible] = useState(false)
+	const [modalVisible, setModalVisible] = useState(false);
 
 	return (
 		<TouchableHighlight>
 			<>
 				<View style={styles.card}>
 					<View style={styles.infoUsuario}>
-						<View style={{ flexDirection: 'row', alignItems: "center"}}>
+						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 							<Image
 								style={styles.foto}
 								source={require('../assets/icon/usuario-cards-e-menu.png')}
@@ -71,25 +71,29 @@ function Card({ data, requestDeleteScheduling, user, typeUser }) {
 						</View>
 						<View style={styles.line2}>
 							<Botao
-								title="Chat"
+								title='Chat'
 								corFundo={null}
 								onPress={() => setModalVisible(!modalVisible)}
 								img={require('../assets/icon/chat.png')}
 								imgStyle={[styles.icon, { marginRight: wp('3%') }]}
 								style={styles.btnChat}
 								highlight
-								direction="row-reverse"
+								direction='row-reverse'
 								activeOpacity={0.5}
-								underlayColor="#34C5A2"
+								underlayColor='#34C5A2'
 							/>
 							<Text style={styles.txt2}>
-								Status: <Text style={{ color: 'green' }}>Confirmada</Text>
+								Status:{' '}
+								<Text style={{ color: 'green' }}>Confirmada</Text>
 							</Text>
 						</View>
 					</View>
 				</View>
 
-				<ModalConstrucao modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+				<ModalConstrucao
+					modalVisible={modalVisible}
+					setModalVisible={setModalVisible}
+				/>
 			</>
 		</TouchableHighlight>
 	);
@@ -157,7 +161,7 @@ const styles = StyleSheet.create({
 	group: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		alignItems: "center",
+		alignItems: 'center',
 	},
 	icon: {
 		width: 20,
@@ -185,7 +189,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	requestDeleteScheduling: (idScheduling, user, typeUser) => dispatch(SchedulingActions.requestDeleteScheduling(idScheduling, user, typeUser)),
+	requestDeleteScheduling: (idScheduling, user, typeUser) =>
+		dispatch(
+			SchedulingActions.requestDeleteScheduling(idScheduling, user, typeUser)
+		),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);

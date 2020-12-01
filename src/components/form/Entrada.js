@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef, forwardRef } from 'react';
-import { useField } from '@unform/core';
-import { StyleSheet, View, Image, TextInput, Text } from 'react-native';
+import React from 'react';
+
+import { View, Image, TextInput, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
 import { styles } from './styles';
 
 export default function Entrada(props) {
@@ -28,18 +29,20 @@ export default function Entrada(props) {
 	const eye = require('../../assets/icon/eye-regular.png');
 	const eyeSlash = require('../../assets/icon/eye-slash.png');
 
-	const [imgOlho, setimgOlho] = useState(eye);
+	// const [imgOlho, setimgOlho] = useState(eye);
 
 	function renderIcon() {
 		if (icon) {
 			return <Image source={icon} style={styles.icon} />;
 		}
+		return null;
 	}
 
-	function renderObrigatorio(value) {
-		if (obrigatorio && !value) {
+	function renderObrigatorio(v) {
+		if (obrigatorio && !v) {
 			return <Text style={styles.obrigatorio}>*</Text>;
 		}
+		return null;
 	}
 
 	function renderMsg() {
@@ -66,6 +69,7 @@ export default function Entrada(props) {
 				</TouchableOpacity>
 			);
 		}
+		return null;
 	}
 
 	return (

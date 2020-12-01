@@ -18,7 +18,7 @@ export default function appointmentReducer(state = INITIAL_STATE, action) {
 			console.log('chamou appointments');
 			return { ...state, loading: true };
 		case Types.SUCCESS_GET_APPOINTMENT:
-			console.log('consultas dentro do appointments: ', action.appointments)
+			console.log('consultas dentro do appointments: ', action.appointments);
 			return {
 				...state,
 				loading: false,

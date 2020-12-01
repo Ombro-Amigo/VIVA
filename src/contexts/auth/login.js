@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 // import { auth } from '../services/auth'
-import Loading from '../../pages/Loading';
+import Loading from '../../components/Loading';
 // import firebase from '@firebase/app';
 // import '@firebase/auth';
 // import { FirebaseNamespace } from '@firebase/app-types';
@@ -46,7 +46,7 @@ const LoginContext = createContext({
 export const LoginProvider = ({ children }) => {
    // const [email, setEmail] = useState('');
    // const [senha, setSenha] = useState('');
-   
+
    // const [user, setUser] = useState(null);
    // const [message, setMessage] = useState('');
    // const [loading, setLoading] = useState(false);
@@ -55,7 +55,7 @@ export const LoginProvider = ({ children }) => {
 
    // useEffect(() => {
    //    // const firebase = connectFirebase();
-      
+
    //    const firebaseConfig = {
    //       apiKey: "AIzaSyCdq8TLHoPdCnwyvdyaMHXYtlcsP0GsHuA",
    //       authDomain: "viva-3130e.firebaseapp.com",
@@ -93,13 +93,13 @@ export const LoginProvider = ({ children }) => {
 
    //    // const { user, error, response } = auth();
 
-   //    const loginUserSuccess = user => {         
+   //    const loginUserSuccess = user => {
    //       setLoading(false);
    //       setMessage('Sucesso!');
    //       setUser(user);
    //       console.log('foi')
    //    }
-   
+
    //    const loginUserFailed = error => {
    //       setLoading(false);
    //       setMessage(error.code);
@@ -108,7 +108,7 @@ export const LoginProvider = ({ children }) => {
 
    //    // if(response) {
    //    // } else {
-        
+
    //    // }
 
    //    firebase
@@ -120,12 +120,12 @@ export const LoginProvider = ({ children }) => {
 
       // console.log("\n\n\n\n", userF);
 
-      
-      
+
+
       // const {token, user} = response;
 
       // setUser(response.user);
-      
+
       // await AsyncStorage.setItem('@RNAuth:user', JSON.stringify(response.user));
       // await AsyncStorage.setItem('@RNAuth:token', response.token);
 
