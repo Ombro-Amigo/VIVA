@@ -18,10 +18,12 @@ import { connect } from 'react-redux';
 import { Creators as SchedulingActions } from '../store/ducks/scheduling';
 import Botao from './Botao';
 import ModalConstrucao from './modalConstrucao';
+import ModalExcluirConsulta from './modalExcluirConsulta';
 
 function Card({ data, requestDeleteScheduling, user, typeUser }) {
 	const { photo, psicologo, crp, date, start, end, status, id } = data;
-	const [modalVisible, setModalVisible] = useState(false);
+	const [modalConstructionVisible, setModalConstructionVisible] = useState(false);
+	const [modalCancelAppointmentVisible, setCancelAppointmentVisible] = useState(false);
 
 	return (
 		<TouchableHighlight>
@@ -41,7 +43,8 @@ function Card({ data, requestDeleteScheduling, user, typeUser }) {
 
 						<TouchableOpacity
 							style={styles.cliqueExcluir}
-							onPress={() => requestDeleteScheduling(id, user, typeUser)}
+							onPress={() => setCancelAppointmentVisible(!modalCancelAppointmentVisible)}
+							// onPress={() => requestDeleteScheduling(id, user, typeUser)}
 						>
 							<Image
 								style={styles.excluirConsulta}
@@ -73,7 +76,7 @@ function Card({ data, requestDeleteScheduling, user, typeUser }) {
 							<Botao
 								title='Chat'
 								corFundo={null}
-								onPress={() => setModalVisible(!modalVisible)}
+								onPress={() => setModalConstructionVisible(!modalConstructionVisible)}
 								img={require('../assets/icon/chat.png')}
 								imgStyle={[styles.icon, { marginRight: wp('3%') }]}
 								style={styles.btnChat}
@@ -91,8 +94,17 @@ function Card({ data, requestDeleteScheduling, user, typeUser }) {
 				</View>
 
 				<ModalConstrucao
-					modalVisible={modalVisible}
-					setModalVisible={setModalVisible}
+					modalVisible={modalConstructionVisible}
+					setModalVisible={setModalConstructionVisible}
+				/>
+
+				<ModalExcluirConsulta
+					modalVisible={modalCancelAppointmentVisible}
+					setModalVisible={setCancelAppointmentVisible}
+					requestDeleteScheduling={requestDeleteScheduling}
+					id={id}
+					user={user}
+					typeUser={typeUser}
 				/>
 			</>
 		</TouchableHighlight>
