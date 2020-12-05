@@ -5,7 +5,6 @@ import {
 	View,
 	Text,
 	StyleSheet,
-	TouchableHighlight,
 } from 'react-native';
 import {
 	heightPercentageToDP as hp,
