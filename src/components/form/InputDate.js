@@ -10,6 +10,7 @@ import { styles } from './styles';
 function InputDate({ error, value, onChange }) {
 	const [, setDate] = useState('');
 	const [show, setShow] = useState(false);
+	const [showError, setShowError] = useState(false);
 
 	return (
 		<View>
@@ -25,11 +26,15 @@ function InputDate({ error, value, onChange }) {
 							placeholder='Data de nascimento'
 							value={value}
 							editable={false}
+							onFocus={() => setShowError(true)}
+							onBlur={() =>
+								!error ? setShowError(false) : setShowError(true)
+							}
 						/>
 					</View>
 
 					<View style={styles.areaConfirmacaoSenha}>
-						{error && <Text style={styles.senhaErrada}>{error}</Text>}
+						{showError && <Text style={styles.senhaErrada}>{error}</Text>}
 					</View>
 				</View>
 			</TouchableWithoutFeedback>

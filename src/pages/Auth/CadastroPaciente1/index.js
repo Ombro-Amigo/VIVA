@@ -47,7 +47,7 @@ function CadastroPaciente1({ navigation, saveDataRegister }) {
 						Keyboard.dismiss();
 						values.type = 'paciente';
 						saveDataRegister({ personalInformations: values });
-						navigation.navigate('CadastroPsicologo2');
+						navigation.navigate('CadastroPaciente2');
 					}}
 					validationSchema={FormSchema}
 				>

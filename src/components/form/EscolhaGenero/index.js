@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Text, View } from 'react-native';
 import { RadioButton } from 'react-native-paper';
@@ -7,11 +7,17 @@ import styles from './style';
 
 export default function EscolhaGenero(props) {
 	const { onValueChange, value, error } = props;
+	const [showError, setShowError] = useState(false);
 	// const [genero, setGenero] = useState('');
 
 	return (
 		<View>
-			<RadioButton.Group onValueChange={onValueChange} value={value}>
+			<RadioButton.Group
+				onValueChange={onValueChange}
+				value={value}
+				onFocus={() => setShowError(true)}
+				onBlur={() => (!error ? setShowError(false) : setShowError(true))}
+			>
 				<View style={styles.areaEscolha}>
 					<View style={styles.escolha}>
 						<RadioButton.Item
@@ -44,7 +50,7 @@ export default function EscolhaGenero(props) {
 			</RadioButton.Group>
 
 			<View style={styles.areaMsgError}>
-				{error && <Text style={styles.msgError}>{error}</Text>}
+				{showError && <Text style={styles.msgError}>{error}</Text>}
 			</View>
 		</View>
 	);

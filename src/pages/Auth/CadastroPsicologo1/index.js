@@ -41,7 +41,7 @@ function CadastroPsicologo1({ navigation, saveDataRegister }) {
 					crp: '',
 				}}
 				onSubmit={values => {
-					console.log(values);
+					console.log('form1: ', values);
 					Keyboard.dismiss();
 					values.type = 'psicologo';
 					saveDataRegister({ personalInformations: values });

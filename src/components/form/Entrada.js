@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { View, Image, TextInput, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -25,6 +25,8 @@ export default function Entrada(props) {
 		error,
 		onFocus,
 	} = props;
+
+	const [showError, setShowError] = useState(false);
 
 	const eye = require('../../assets/icon/eye-regular.png');
 	const eyeSlash = require('../../assets/icon/eye-slash.png');
@@ -89,12 +91,15 @@ export default function Entrada(props) {
 					editable={!desabilitado}
 					maxLength={max || null}
 					textContentType={tipoTexto || null}
-					onFocus={onFocus}
+					onFocus={() => setShowError(true)}
+					onBlur={() =>
+						!error ? setShowError(false) : setShowError(true)
+					}
 				/>
 				{renderEye()}
 			</View>
 			<View style={styles.areaConfirmacaoSenha}>
-				{error && <Text style={styles.senhaErrada}>{error}</Text>}
+				{showError && <Text style={styles.senhaErrada}>{error}</Text>}
 				{!error && renderMsg()}
 			</View>
 		</>

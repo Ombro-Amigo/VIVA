@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as Yup from 'yup';
 
 import Botao from '../../../components/Botao';
-import { CaixaSelecao } from '../../../components/CaixaSelecao';
+import CaixaSelecao from '../../../components/CaixaSelecao';
 import FormBackground from '../../../components/form/FormBackground';
 import { Entrada } from '../../../components/form/index';
 import { Creators as AuthSignUpActions } from '../../../store/ducks/authSignUp';
