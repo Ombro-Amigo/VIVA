@@ -1,56 +1,90 @@
 import { put, call } from 'redux-saga/effects';
 
-import { firestore } from '../../../services/database';
+import { database } from '../../../services/database';
 
 export default function* getSchedulingsPatient(action) {
 	try {
 		console.log('chamou resquest do paciente');
 		const { uid } = action;
 
-		const schedulingRef = firestore().collection('consulta');
-		const userRef = firestore().collection(action.typeUser).doc(uid);
-		const otherUsersRef = firestore().collection('psicologo');
+		const schedulingRef = database().ref('consulta');
+		const userRef = database().ref(`${action.typeUser}/${uid}`);
+		const otherUsersRef = database().ref('psicologo');
+		// const schedulingRef = firestore().collection('consulta');
+		// const userRef = firestore().collection(action.typeUser).doc(uid);
+		// const otherUsersRef = firestore().collection('psicologo');
 
-		const { _docs } = yield call([otherUsersRef, otherUsersRef.get]);
+		const snapshotOtherUser = yield call(
+			[otherUsersRef, otherUsersRef.once],
+			'value'
+		);
+		// const { _docs } = yield call([otherUsersRef, otherUsersRef.get]);
 
-		const { _data } = yield call([userRef, userRef.get]);
-		const { consultas } = _data;
+		const snapshotUser = yield call([userRef, userRef.once], 'value');
+		const { consultas } = snapshotUser.val();
 		let snapShot2;
 		let schedulingsArray;
 
 		if (consultas) {
-			snapShot2 = yield call([
-				schedulingRef.where(
-					firestore.FieldPath.documentId(),
-					'in',
-					consultas
-				),
-				schedulingRef.get,
-			]);
+			snapShot2 = yield call([schedulingRef, schedulingRef.once], 'value');
+			// snapShot2 = yield call([
+			// 	schedulingRef.where(
+			// 		firestore.FieldPath.documentId(),
+			// 		'in',
+			// 		consultas
+			// 	),
+			// 	schedulingRef.get,
+			// ]);
+			const keysScheduling = Object.keys(snapShot2.val());
+			const newKeysScheduling = [];
+			const valuesScheduling = Object.values(snapShot2.val());
+			const newValuesScheduling = [];
+
+			keysScheduling.filter((element, i) => {
+				if (consultas.indexOf(element) !== -1) {
+					newKeysScheduling.push(element);
+					newValuesScheduling.push(valuesScheduling[i]);
+				}
+				return null;
+			});
+			console.log('NEW: ', newKeysScheduling);
+			console.log('NEW: ', newValuesScheduling);
+
+			const keysOtherUser = Object.keys(snapshotOtherUser.val());
+			const valuesOtherUser = Object.values(snapshotOtherUser.val());
+
+			let index = 0;
 
 			schedulingsArray = [];
 
-			yield snapShot2.forEach(document => {
-				console.log('chegou aqui');
-				const { id } = document;
+			yield newValuesScheduling.forEach(document => {
+				const id = newKeysScheduling[index];
 				let psico = null;
 
-				_docs.forEach(documentPsico => {
-					const { _ref } = documentPsico;
-					const { _documentPath } = _ref;
-					const { _parts } = _documentPath;
-					const psicoUid = _parts[1];
-					if (psicoUid === document.data().psicoUid) {
-						psico = documentPsico.data();
+				// console.log(snapshotOtherUser.val());
+
+				let indexOther = 0;
+				valuesOtherUser.forEach(documentPsico => {
+					// console.log('documentPsico', documentPsico);
+					// const { _ref } = documentPsico;
+					// const { _documentPath } = _ref;
+					// const { _parts } = _documentPath;
+					// const psicoUid = _parts[1];
+					console.log(document.psicoUid);
+					if (keysOtherUser[indexOther] === document.psicoUid) {
+						psico = documentPsico;
+						// console.log(documentPsico);
 					}
+					indexOther += 1;
 				});
 
 				schedulingsArray.push({
-					...document.data(),
+					...document,
 					id,
 					psicoNome: psico.name,
 					psicoCrp: psico.crp,
 				});
+				index += 1;
 			});
 
 			yield console.log('Formato da consulta: ', schedulingsArray);
@@ -65,7 +99,7 @@ export default function* getSchedulingsPatient(action) {
 			});
 		}
 	} catch (error) {
-		console.log('deu ruim', error);
+		console.log('deu ruim no consulta paciente', error);
 		yield put({ type: 'FAILED_GET_SCHEDULINGS', error: error.code });
 	}
 }

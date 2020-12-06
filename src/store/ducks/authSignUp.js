@@ -17,6 +17,7 @@ export default function authSignUpReducer(state = INITIAL_STATE, action) {
 			console.log('partDataRegister', action.partDataRegister);
 			return {
 				...state,
+				loading: false,
 				dataRegister: action.partDataRegister,
 			};
 		case Types.REQUEST_SIGN_UP:

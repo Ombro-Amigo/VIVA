@@ -19,6 +19,7 @@ function HomePsicologo({
 	uid,
 	loading,
 	getSchedulingsPsychologist,
+	navigation,
 }) {
 	const [modalStatusVisible, setModalStatusVisible] = useState(false);
 	const [modalRangeVisible, setModalRangeVisible] = useState(false);
@@ -57,6 +58,7 @@ function HomePsicologo({
 					style={styles.listaConsultas}
 					listSchedulings={listSchedulings}
 					loading={loading}
+					navigation={navigation}
 				/>
 			</View>
 

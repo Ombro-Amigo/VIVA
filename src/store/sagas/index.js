@@ -1,5 +1,7 @@
 import { takeLatest, all } from 'redux-saga/effects';
 
+import createMessage from './message/createMessage';
+import getMessages from './message/getMessage';
 import cancelScheduling from './scheduling/cancelScheduling';
 import confirmScheduling from './scheduling/confirmScheduling';
 import getPsico from './scheduling/getPsico';
@@ -28,8 +30,12 @@ export default function* root() {
 			getSchedulingsPsychologist
 		),
 	]);
+
 	yield all([takeLatest('REQUEST_GET_PSICO', getPsico)]);
 	yield all([takeLatest('REQUEST_POST_SCHEDULING', postScheduling)]);
 	yield all([takeLatest('REQUEST_CONFIRM_SCHEDULING', confirmScheduling)]);
 	yield all([takeLatest('REQUEST_CANCEL_SCHEDULING', cancelScheduling)]);
+
+	yield all([takeLatest('REQUEST_CREATE_MESSAGE', createMessage)]);
+	yield all([takeLatest('REQUEST_GET_MESSAGES', getMessages)]);
 }

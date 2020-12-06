@@ -32,6 +32,7 @@ function HomePaciente({
 				<ListaConsultas
 					listSchedulings={listSchedulings}
 					loading={loading}
+					navigation={navigation}
 				/>
 			</View>
 			<View style={styles.agendarConsulta}>

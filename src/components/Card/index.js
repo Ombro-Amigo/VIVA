@@ -16,9 +16,19 @@ import ModalConstrucao from '../modalConstrucao';
 import ModalExcluirConsulta from '../modalExcluirConsulta';
 import styles from './style';
 
-function Card({ data, requestConfirmScheduling, typeUser }) {
-	console.log('data flatlist: ', data);
-	const { paciNome, psicoNome, psicoCrp, date, start, end, status, id } = data;
+function Card({ data, requestConfirmScheduling, typeUser, navigation }) {
+	// console.log('data flatlist: ', data);
+	const {
+		paciNome,
+		psicoNome,
+		psicoCrp,
+		date,
+		start,
+		end,
+		status,
+		id,
+		chat,
+	} = data;
 	const [modalConstructionVisible, setModalConstructionVisible] = useState(
 		false
 	);
@@ -96,9 +106,7 @@ function Card({ data, requestConfirmScheduling, typeUser }) {
 								title='Chat'
 								corFundo={null}
 								onPress={() =>
-									setModalConstructionVisible(
-										!modalConstructionVisible
-									)
+									navigation.navigate('Chat', { id, chat })
 								}
 								img={require('../../assets/icon/chat.png')}
 								imgStyle={styles.icon}

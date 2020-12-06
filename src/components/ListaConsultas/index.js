@@ -6,7 +6,11 @@ import { ActivityIndicator } from 'react-native-paper';
 import Card from '../Card';
 import styles from './style';
 
-export default function ListaConsultas({ listSchedulings, loading }) {
+export default function ListaConsultas({
+	navigation,
+	listSchedulings,
+	loading,
+}) {
 	if (loading)
 		return <ActivityIndicator style={styles.container} size='large' />;
 
@@ -25,7 +29,8 @@ export default function ListaConsultas({ listSchedulings, loading }) {
 			data={listSchedulings}
 			extraData={listSchedulings}
 			renderItem={({ item }) => {
-				if (!item.canceled) return <Card data={item} />;
+				if (!item.canceled)
+					return <Card data={item} navigation={navigation} />;
 
 				return null;
 			}}

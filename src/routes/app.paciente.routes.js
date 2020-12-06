@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Image } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
 
+import Chat from '../pages/Private/Geral/Chat';
 import Agendamento1 from '../pages/Private/Paciente/Agendamento1';
 import Agendamento2 from '../pages/Private/Paciente/Agendamento2';
 import HomePaciente from '../pages/Private/Paciente/HomePaciente';
@@ -48,6 +49,7 @@ const AppPacienteRoutes = ({ navigation }) => (
 		/>
 		<AppStack.Screen name='Agendamento1' component={Agendamento1} />
 		<AppStack.Screen name='Agendamento2' component={Agendamento2} />
+		<AppStack.Screen name='Chat' component={Chat} />
 	</AppStack.Navigator>
 );
 

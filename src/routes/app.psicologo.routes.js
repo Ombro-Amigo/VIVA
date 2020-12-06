@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Image } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
 
+import Chat from '../pages/Private/Geral/Chat';
 import HomePsicologo from '../pages/Private/Psicologo/HomePsicologo';
 
 const AppStack = createStackNavigator();
@@ -44,6 +45,7 @@ const AppPsicologoRoutes = ({ navigation }) => (
 				),
 			}}
 		/>
+		<AppStack.Screen name='Chat' component={Chat} />
 	</AppStack.Navigator>
 );
 

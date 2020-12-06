@@ -55,7 +55,7 @@ const ListaPsicologo = ({ listPisco, value, onValueChange, error }) => {
 						</TouchableOpacity>
 					</View>
 				)}
-				keyExtractor={item => item.crp}
+				keyExtractor={item => item.id}
 			/>
 
 			<View style={styles.areaMsgError}>
