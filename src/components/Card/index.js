@@ -154,7 +154,6 @@ function Card({ data, requestConfirmScheduling, typeUser, navigation }) {
 								</Text>
 							</View>
 						</View>
-<<<<<<< Updated upstream
 						<View style={styles.line2}>
 							<Botao
 								title='Chat'
@@ -186,8 +185,6 @@ function Card({ data, requestConfirmScheduling, typeUser, navigation }) {
 								</Text>
 							</Text>
 						</View>
-=======
->>>>>>> Stashed changes
 					</View>
 				</View>
 
