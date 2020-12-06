@@ -1,10 +1,7 @@
 import database from '@react-native-firebase/database';
 import firestore from '@react-native-firebase/firestore';
 
-// import { signOut } from './auth';
-
-export { firestore };
-export { database };
+export { firestore, database };
 
 // export const setDataUser = (uid, data) => {
 // 	database()

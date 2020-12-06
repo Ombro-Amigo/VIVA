@@ -1,19 +1,23 @@
 import { put, call } from 'redux-saga/effects';
 
-import { firestore } from '../../../services/database';
+import { database } from '../../../services/database';
 
 export default function* requestPsico() {
 	yield console.log('chamou saga requestPsico');
 	try {
-		const psicoRef = firestore().collection('psicologo');
+		const psicoRef = database().ref('psicologo');
 
-		const snapShot = yield call([psicoRef, psicoRef.get]);
+		const snapshot = yield call([psicoRef, psicoRef.once], 'value');
+		const keysPsico = Object.keys(snapshot.val());
+		const valuesPsico = Object.values(snapshot.val());
 
 		const psicoArray = [];
+		let index = 0;
 
-		snapShot.forEach(document => {
-			const { id } = document;
-			psicoArray.push({ ...document.data(), id });
+		keysPsico.forEach(document => {
+			console.log('foi: ', document);
+			psicoArray.push({ ...valuesPsico[index], id: document });
+			index += 1;
 		});
 
 		console.log('listofPsicos: ', psicoArray);
