@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 	},
 	iconEmergency: {
-		width: 25,
-		height: 25,
+		width: 28,
+		height: 28,
 		marginLeft: wp('5%'),
 		aspectRatio: 1,
 	},
