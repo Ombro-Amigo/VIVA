@@ -39,16 +39,11 @@ const styles = StyleSheet.create({
 		height: hp('10%'),
 		marginLeft: wp('2%'),
 		flexDirection: 'column',
+		alignItems: 'flex-start',
 	},
 	txt1: {
 		fontSize: 18,
 		fontFamily: 'Signika-SemiBold',
-	},
-	txtCrp: {
-		alignSelf: 'flex-start',
-	},
-	txtNome: {
-		alignSelf: 'flex-end',
 	},
 	btnControlCard: {
 		flexDirection: 'row-reverse',
