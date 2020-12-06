@@ -6,17 +6,16 @@ export default function* getMessages(action) {
 	yield console.log('chamou saga getMessages');
 	const { idShceduling, callback } = action;
 	try {
-		const chatRef = database().ref(`consulta/${idShceduling}/chat`);
-		console.log(chatRef);
+		const chatRef = yield database().ref(`consulta/${idShceduling}/chat`);
 
 		yield call([chatRef, chatRef.on], 'child_added', snapshot => {
 			console.log('teste aqui');
-			// const { teste, user, createdAt, _id } = snapshot.val();
+			const { text, user, createdAt, _id } = snapshot.val();
 
-			// const message = { teste, user, createdAt, _id };
-			// console.log('FOI NO GET ', message);
+			const message = { text, user, createdAt, _id };
+			console.log('FOI NO GET ', message);
 
-			// callback(message);
+			callback(message);
 		});
 
 		// console.log(snapshot.val());

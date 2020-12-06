@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { View, Text } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
@@ -8,30 +8,49 @@ import { Creators as MessagesActions } from '../../../../store/ducks/messages';
 import styles from './style';
 
 function Chat({ route, uid, name, requestCreateMessage, requestGetMessages }) {
+	const [messages, setMessages] = useState([]);
 	const { id } = route.params;
 
-	const messages = [];
+	// const messages = [];
 
 	function updateMessages(messag) {
-		console.log('foi: ', messag);
+		setMessages(previousMessages =>
+			GiftedChat.append(previousMessages, messag)
+		);
+		GiftedChat.append(messages, messag);
 	}
 
 	useEffect(() => {
 		requestGetMessages(id, updateMessages);
+		console.log('MESSAGES NO USEEFFECT: ', messages);
 	}, []);
 
 	const user = {
-		id: uid,
+		_id: uid,
 		name,
 		avatar:
 			'https://avatars3.githubusercontent.com/u/52518776?s=460&u=1d8c48d9285bf84bfefbb037a32b818b9af97ebd&v=4',
 	};
 
-	function onSend(msgs) {
+	// function onSend(msgs) {
+	// 	msgs.forEach(msg => {
+	// 		requestCreateMessage(id, msg);
+	// 	});
+	// }
+
+	const onSend = msgs => {
 		msgs.forEach(msg => {
 			requestCreateMessage(id, msg);
 		});
-	}
+	};
+
+	// const onSend = useCallback((msgs = []) => {
+	// 	// setMessages(previousMessages =>
+	// 	// 	GiftedChat.append(previousMessages, msgs)
+	// 	// );
+
+	// 	// sendToRealtime(msgs);
+	// }, []);
 
 	return (
 		<GiftedChat
