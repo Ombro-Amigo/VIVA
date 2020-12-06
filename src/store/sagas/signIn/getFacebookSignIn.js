@@ -1,7 +1,8 @@
 import { put, call } from 'redux-saga/effects';
+
 import { auth, getFacebookCredential } from '../../../services/auth';
 
-export default function* getFacebookSignIn(action) {
+export default function* getFacebookSignIn() {
 	try {
 		const facebookCredential = yield getFacebookCredential();
 

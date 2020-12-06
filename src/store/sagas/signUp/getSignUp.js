@@ -1,7 +1,7 @@
 import { put, call } from 'redux-saga/effects';
 
 import { auth } from '../../../services/auth';
-import { firestore } from '../../../services/database';
+import { database } from '../../../services/database';
 
 export default function* getSignUp(action) {
 	try {
@@ -17,12 +17,20 @@ export default function* getSignUp(action) {
 
 		const uid = yield user.uid;
 
-		const feedsRef = firestore()
-			.collection(action.dataRegister.personalInformations.type)
-			.doc(uid);
+		// const userRef = firestore()
+		// 	.collection(action.dataRegister.personalInformations.type)
+		// 	.doc(uid);
 
+		// yield call(
+		// 	[userRef, userRef.set],
+		// 	action.dataRegister.personalInformations
+		// );
+
+		const userRef = database().ref(
+			`${action.dataRegister.personalInformations.type}/${uid}`
+		);
 		yield call(
-			[feedsRef, feedsRef.set],
+			[userRef, userRef.set],
 			action.dataRegister.personalInformations
 		);
 
