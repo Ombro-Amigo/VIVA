@@ -1,15 +1,14 @@
 import { put, call } from 'redux-saga/effects';
 
-import { database } from '../../../services/database';
+import { firestore } from '../../../services/database';
 
 export default function* confirmScheduling(action) {
 	yield console.log('chamou saga confirmScheduling');
 	yield console.log(action);
 	try {
-		const schedulingRef = database().ref(`consulta/${action.idScheduling}`);
-		// const schedulingRef = firestore()
-		// 	.collection('consulta')
-		// 	.doc(action.idScheduling);
+		const schedulingRef = firestore()
+			.collection('consulta')
+			.doc(action.idScheduling);
 
 		yield call([schedulingRef, schedulingRef.update], {
 			status: 'Confirmada',

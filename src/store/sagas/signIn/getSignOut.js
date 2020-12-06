@@ -1,8 +1,7 @@
 import { put, call } from 'redux-saga/effects';
-
 import { auth } from '../../../services/auth';
 
-export default function* getSignOut() {
+export default function* getSignOut(action) {
 	try {
 		yield call([auth(), auth().signOut]);
 		yield put({ type: 'SUCCESS_SIGN_OUT', error: null, typeUser: null });

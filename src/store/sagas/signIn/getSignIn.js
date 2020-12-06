@@ -1,7 +1,7 @@
 import { put, call } from 'redux-saga/effects';
 
 import { auth } from '../../../services/auth';
-import { database } from '../../../services/database';
+import { firestore } from '../../../services/database';
 
 export default function* getSignIn(action) {
 	try {
@@ -11,27 +11,14 @@ export default function* getSignIn(action) {
 			action.credentials.password
 		);
 
-		const userRef = database().ref(`${action.credentials.type}/${user.uid}`);
+		const uid = yield user.uid;
+		const feedsRef = firestore().collection(action.credentials.type).doc(uid);
 
-		const snapshot = yield call([userRef, userRef.once], 'value');
-		console.log('SNAPSHOT: ', snapshot);
-
-		// const userRef = firestore()
-		// 	.collection(action.credentials.type)
-		// 	.doc(user.uid);
-
-		// const { _exists, _data } = yield call([userRef, userRef.get]);
-		const { name, lastName } = snapshot.val();
-
-		const { uid } = user;
-
-		const loggedUser = { uid, name, lastName };
-		console.log('LOGGED USER: ', snapshot.val());
-		// // user = { user, name, lastName };
-		if (snapshot) {
+		const { _exists } = yield call([feedsRef, feedsRef.get]);
+		if (_exists) {
 			yield put({
 				type: 'SUCCESS_SIGN_IN',
-				user: loggedUser,
+				user,
 				typeUser: action.credentials.type,
 			});
 		} else {
