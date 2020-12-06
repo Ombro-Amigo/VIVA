@@ -152,37 +152,6 @@ function Card({ data, requestConfirmScheduling, typeUser, navigation }) {
 								</Text>
 							</View>
 						</View>
-						<View style={styles.line2}>
-							<Botao
-								title='Chat'
-								corFundo={null}
-								onPress={() =>
-									navigation.navigate('Chat', { id, chat })
-								}
-								img={require('../../assets/icon/chat.png')}
-								imgStyle={styles.icon}
-								style={styles.btnChat}
-								highlight
-								direction='row-reverse'
-								activeOpacity={0.5}
-								underlayColor='#34C5A2'
-							/>
-							<Text style={styles.txt2}>
-								Status:{' '}
-								<Text
-									style={{
-										color:
-											status === 'Confirmada'
-												? 'green'
-												: status === 'Pendente'
-												? 'yellow'
-												: 'red',
-									}}
-								>
-									{status}
-								</Text>
-							</Text>
-						</View>
 					</View>
 				</View>
 
