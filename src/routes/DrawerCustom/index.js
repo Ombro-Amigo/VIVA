@@ -12,7 +12,7 @@ import { Creators as AuthSignInActions } from '../../store/ducks/authSignIn';
 import styles from './style';
 
 function DrawerCustom(props) {
-	const { requestSignOut, navigation } = props;
+	const { name, lastName, requestSignOut, navigation } = props;
 
 	const [modalConstrucaoVisible, setModalConstrucaoVisible] = useState(false);
 	const [modalExplicacaoVisible, setModalExplicacaoVisible] = useState(false);
@@ -38,7 +38,7 @@ function DrawerCustom(props) {
 						</View>
 
 						<View>
-							<Text style={styles.txtNome}>Nome de usuário</Text>
+							<Text style={styles.txtNome}>{`${name} ${lastName}`}</Text>
 						</View>
 					</View>
 
@@ -148,8 +148,13 @@ function DrawerCustom(props) {
 	);
 }
 
+const mapStateToProps = state => ({
+	name: state.authSignIn.user.name,
+	lastName: state.authSignIn.user.lastName,
+});
+
 const mapDispatchToProps = dispatch => ({
 	requestSignOut: () => dispatch(AuthSignInActions.requestSignOut()),
 });
 
-export default connect(null, mapDispatchToProps)(DrawerCustom);
+export default connect(mapStateToProps, mapDispatchToProps)(DrawerCustom);
