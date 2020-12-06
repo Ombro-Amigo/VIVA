@@ -125,9 +125,7 @@ function Card({ data, requestConfirmScheduling, typeUser, navigation }) {
 									title='Chat'
 									corFundo={null}
 									onPress={() =>
-										setModalConstructionVisible(
-											!modalConstructionVisible
-										)
+										navigation.navigate('Chat', { id, chat })
 									}
 									img={require('../../assets/icon/chat.png')}
 									imgStyle={styles.icon}
