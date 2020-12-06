@@ -13,7 +13,7 @@ import TipoConsultas from '../../../../components/TipoConsultas';
 import { Creators as SchedulingActions } from '../../../../store/ducks/scheduling';
 import styles from './style';
 
-function Agendamento1({ navigation, saveDataScheduling }) {
+function Agendamento1({ navigation, saveDataFormScheduling }) {
 	const FormSchema = Yup.object().shape({
 		typeConsultation: Yup.string().required(
 			'O tipo da consulta é obrigatório'
@@ -38,7 +38,7 @@ function Agendamento1({ navigation, saveDataScheduling }) {
 					onSubmit={values => {
 						console.log(values);
 						Keyboard.dismiss();
-						saveDataScheduling(values);
+						saveDataFormScheduling(values);
 						navigation.navigate('Agendamento2');
 					}}
 					validationSchema={FormSchema}
@@ -88,8 +88,8 @@ function Agendamento1({ navigation, saveDataScheduling }) {
 }
 
 const mapDispatchToProps = dispatch => ({
-	saveDataScheduling: partDataScheduling =>
-		dispatch(SchedulingActions.saveDataScheduling(partDataScheduling)),
+	saveDataFormScheduling: partDataScheduling =>
+		dispatch(SchedulingActions.saveDataFormScheduling(partDataScheduling)),
 });
 
 export default connect(null, mapDispatchToProps)(Agendamento1);

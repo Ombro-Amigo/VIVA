@@ -2,12 +2,12 @@ import { put, call } from 'redux-saga/effects';
 
 import { firestore } from '../../../services/database';
 
-export default function* getPsicoScheduling() {
-	yield console.log('chamou saga getPsicoScheduling');
+export default function* requestPsico() {
+	yield console.log('chamou saga requestPsico');
 	try {
-		const feedsRef1 = firestore().collection('psicologo');
+		const psicoRef = firestore().collection('psicologo');
 
-		const snapShot = yield call([feedsRef1, feedsRef1.get]);
+		const snapShot = yield call([psicoRef, psicoRef.get]);
 
 		const psicoArray = [];
 
@@ -16,13 +16,14 @@ export default function* getPsicoScheduling() {
 			psicoArray.push({ ...document.data(), id });
 		});
 
-		console.log(psicoArray);
+		console.log('listofPsicos: ', psicoArray);
 
 		yield put({
-			type: 'SUCCESS_PSICO_CREATE_SCHEDULING',
+			type: 'SUCCESS_GET_PSICO',
 			listPisco: psicoArray,
 		});
 	} catch (error) {
+		console.log('deu ruim no get psico');
 		// yield put({ type: 'FAILURE_SIGN_UP', error: error.code });
 	}
 }

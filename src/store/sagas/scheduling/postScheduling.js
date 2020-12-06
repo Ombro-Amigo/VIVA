@@ -2,30 +2,28 @@ import { put, call } from 'redux-saga/effects';
 
 import { firestore } from '../../../services/database';
 
-export default function* getScheduling(action) {
-	yield console.log('chamou saga getScheduling');
+export default function* setScheduling(action) {
+	yield console.log('chamou saga setScheduling');
 	yield console.log(action.dataScheduling);
 	yield console.log(action.user);
 	try {
-		const feedsRef = firestore().collection('consulta');
-		const pacRef = firestore().collection('paciente').doc(action.user.uid);
+		const schedulingRef = firestore().collection('consulta');
+		const paciRef = firestore().collection('paciente').doc(action.user.uid);
 		const psicoRef = firestore()
 			.collection('psicologo')
 			.doc(action.dataScheduling.psicologo.id);
 
-		const snapShot = yield call([feedsRef, feedsRef.add], {
-			crp: action.dataScheduling.psicologo.crp,
-			date: action.dataScheduling.dateConsultation,
-			end: action.dataScheduling.hora.termino,
-			paciente: action.user.name,
+		const snapShot = yield call([schedulingRef, schedulingRef.add], {
 			pacienteUid: action.user.uid,
 			psicoUid: action.dataScheduling.psicologo.id,
-			psicologo: action.dataScheduling.psicologo.name,
+			date: action.dataScheduling.dateConsultation,
 			start: action.dataScheduling.hora.inicio,
-			status: 'confirmada',
+			end: action.dataScheduling.hora.termino,
+			status: 'Pendente',
+			canceled: false,
 		});
 
-		yield call([pacRef, pacRef.update], {
+		yield call([paciRef, paciRef.update], {
 			consultas: firestore.FieldValue.arrayUnion(
 				snapShot._documentPath._parts[1]
 			),
@@ -40,7 +38,7 @@ export default function* getScheduling(action) {
 		console.log(action.user.uid);
 
 		yield put({
-			type: 'REQUEST_APPOINTMENTS',
+			type: 'REQUEST_SCHEDULINGS_PATIENT',
 			uid: action.user.uid,
 			typeUser: 'paciente',
 		});

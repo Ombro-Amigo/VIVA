@@ -7,20 +7,20 @@ import Botao from '../../../../components/Botao';
 import Fundo from '../../../../components/Fundo';
 import ListaConsultas from '../../../../components/ListaConsultas';
 import ModalConstrucao from '../../../../components/modalConstrucao';
-import { Creators as appointmentActions } from '../../../../store/ducks/appointment';
+import { Creators as schedulingsActions } from '../../../../store/ducks/scheduling';
 import styles from './style';
 
 function HomePaciente({
 	navigation,
-	listAppointments,
+	listSchedulings,
 	uid,
 	loading,
-	requestAppointments,
+	requestSchedulingsPatient,
 }) {
 	const [modalVisible, setModalVisible] = useState(false);
 
 	useEffect(() => {
-		requestAppointments(uid, 'paciente');
+		requestSchedulingsPatient(uid, 'paciente');
 	}, []);
 
 	return (
@@ -30,7 +30,7 @@ function HomePaciente({
 					<Text style={styles.title}>Consultas Agendadas</Text>
 				</View>
 				<ListaConsultas
-					listAppointments={listAppointments}
+					listSchedulings={listSchedulings}
 					loading={loading}
 				/>
 			</View>
@@ -66,13 +66,13 @@ function HomePaciente({
 
 const mapStateToProps = state => ({
 	uid: state.authSignIn.user.uid,
-	listAppointments: state.appointment.listAppointments,
-	loading: state.appointment.loading,
+	listSchedulings: state.scheduling.listSchedulings,
+	loading: state.scheduling.loading,
 });
 
 const mapDsipatchToProps = dispatch => ({
-	requestAppointments: (uid, typeUser) =>
-		dispatch(appointmentActions.requestAppointments(uid, typeUser)),
+	requestSchedulingsPatient: (uid, typeUser) =>
+		dispatch(schedulingsActions.requestSchedulingsPatient(uid, typeUser)),
 });
 
 export default connect(mapStateToProps, mapDsipatchToProps)(HomePaciente);

@@ -76,8 +76,8 @@ function LoginPaciente({
 
 			<Formik
 				initialValues={{
-					email: '',
-					password: '',
+					email: 'douglas@mail.com',
+					password: 'Douglas@123',
 				}}
 				onSubmit={values => {
 					Keyboard.dismiss();

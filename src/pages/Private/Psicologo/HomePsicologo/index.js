@@ -11,14 +11,14 @@ import ModalPeriodoConsultas from '../../../../components/modalPeriodoConsultas'
 import ModalStatus from '../../../../components/modalStatus';
 import PeriodoConsultas from '../../../../components/PeriodoConsultas';
 import StatesContext from '../../../../contexts/states';
-import { Creators as appointmentActions } from '../../../../store/ducks/appointment';
+import { Creators as schedulingsActions } from '../../../../store/ducks/scheduling';
 import styles from './style';
 
 function HomePsicologo({
-	listAppointments,
+	listSchedulings,
 	uid,
 	loading,
-	requestAppointments,
+	getSchedulingsPsychologist,
 }) {
 	const [modalStatusVisible, setModalStatusVisible] = useState(false);
 	const [modalRangeVisible, setModalRangeVisible] = useState(false);
@@ -26,10 +26,8 @@ function HomePsicologo({
 	const { dispo } = useContext(StatesContext);
 	const { rangeConsultas } = useContext(StatesContext);
 
-	//  console.log(rangeConsultas)
-
 	useEffect(() => {
-		requestAppointments(uid, 'psicologo');
+		getSchedulingsPsychologist(uid, 'psicologo');
 	}, []);
 
 	return (
@@ -57,7 +55,7 @@ function HomePsicologo({
 
 				<ListaConsultas
 					style={styles.listaConsultas}
-					listAppointments={listAppointments}
+					listSchedulings={listSchedulings}
 					loading={loading}
 				/>
 			</View>
@@ -76,13 +74,13 @@ function HomePsicologo({
 
 const mapStateToProps = state => ({
 	uid: state.authSignIn.user.uid,
-	listAppointments: state.appointment.listAppointments,
-	loading: state.appointment.loading,
+	listSchedulings: state.scheduling.listSchedulings,
+	loading: state.scheduling.loading,
 });
 
 const mapDsipatchToProps = dispatch => ({
-	requestAppointments: (uid, typeUser) =>
-		dispatch(appointmentActions.requestAppointments(uid, typeUser)),
+	getSchedulingsPsychologist: (uid, typeUser) =>
+		dispatch(schedulingsActions.getSchedulingsPsychologist(uid, typeUser)),
 });
 
 export default connect(mapStateToProps, mapDsipatchToProps)(HomePsicologo);

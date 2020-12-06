@@ -1,9 +1,11 @@
 import { takeLatest, all } from 'redux-saga/effects';
 
-import getAppointments from './appointments/getAppointments';
-import getDeleteScheduling from './scheduling/getDeleteScheduling';
-import getPsicoScheduling from './scheduling/getPsicoScheduling';
-import getScheduling from './scheduling/getScheduling';
+import cancelScheduling from './scheduling/cancelScheduling';
+import confirmScheduling from './scheduling/confirmScheduling';
+import getPsico from './scheduling/getPsico';
+import getSchedulingsPatient from './scheduling/getSchedulingsPatient';
+import getSchedulingsPsychologist from './scheduling/getSchedulingsPsychologist';
+import postScheduling from './scheduling/postScheduling';
 import getFacebookSignIn from './signIn/getFacebookSignIn';
 import getSignIn from './signIn/getSignIn';
 import getSignOut from './signIn/getSignOut';
@@ -17,10 +19,17 @@ export default function* root() {
 
 	yield all([takeLatest('REQUEST_SIGN_UP', getSignUp)]);
 
-	yield all([takeLatest('REQUEST_APPOINTMENTS', getAppointments)]);
 	yield all([
-		takeLatest('REQUEST_PSICO_CREATE_SCHEDULING', getPsicoScheduling),
+		takeLatest('REQUEST_SCHEDULINGS_PATIENT', getSchedulingsPatient),
 	]);
-	yield all([takeLatest('REQUEST_CREATE_SCHEDULING', getScheduling)]);
-	yield all([takeLatest('REQUEST_DELETE_SCHEDULING', getDeleteScheduling)]);
+	yield all([
+		takeLatest(
+			'REQUEST_SCHEDULINGS_PSYCHOLOGIST',
+			getSchedulingsPsychologist
+		),
+	]);
+	yield all([takeLatest('REQUEST_GET_PSICO', getPsico)]);
+	yield all([takeLatest('REQUEST_POST_SCHEDULING', postScheduling)]);
+	yield all([takeLatest('REQUEST_CONFIRM_SCHEDULING', confirmScheduling)]);
+	yield all([takeLatest('REQUEST_CANCEL_SCHEDULING', cancelScheduling)]);
 }

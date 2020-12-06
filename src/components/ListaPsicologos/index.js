@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import {
-	View,
-	FlatList,
-	Image,
-	Text,
-	TouchableOpacity,
-	StyleSheet,
-} from 'react-native';
-import {
-	heightPercentageToDP as hp,
-	widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
+import { View, FlatList, Image, Text, TouchableOpacity } from 'react-native';
+
+import styles from './style';
 
 const ListaPsicologo = ({ listPisco, value, onValueChange, error }) => {
+	if (!listPisco)
+		return (
+			<View style={[styles.container, styles.containerMsg]}>
+				<Text style={styles.msgVazia}>
+					Desculpe, no momento não temos psicólogos disponíveis em nosso
+					sistema :(
+				</Text>
+			</View>
+		);
 	return (
 		<View>
 			<FlatList
@@ -40,14 +40,17 @@ const ListaPsicologo = ({ listPisco, value, onValueChange, error }) => {
 						<View style={styles.infosPsicologo}>
 							<Image
 								style={styles.fotoPsicologo}
-								source={require('../assets/icon/usuario-cards-e-menu.png')}
+								source={require('../../assets/icon/usuario-cards-e-menu.png')}
 							/>
-							<Text style={styles.nomePsicologo}>{item.name}</Text>
+							<View style={styles.containerCrpNome}>
+								<Text style={styles.txt1}>CRP: {item.crp}</Text>
+								<Text style={styles.txt1}>{item.name}</Text>
+							</View>
 						</View>
 						<TouchableOpacity>
 							<Image
 								style={styles.tresPontos}
-								source={require('../assets/icon/mais-opcoes.png')}
+								source={require('../../assets/icon/mais-opcoes.png')}
 							/>
 						</TouchableOpacity>
 					</View>
@@ -63,32 +66,3 @@ const ListaPsicologo = ({ listPisco, value, onValueChange, error }) => {
 };
 
 export default ListaPsicologo;
-
-const styles = StyleSheet.create({
-	container: {
-		backgroundColor: '#FFF',
-		marginTop: hp('2.5%'),
-		height: hp('32%'),
-		borderRadius: 10,
-		paddingHorizontal: wp('2.5%'),
-		paddingVertical: hp('1%'),
-	},
-	infosPsicologo: {
-		flexDirection: 'row',
-		alignItems: 'flex-end',
-	},
-	fotoPsicologo: {
-		width: 60,
-		height: 60,
-		borderRadius: 100,
-	},
-	nomePsicologo: {
-		fontFamily: 'Signika-Medium',
-		fontSize: 14,
-		marginLeft: wp('3%'),
-	},
-	tresPontos: {
-		width: 20,
-		height: 20,
-	},
-});

@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+
 // import { reduxFirestore, getFirestore } from 'redux-firestore';
 // import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 // import firebase from '@react-native-firebase/app';

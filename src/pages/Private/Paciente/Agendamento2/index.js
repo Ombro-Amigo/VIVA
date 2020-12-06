@@ -14,14 +14,14 @@ import styles from './style';
 
 function Agendamento2({
 	navigation,
-	requestPsicoCreateScheduling,
-	requestCreateScheduling,
+	requestPsico,
+	requestPostScheduling,
 	listPisco,
 	dataScheduling,
 	user,
 }) {
 	useEffect(() => {
-		requestPsicoCreateScheduling();
+		requestPsico();
 	}, []);
 
 	// const FormSchema = Yup.object().shape({
@@ -39,7 +39,7 @@ function Agendamento2({
 				onSubmit={values => {
 					console.log({ ...values, ...dataScheduling });
 					Keyboard.dismiss();
-					requestCreateScheduling({ ...values, ...dataScheduling }, user);
+					requestPostScheduling({ ...values, ...dataScheduling }, user);
 					navigation.navigate('HomePaciente');
 				}}
 				// validationSchema={FormSchema}
@@ -98,10 +98,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	requestPsicoCreateScheduling: () =>
-		dispatch(SchedulingActions.requestPsicoCreateScheduling()),
-	requestCreateScheduling: (dataScheduling, user) =>
-		dispatch(SchedulingActions.requestCreateScheduling(dataScheduling, user)),
+	requestPsico: () => dispatch(SchedulingActions.requestPsico()),
+	requestPostScheduling: (dataScheduling, user) =>
+		dispatch(SchedulingActions.requestPostScheduling(dataScheduling, user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Agendamento2);
