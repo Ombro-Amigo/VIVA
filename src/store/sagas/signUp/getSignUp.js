@@ -7,10 +7,6 @@ export default function* getSignUp(action) {
 	try {
 		yield console.log('chamou');
 
-		// yield console.log(action.dataRegister.credentials.email);
-		// yield console.log(action.dataRegister.credentials.password);
-		// yield console.log(action.dataRegister);
-
 		const { user } = yield call(
 			[auth(), auth().createUserWithEmailAndPassword],
 			action.dataRegister.credentials.email,
