@@ -12,11 +12,17 @@ const styles = StyleSheet.create({
 		marginBottom: hp('2%'),
 	},
 	divider: {
-		backgroundColor: '#000',
+		backgroundColor: '#4b6b50',
 		alignSelf: 'center',
 		width: wp('75%'),
 		height: hp('0.3%'),
-		marginVertical: hp('1%'),
+		marginVertical: hp('2%'),
+	},
+	txtTitleInfo: {
+		fontSize: 18,
+		fontFamily: 'Signika-Regular',
+		textAlign: 'center',
+		marginBottom: hp('2%'),
 	},
 	infoUsuario: {
 		flex: 1,
@@ -32,11 +38,17 @@ const styles = StyleSheet.create({
 	containerCrpNome: {
 		height: hp('10%'),
 		marginLeft: wp('2%'),
-		justifyContent: 'space-between',
+		flexDirection: 'column',
 	},
 	txt1: {
 		fontSize: 18,
-		fontWeight: 'bold',
+		fontFamily: 'Signika-SemiBold',
+	},
+	txtCrp: {
+		alignSelf: 'flex-start',
+	},
+	txtNome: {
+		alignSelf: 'flex-end',
 	},
 	btnControlCard: {
 		flexDirection: 'row-reverse',
@@ -44,6 +56,7 @@ const styles = StyleSheet.create({
 	btnControl: {
 		width: 18,
 		height: 18,
+		marginBottom: hp('1%'),
 	},
 	btnControlCheck: {
 		marginRight: 10,
@@ -56,6 +69,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		width: wp('80%'),
 		marginVertical: hp('1%'),
+		alignSelf: 'center',
 		justifyContent: 'space-between',
 		alignItems: 'center',
 	},
@@ -63,6 +77,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		width: wp('80%'),
 		marginVertical: hp('1%'),
+		alignSelf: 'center',
 		justifyContent: 'space-around',
 		alignItems: 'center',
 	},
@@ -79,8 +94,8 @@ const styles = StyleSheet.create({
 	txt2: {
 		color: '#FFF',
 		fontSize: 18,
-		fontWeight: 'bold',
-		marginLeft: wp('2%'),
+		fontFamily: 'Signika-Bold',
+		marginLeft: wp('0.5%'),
 	},
 	btnChat: {
 		paddingVertical: hp('0.8%'),

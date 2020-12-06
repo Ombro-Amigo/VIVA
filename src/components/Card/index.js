@@ -65,39 +65,92 @@ function Card({ data, requestConfirmScheduling, typeUser, navigation }) {
 							</TouchableOpacity>
 						)}
 					</View>
-
-					<View style={styles.infoUsuario}>
-						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-							<Image
-								style={styles.foto}
-								source={require('../../assets/icon/usuario-cards-e-menu.png')}
-							/>
-							<View style={styles.containerCrpNome}>
-								{psicoCrp && (
-									<Text style={styles.txt1}>CRP: {psicoCrp}</Text>
-								)}
-								<Text style={styles.txt1}>{paciNome || psicoNome}</Text>
+					<View>
+						<View style={styles.infoUsuario}>
+							<View
+								style={{ flexDirection: 'row', alignItems: 'center' }}
+							>
+								<Image
+									style={styles.foto}
+									source={require('../../assets/icon/usuario-cards-e-menu.png')}
+								/>
+								<View
+									style={[
+										styles.containerCrpNome,
+										psicoCrp
+											? { justifyContent: 'space-between' }
+											: { justifyContent: 'flex-end' },
+									]}
+								>
+									{psicoCrp && (
+										<Text style={[styles.txt1, styles.txtCrp]}>
+											CRP: {psicoCrp}
+										</Text>
+									)}
+									<Text style={[styles.txt1, styles.txtNome]}>
+										{paciNome || psicoNome}
+									</Text>
+								</View>
 							</View>
 						</View>
 					</View>
 
 					<Divider style={styles.divider} />
-					<View style={styles.areaInfoConsulta}>
-						<View style={styles.line}>
-							<View style={styles.group}>
-								<Image
-									style={styles.icon}
-									source={require('../../assets/icon/calendario.png')}
-								/>
-								<Text style={styles.txt2}>{date}</Text>
+
+					<View>
+						<Text style={styles.txtTitleInfo}>
+							Informações da Consulta
+						</Text>
+						<View style={styles.areaInfoConsulta}>
+							<View style={styles.line}>
+								<View style={styles.group}>
+									<Image
+										style={styles.icon}
+										source={require('../../assets/icon/calendario.png')}
+									/>
+									<Text style={styles.txt2}>{date}</Text>
+								</View>
+								<View style={styles.group}>
+									<Image
+										style={styles.icon}
+										source={require('../../assets/icon/relogio.png')}
+									/>
+									<Text style={styles.txt2}>
+										{start} - {end}
+									</Text>
+								</View>
 							</View>
-							<View style={styles.group}>
-								<Image
-									style={styles.icon}
-									source={require('../../assets/icon/relogio.png')}
+							<View style={styles.line2}>
+								<Botao
+									title='Chat'
+									corFundo={null}
+									onPress={() =>
+										setModalConstructionVisible(
+											!modalConstructionVisible
+										)
+									}
+									img={require('../../assets/icon/chat.png')}
+									imgStyle={styles.icon}
+									style={styles.btnChat}
+									highlight
+									direction='row-reverse'
+									activeOpacity={0.5}
+									underlayColor='#34C5A2'
 								/>
 								<Text style={styles.txt2}>
-									{start} - {end}
+									Status:{' '}
+									<Text
+										style={{
+											color:
+												status === 'Confirmada'
+													? 'green'
+													: status === 'Pendente'
+													? 'yellow'
+													: 'red',
+										}}
+									>
+										{status}
+									</Text>
 								</Text>
 							</View>
 						</View>

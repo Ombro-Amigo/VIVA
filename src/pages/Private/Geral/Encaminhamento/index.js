@@ -48,7 +48,7 @@ function Encaminhamento({ navigation }) {
 					corFundo='#D4CA03'
 					corTexto='#000'
 					imgStyle={styles.iconEmergency}
-					img={require('../../../../assets/icon/icon_phone_emergency.png')}
+					img={require('../../../../assets/icon/telefone-chamada-emergencia.png')}
 					direction='row'
 					onPress={() =>
 						setModalConstrucaoVisible(!modalExplicacaoVisible)

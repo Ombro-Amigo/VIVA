@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
 		paddingHorizontal: wp('9%'),
 	},
 	iconEmergency: {
-		width: wp('8.5%'),
-		height: hp('8.5%'),
+		width: 28,
+		height: 28,
 		marginLeft: wp('5%'),
 		aspectRatio: 1,
 	},
