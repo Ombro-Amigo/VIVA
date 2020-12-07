@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { View, Text, Image, TouchableOpacity } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
+import { connect } from 'react-redux';
 
 import Fundo from '../../../../components/Fundo';
+import { Creators as UpdateActions } from '../../../../store/ducks/updateAccount';
 import styles from './style';
 
-function MenuAltInfosConta() {
+function MenuAltInfosConta({ avatar, uid, resquestUpdateAvatar }) {
+	// function imagePickerCallback(data) {
+	// 	if (data.didCancel) {
+	// 		return;
+	// 	}
+
+	// 	if (data.error) {
+	// 		return;
+	// 	}
+
+	// 	if (data.uri) {
+	// 		return;
+	// 	}
+
+	// 	resquestUpdateAvatar(data);
+	// }
+
 	return (
 		<Fundo padding={null}>
 			<View style={styles.containerHeader}>
@@ -15,11 +34,19 @@ function MenuAltInfosConta() {
 				<View style={styles.areaAltFotoUser}>
 					<Image
 						style={styles.photo}
-						source={require('../../../../assets/icon/usuario-cards-e-menu.png')}
+						source={{
+							uri: avatar
+								? avatar.uri
+								: 'https://firebasestorage.googleapis.com/v0/b/viva-75f70.appspot.com/o/usuario-cards-e-menu.png?alt=media&token=26a17986-d756-46c3-8fa5-cdf9e063d731',
+						}}
 					/>
 					<TouchableOpacity
 						style={styles.containerIconCam}
-						onPress={() => {}}
+						onPress={() =>
+							ImagePicker.showImagePicker({}, data =>
+								resquestUpdateAvatar(data, uid)
+							)
+						}
 					>
 						<Image
 							style={styles.iconCam}
@@ -68,4 +95,14 @@ function MenuAltInfosConta() {
 	);
 }
 
-export default MenuAltInfosConta;
+const mapStateToProps = state => ({
+	uid: state.authSignIn.user.uid,
+	avatar: state.authSignIn.user.avatar,
+});
+
+const mapDispatchToProps = dispacth => ({
+	resquestUpdateAvatar: (avatar, uid) =>
+		dispacth(UpdateActions.resquestUpdateAvatar(avatar, uid)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuAltInfosConta);
