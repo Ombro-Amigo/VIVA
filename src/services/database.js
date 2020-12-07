@@ -1,7 +1,8 @@
 import database from '@react-native-firebase/database';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
-export { firestore, database };
+export { firestore, database, storage };
 
 // export const setDataUser = (uid, data) => {
 // 	database()
