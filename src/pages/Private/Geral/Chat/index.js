@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import moment from 'moment';
-import {View, Image, TouchableOpacity} from 'react-native';
+import {View, Image, TouchableOpacity, Text} from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import { connect } from 'react-redux';
 
@@ -88,7 +88,7 @@ function Chat({ route, uid, name, requestCreateMessage, requestGetMessages }) {
 				);
 			}}
 			renderSend={(props) => {
-				const {text, messageIdGenerator, user, onSend} = props
+				const { text, messageIdGenerator, user, onSend } = props
 				return (
 					<TouchableOpacity
 						style={{ alignSelf: 'center', marginRight: 10}}
@@ -96,12 +96,14 @@ function Chat({ route, uid, name, requestCreateMessage, requestGetMessages }) {
 							if (text && onSend) {
 								onSend({ text: text.trim(), user:user,_id:messageIdGenerator()}, true);
 							}
-						}
-					}>
-						<Image
-							source={require('../../../../assets/icon/enviar-mensagem.png')}
-							style={{width: 20, height: 20, aspectRatio: 1}}
-						/>
+						}}
+					>
+						{text ? (
+							<Image
+								source={require('../../../../assets/icon/enviar-mensagem.png')}
+								style={{width: 20, height: 20, aspectRatio: 1}}
+							/>
+						) : null}
 					</TouchableOpacity>
 				);
 			}}
