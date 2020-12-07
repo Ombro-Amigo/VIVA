@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { View, Text } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat';
+import moment from 'moment';
+import {View, Image, TouchableOpacity} from 'react-native';
+import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import { connect } from 'react-redux';
 
 import { Creators as MessagesActions } from '../../../../store/ducks/messages';
@@ -44,6 +45,8 @@ function Chat({ route, uid, name, requestCreateMessage, requestGetMessages }) {
 		});
 	};
 
+	moment.locale(`${require('dayjs/locale/pt-br')}`);
+
 	// const onSend = useCallback((msgs = []) => {
 	// 	// setMessages(previousMessages =>
 	// 	// 	GiftedChat.append(previousMessages, msgs)
@@ -54,9 +57,54 @@ function Chat({ route, uid, name, requestCreateMessage, requestGetMessages }) {
 
 	return (
 		<GiftedChat
+			style={{backgroundColor: 'red'}}
 			user={user}
 			messages={messages}
 			onSend={msgs => onSend(msgs)}
+			placeholder='Digite uma mensagem'
+			locale='pt-br'
+			renderBubble={props => {
+				return (
+					<Bubble
+						{...props}
+						textStyle={{
+							left: {
+								fontFamily: 'Signika-Regular',
+							},
+							right: {
+								fontFamily: 'Signika-Regular',
+							},
+						}}
+						wrapperStyle={{
+							right: {
+								backgroundColor: '#6EB4E7',
+							},
+							left: {
+								borderWidth: 1,
+								borderColor: '#6EB4E7',
+							},
+						}}
+					/>
+				);
+			}}
+			renderSend={(props) => {
+				const {text, messageIdGenerator, user, onSend} = props
+				return (
+					<TouchableOpacity
+						style={{ alignSelf: 'center', marginRight: 10}}
+						onPress={() => {
+							if (text && onSend) {
+								onSend({ text: text.trim(), user:user,_id:messageIdGenerator()}, true);
+							}
+						}
+					}>
+						<Image
+							source={require('../../../../assets/icon/enviar-mensagem.png')}
+							style={{width: 20, height: 20, aspectRatio: 1}}
+						/>
+					</TouchableOpacity>
+				);
+			}}
 		/>
 	);
 }
