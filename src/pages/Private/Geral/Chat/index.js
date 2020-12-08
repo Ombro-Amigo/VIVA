@@ -57,7 +57,6 @@ function Chat({ route, uid, name, requestCreateMessage, requestGetMessages }) {
 
 	return (
 		<GiftedChat
-			style={{backgroundColor: 'red'}}
 			user={user}
 			messages={messages}
 			onSend={msgs => onSend(msgs)}
@@ -87,21 +86,28 @@ function Chat({ route, uid, name, requestCreateMessage, requestGetMessages }) {
 					/>
 				);
 			}}
-			renderSend={(props) => {
-				const { text, messageIdGenerator, user, onSend } = props
+			renderSend={props => {
+				const { text, messageIdGenerator, user, onSend } = props;
 				return (
 					<TouchableOpacity
-						style={{ alignSelf: 'center', marginRight: 10}}
+						style={styles.btnSend}
 						onPress={() => {
 							if (text && onSend) {
-								onSend({ text: text.trim(), user:user,_id:messageIdGenerator()}, true);
+								onSend(
+									{
+										text: text.trim(),
+										user: user,
+										_id: messageIdGenerator(),
+									},
+									true
+								);
 							}
 						}}
 					>
 						{text ? (
 							<Image
 								source={require('../../../../assets/icon/enviar-mensagem.png')}
-								style={{width: 20, height: 20, aspectRatio: 1}}
+								style={styles.icon}
 							/>
 						) : null}
 					</TouchableOpacity>
