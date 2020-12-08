@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 	error: null,
 };
 
-export default function schedulingReducer(state = INITIAL_STATE, action) {
+export default function messagesReducer(state = INITIAL_STATE, action) {
 	switch (action.type) {
 		default:
 			return state;

@@ -14,9 +14,38 @@ const styles = StyleSheet.create({
 		fontSize: wp('5%'),
 		fontWeight: 'bold',
 	},
+	containerInfosUSer: {
+		padding: wp('4%'),
+		flexDirection: 'row',
+		alignItems: 'flex-end',
+		borderBottomWidth: 1,
+		borderColor: '#DCDCDC',
+	},
 	areaAltFotoUser: {
 		flexDirection: 'row',
 		alignItems: 'flex-end',
+	},
+	photo: {
+		width: 70,
+		height: 70,
+		borderRadius: 50,
+		borderWidth: 1,
+		borderColor: '#000',
+	},
+	containerIconCam: {
+		position: 'absolute',
+		width: 40,
+		height: 40,
+		marginLeft: wp('12%'),
+		backgroundColor: '#C4C4C4',
+		borderRadius: 50,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	iconCam: {
+		width: 20,
+		height: 20,
+		opacity: 0.6,
 	},
 	txtNome: {
 		color: '#000',

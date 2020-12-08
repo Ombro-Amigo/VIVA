@@ -12,6 +12,7 @@ import getFacebookSignIn from './signIn/getFacebookSignIn';
 import getSignIn from './signIn/getSignIn';
 import getSignOut from './signIn/getSignOut';
 import getSignUp from './signUp/getSignUp';
+import updateAvatar from './updateAccount/updateAvatar';
 
 // function* é uma função do tipo generator, basicamente eu posso parar a execução dessa função ao chamar o yield
 export default function* root() {
@@ -38,4 +39,6 @@ export default function* root() {
 
 	yield all([takeLatest('REQUEST_CREATE_MESSAGE', createMessage)]);
 	yield all([takeLatest('REQUEST_GET_MESSAGES', getMessages)]);
+
+	yield all([takeLatest('REQUEST_UPDATE_AVATAR', updateAvatar)]);
 }
