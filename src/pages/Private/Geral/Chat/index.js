@@ -2,7 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import moment from 'moment';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
-import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import {
+	GiftedChat,
+	Bubble,
+	InputToolbar,
+	Composer,
+} from 'react-native-gifted-chat';
 import { connect } from 'react-redux';
 
 import { Creators as MessagesActions } from '../../../../store/ducks/messages';
@@ -176,6 +181,17 @@ function Chat({
 							/>
 						) : null}
 					</TouchableOpacity>
+				);
+			}}
+			renderInputToolbar={props => {
+				return (
+					<InputToolbar
+						{...props}
+						containerStyle={{
+							color: 'orange',
+							backgroundColor: '#159CFD44',
+						}}
+					/>
 				);
 			}}
 		/>
