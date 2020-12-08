@@ -4,18 +4,20 @@ import { database } from '../../../services/database';
 
 export default function* getMessages(action) {
 	yield console.log('chamou saga getMessages');
-	const { idShceduling, callback } = action;
+	const { idShceduling } = action;
 	try {
 		const chatRef = yield database().ref(`consulta/${idShceduling}/chat`);
 
 		yield call([chatRef, chatRef.on], 'child_added', snapshot => {
-			console.log('teste aqui');
+			// console.log('teste aqui');
 			const { text, user, createdAt, _id } = snapshot.val();
 
 			const message = { text, user, createdAt, _id };
-			console.log('FOI NO GET ', message);
-
-			callback(message);
+			console.log('GETMESSAGE: ', message);
+			// if (message._id === msg._id) {
+			// 	console.log('FOI NO GET ', message);
+			// }
+			// callback(message);
 		});
 
 		// console.log(snapshot.val());

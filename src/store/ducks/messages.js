@@ -3,13 +3,7 @@ export const Types = {
 	REQUEST_GET_MESSAGES: 'REQUEST_GET_MESSAGES',
 };
 
-const INITIAL_STATE = {
-	listSchedulings: null,
-	dataScheduling: null,
-	listPisco: null,
-	loading: false,
-	error: null,
-};
+const INITIAL_STATE = {};
 
 export default function messagesReducer(state = INITIAL_STATE, action) {
 	switch (action.type) {
@@ -19,14 +13,14 @@ export default function messagesReducer(state = INITIAL_STATE, action) {
 }
 
 export const Creators = {
-	requestCreateMessage: (idShceduling, messages) => ({
+	requestSendMessage: (idShceduling, messages) => ({
 		type: Types.REQUEST_CREATE_MESSAGE,
 		idShceduling,
 		messages,
 	}),
-	requestGetMessages: (idShceduling, callback) => ({
+	requestGetMessages: (idShceduling, msg) => ({
 		type: Types.REQUEST_GET_MESSAGES,
 		idShceduling,
-		callback,
+		msg,
 	}),
 };

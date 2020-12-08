@@ -125,7 +125,7 @@ function Card({ data, requestConfirmScheduling, typeUser, navigation }) {
 									title='Chat'
 									corFundo={null}
 									onPress={() =>
-										navigation.navigate('Chat', { id, chat })
+										navigation.navigate('Chat', { idScheduling: id })
 									}
 									img={require('../../assets/icon/chat.png')}
 									imgStyle={styles.icon}

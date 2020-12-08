@@ -1,30 +1,77 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import moment from 'moment';
-import {View, Image, TouchableOpacity, Text} from 'react-native';
+import { View, Image, TouchableOpacity, Text } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import { connect } from 'react-redux';
 
 import { Creators as MessagesActions } from '../../../../store/ducks/messages';
 import styles from './style';
 
-function Chat({ route, uid, name, requestCreateMessage, requestGetMessages }) {
+function Chat({
+	route,
+	uid,
+	name,
+	listSchedulings,
+	requestSendMessage,
+	requestGetMessages,
+}) {
 	const [messages, setMessages] = useState([]);
-	const { id } = route.params;
+	const { idScheduling } = route.params;
+	// const chat = [];
 
 	// const messages = [];
+	// function scrollToBottomComponent() {
+	// 	return (
+	// 		<View>
+	// 			<Image
+	// 				source={require('../../../../assets/icon/enviar-mensagem.png')}
+	// 				style={styles.icon}
+	// 			/>
+	// 		</View>
+	// 	);
+	// }
 
 	function updateMessages(messag) {
-		setMessages(previousMessages =>
-			GiftedChat.append(previousMessages, messag)
-		);
-		GiftedChat.append(messages, messag);
+		// setMessages(previousMessages => {
+		// 	if (previousMessages !== messag) {
+		// 		GiftedChat.append(previousMessages, messag);
+		// 	}
+		// });
+		// GiftedChat.append(messages, messag);
 	}
 
+	// useEffect(() => {
+	// 	requestGetMessages(idScheduling);
+	// }, []);
+
 	useEffect(() => {
-		requestGetMessages(id, updateMessages);
-		console.log('MESSAGES NO USEEFFECT: ', messages);
-	}, []);
+		// requestGetMessages(idScheduling, updateMessages);
+		// console.log('MESSAGES NO USEEFFECT: ', messages);
+		listSchedulings.forEach(scheduling => {
+			const { chat } = scheduling;
+			if (scheduling.id === idScheduling && chat) {
+				// setMessages(Object.values(chat));
+				setMessages(previousMessages =>
+					GiftedChat.append(previousMessages, Object.values(chat))
+				);
+			}
+
+			// console.log(chat);
+			// chat.forEach(message => {
+			// });
+		});
+
+		// messages.forEach(msg => {
+		// 	requestGetMessages(idScheduling, msg);
+		// });
+
+		console.log('subiu');
+
+		// return () => {
+		// 	setMessages([]);
+		// };
+	}, [listSchedulings]);
 
 	const user = {
 		_id: uid,
@@ -35,15 +82,31 @@ function Chat({ route, uid, name, requestCreateMessage, requestGetMessages }) {
 
 	// function onSend(msgs) {
 	// 	msgs.forEach(msg => {
-	// 		requestCreateMessage(id, msg);
+	// 		requestSendMessage(id, msg);
 	// 	});
 	// }
 
-	const onSend = msgs => {
-		msgs.forEach(msg => {
-			requestCreateMessage(id, msg);
+	// const onSend = msgs => {
+	// 	msgs.forEach(msg => {
+	// 		requestSendMessage(idScheduling, msg);
+	// 		setMessages(messages.push(msg));
+	// 		// requestGetMessages(idScheduling, msg);
+	// 		// setMessages(previousMessages => {
+	// 		// 	GiftedChat.append(previousMessages, Object.values(chat));
+	// 		// 	// console.log(chat);
+	// 		// });
+	// 	});
+	// };
+
+	const onSend = useCallback((newMessage = []) => {
+		setMessages(previousMessages =>
+			GiftedChat.append(previousMessages, newMessage)
+		);
+		newMessage.forEach(newMsg => {
+			newMsg.createdAt = new Date().getTime();
+			requestSendMessage(idScheduling, newMsg);
 		});
-	};
+	}, []);
 
 	moment.locale(`${require('dayjs/locale/pt-br')}`);
 
@@ -57,11 +120,13 @@ function Chat({ route, uid, name, requestCreateMessage, requestGetMessages }) {
 
 	return (
 		<GiftedChat
+			style={{ backgroundColor: 'red' }}
 			user={user}
 			messages={messages}
 			onSend={msgs => onSend(msgs)}
 			placeholder='Digite uma mensagem'
 			locale='pt-br'
+			// scrollToBottomComponent={scrollToBottomComponent}
 			renderBubble={props => {
 				return (
 					<Bubble
@@ -96,7 +161,7 @@ function Chat({ route, uid, name, requestCreateMessage, requestGetMessages }) {
 								onSend(
 									{
 										text: text.trim(),
-										user: user,
+										user,
 										_id: messageIdGenerator(),
 									},
 									true
@@ -121,13 +186,14 @@ const mapStateToProps = state => ({
 	uid: state.authSignIn.user.uid,
 	name: state.authSignIn.user.name,
 	lastName: state.authSignIn.user.lastName,
+	listSchedulings: state.scheduling.listSchedulings,
 });
 
 const mapDispatchToProps = dispatch => ({
-	requestCreateMessage: (idShceduling, messages) =>
-		dispatch(MessagesActions.requestCreateMessage(idShceduling, messages)),
-	requestGetMessages: (idShceduling, callback) =>
-		dispatch(MessagesActions.requestGetMessages(idShceduling, callback)),
+	requestSendMessage: (idShceduling, messages) =>
+		dispatch(MessagesActions.requestSendMessage(idShceduling, messages)),
+	requestGetMessages: (idShceduling, msg) =>
+		dispatch(MessagesActions.requestGetMessages(idShceduling, msg)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

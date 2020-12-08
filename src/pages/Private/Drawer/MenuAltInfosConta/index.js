@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+// import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
 
 import Fundo from '../../../../components/Fundo';
@@ -42,10 +42,10 @@ function MenuAltInfosConta({ avatar, uid, resquestUpdateAvatar }) {
 					/>
 					<TouchableOpacity
 						style={styles.containerIconCam}
-						onPress={() =>
-							ImagePicker.showImagePicker({}, data =>
-								resquestUpdateAvatar(data, uid)
-							)
+						onPress={() =>{}
+							// ImagePicker.showImagePicker({}, data =>
+							// 	resquestUpdateAvatar(data, uid)
+							// )
 						}
 					>
 						<Image
