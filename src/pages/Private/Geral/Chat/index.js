@@ -189,8 +189,9 @@ function Chat({
 						{...props}
 						containerStyle={{
 							color: 'orange',
-							backgroundColor: '#159CFD44',
+							backgroundColor: '#159CFD',
 						}}
+						placeholderTextColor='#FFF'
 					/>
 				);
 			}}
