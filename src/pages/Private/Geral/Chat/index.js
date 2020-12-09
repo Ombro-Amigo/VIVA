@@ -6,7 +6,6 @@ import {
 	GiftedChat,
 	Bubble,
 	InputToolbar,
-	Composer,
 } from 'react-native-gifted-chat';
 import { connect } from 'react-redux';
 
@@ -131,7 +130,8 @@ function Chat({
 			onSend={msgs => onSend(msgs)}
 			placeholder='Digite uma mensagem'
 			locale='pt-br'
-			// scrollToBottomComponent={scrollToBottomComponent}
+			minInputToolbarHeight={55}
+			scrollToBottom
 			renderBubble={props => {
 				return (
 					<Bubble
@@ -187,14 +187,22 @@ function Chat({
 				return (
 					<InputToolbar
 						{...props}
-						containerStyle={{
-							color: 'orange',
-							backgroundColor: '#159CFD',
-						}}
+						containerStyle={styles.inputMessageArea}
 						placeholderTextColor='#FFF'
 					/>
 				);
 			}}
+			scrollToBottomComponent={props => {
+				return (
+					<View {...props}>
+						<Image
+							source={require('../../../../assets/icon/seta-para-baixo.png')}
+							style={styles.scrollToBottomIcon}
+						/>
+					</View>
+				);
+			}}
+			scrollToBottomStyle={styles.scrollToBottomContainer}
 		/>
 	);
 }

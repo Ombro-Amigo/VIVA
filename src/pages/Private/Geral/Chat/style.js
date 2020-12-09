@@ -5,21 +5,24 @@ import {
 } from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
+	scrollToBottomContainer: {
+		backgroundColor: 'blue',
+		marginBottom: hp('50%'),
+	},
+	scrollToBottomIcon: {
+		width: 20,
+		height: 20,
+		aspectRatio: 1,
+	},
+	inputMessageArea: {
+		backgroundColor: '#159CFD',
+		borderRadius: 15,
+		marginHorizontal: wp('2%'),
+		marginBottom: hp('0.8%'),
+	},
 	btnSend: {
 		alignSelf: 'center',
 		marginRight: wp('4%'),
-
-		// IOS
-		shadowColor: '#000',
-		shadowOffset: {
-			width: 0,
-			height: 2,
-		},
-		shadowOpacity: 0.23,
-		shadowRadius: 2.62,
-
-		// ANDROID
-		elevation: 10,
 	},
 	icon: {
 		width: 20,
