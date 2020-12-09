@@ -19,6 +19,7 @@ function Chat({
 }) {
 	const [messages, setMessages] = useState([]);
 	const { idScheduling } = route.params;
+	const [digitando, setDigitando] = useState(false)
 
 	useEffect(() => {
 		const callback = (message = []) => {
@@ -54,7 +55,15 @@ function Chat({
 			locale='pt-br'
 			renderLoading={() => <ActivityIndicator />}
 			renderAvatar={null}
-			isTyping
+			isTyping={digitando}
+			onInputTextChanged={props => {
+				const { text } = props;
+				if (text) {
+					setDigitando(true);
+				} else {
+					setDigitando(false);
+				}
+			}}
 			minInputToolbarHeight={55}
 			scrollToBottom
 			renderBubble={props => {
