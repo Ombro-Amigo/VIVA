@@ -2,12 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import moment from 'moment';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
-import {
-	GiftedChat,
-	Bubble,
-	InputToolbar,
-	Composer,
-} from 'react-native-gifted-chat';
+import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat';
 import { ActivityIndicator } from 'react-native-paper';
 import { connect } from 'react-redux';
 
@@ -144,6 +139,8 @@ function Chat({
 			locale='pt-br'
 			renderLoading={() => <ActivityIndicator />}
 			// scrollToBottomComponent={scrollToBottomComponent}
+			minInputToolbarHeight={55}
+			scrollToBottom
 			renderBubble={props => {
 				return (
 					<Bubble
@@ -199,14 +196,22 @@ function Chat({
 				return (
 					<InputToolbar
 						{...props}
-						containerStyle={{
-							color: 'orange',
-							backgroundColor: '#159CFD',
-						}}
+						containerStyle={styles.inputMessageArea}
 						placeholderTextColor='#FFF'
 					/>
 				);
 			}}
+			scrollToBottomComponent={props => {
+				return (
+					<View {...props}>
+						<Image
+							source={require('../../../../assets/icon/seta-para-baixo.png')}
+							style={styles.scrollToBottomIcon}
+						/>
+					</View>
+				);
+			}}
+			scrollToBottomStyle={styles.scrollToBottomContainer}
 		/>
 	);
 }
