@@ -8,6 +8,7 @@ import {
 	InputToolbar,
 	Composer,
 } from 'react-native-gifted-chat';
+import { ActivityIndicator } from 'react-native-paper';
 import { connect } from 'react-redux';
 
 import { Creators as MessagesActions } from '../../../../store/ducks/messages';
@@ -18,6 +19,7 @@ function Chat({
 	uid,
 	name,
 	listSchedulings,
+	requestTurnOffListener,
 	requestSendMessage,
 	requestGetMessages,
 }) {
@@ -53,19 +55,26 @@ function Chat({
 	useEffect(() => {
 		// requestGetMessages(idScheduling, updateMessages);
 		// console.log('MESSAGES NO USEEFFECT: ', messages);
-		listSchedulings.forEach(scheduling => {
-			const { chat } = scheduling;
-			if (scheduling.id === idScheduling && chat) {
-				// setMessages(Object.values(chat));
-				setMessages(previousMessages =>
-					GiftedChat.append(previousMessages, Object.values(chat))
-				);
-			}
+		// listSchedulings.forEach(scheduling => {
+		// 	const { chat } = scheduling;
+		// 	if (scheduling.id === idScheduling && chat) {
+		// 		// setMessages(Object.values(chat));
+		// 		setMessages(previousMessages =>
+		// 			GiftedChat.append(previousMessages, Object.values(chat))
+		// 		);
+		// 	}
+		const callback = (message = []) => {
+			setMessages(previousMessages =>
+				GiftedChat.append(previousMessages, message)
+			);
+		};
 
-			// console.log(chat);
-			// chat.forEach(message => {
-			// });
-		});
+		requestGetMessages(idScheduling, callback);
+
+		// console.log(chat);
+		// chat.forEach(message => {
+		// });
+		// });
 
 		// messages.forEach(msg => {
 		// 	requestGetMessages(idScheduling, msg);
@@ -73,10 +82,10 @@ function Chat({
 
 		console.log('subiu');
 
-		// return () => {
-		// 	setMessages([]);
-		// };
-	}, [listSchedulings]);
+		return () => {
+			requestTurnOffListener(idScheduling);
+		};
+	}, []);
 
 	const user = {
 		_id: uid,
@@ -103,15 +112,15 @@ function Chat({
 	// 	});
 	// };
 
-	const onSend = useCallback((newMessage = []) => {
-		setMessages(previousMessages =>
-			GiftedChat.append(previousMessages, newMessage)
-		);
-		newMessage.forEach(newMsg => {
-			newMsg.createdAt = new Date().getTime();
-			requestSendMessage(idScheduling, newMsg);
-		});
-	}, []);
+	// const onSend = useCallback((newMessage = []) => {
+	// 	setMessages(previousMessages =>
+	// 		GiftedChat.append(previousMessages, newMessage)
+	// 	);
+	// 	newMessage.forEach(newMsg => {
+	// 		newMsg.createdAt = new Date().getTime();
+	// 		requestSendMessage(idScheduling, newMsg);
+	// 	});
+	// }, []);
 
 	moment.locale(`${require('dayjs/locale/pt-br')}`);
 
@@ -123,14 +132,17 @@ function Chat({
 	// 	// sendToRealtime(msgs);
 	// }, []);
 
+	// if (loading) return <ActivityIndicator />;
+
 	return (
 		<GiftedChat
 			style={{ backgroundColor: 'red' }}
 			user={user}
 			messages={messages}
-			onSend={msgs => onSend(msgs)}
+			onSend={msgs => requestSendMessage(idScheduling, msgs)}
 			placeholder='Digite uma mensagem'
 			locale='pt-br'
+			renderLoading={() => <ActivityIndicator />}
 			// scrollToBottomComponent={scrollToBottomComponent}
 			renderBubble={props => {
 				return (
@@ -204,6 +216,7 @@ const mapStateToProps = state => ({
 	name: state.authSignIn.user.name,
 	lastName: state.authSignIn.user.lastName,
 	listSchedulings: state.scheduling.listSchedulings,
+	requestTurnOffListener: state.messages.requestTurnOffListener,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,6 +1,7 @@
 export const Types = {
 	REQUEST_CREATE_MESSAGE: 'REQUEST_CREATE_MESSAGE',
 	REQUEST_GET_MESSAGES: 'REQUEST_GET_MESSAGES',
+	REQUEST_TURN_OFF_LISTENER: 'REQUEST_TURN_OFF_LISTENER',
 };
 
 const INITIAL_STATE = {};
@@ -18,9 +19,13 @@ export const Creators = {
 		idShceduling,
 		messages,
 	}),
-	requestGetMessages: (idShceduling, msg) => ({
+	requestGetMessages: (idShceduling, callback) => ({
 		type: Types.REQUEST_GET_MESSAGES,
 		idShceduling,
-		msg,
+		callback,
+	}),
+	requestTurnOffListener: idShceduling => ({
+		type: Types.REQUEST_TURN_OFF_LISTENER,
+		idShceduling,
 	}),
 };

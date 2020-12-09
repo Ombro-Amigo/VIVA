@@ -24,6 +24,7 @@ const INITIAL_STATE = {
 	listPisco: null,
 	loading: false,
 	error: null,
+	chatScheduling: null,
 };
 
 export default function schedulingReducer(state = INITIAL_STATE, action) {
