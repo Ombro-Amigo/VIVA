@@ -28,7 +28,6 @@ function Chat({
 		};
 
 		requestGetMessages(idScheduling, callback);
-
 		console.log('subiu');
 
 		return () => {
@@ -47,7 +46,6 @@ function Chat({
 
 	return (
 		<GiftedChat
-			isTyping
 			style={{ backgroundColor: 'red' }}
 			user={user}
 			messages={messages}
@@ -55,6 +53,8 @@ function Chat({
 			placeholder='Digite uma mensagem'
 			locale='pt-br'
 			renderLoading={() => <ActivityIndicator />}
+			renderAvatar={null}
+			isTyping
 			minInputToolbarHeight={55}
 			scrollToBottom
 			renderBubble={props => {

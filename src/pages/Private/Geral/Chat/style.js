@@ -6,8 +6,7 @@ import {
 
 const styles = StyleSheet.create({
 	scrollToBottomContainer: {
-		backgroundColor: 'blue',
-		marginBottom: hp('50%'),
+		backgroundColor: '#939597',
 	},
 	scrollToBottomIcon: {
 		width: 20,
@@ -15,7 +14,7 @@ const styles = StyleSheet.create({
 		aspectRatio: 1,
 	},
 	inputMessageArea: {
-		backgroundColor: '#159CFD',
+		backgroundColor: '#2192E4',
 		borderRadius: 15,
 		marginHorizontal: wp('2%'),
 		marginBottom: hp('0.8%'),
