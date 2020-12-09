@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import moment from 'moment';
-import { View, Image, TouchableOpacity, Text } from 'react-native';
+import { View, Image, TouchableOpacity } from 'react-native';
 import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat';
 import { ActivityIndicator } from 'react-native-paper';
 import { connect } from 'react-redux';
@@ -13,51 +13,14 @@ function Chat({
 	route,
 	uid,
 	name,
-	listSchedulings,
 	requestTurnOffListener,
 	requestSendMessage,
 	requestGetMessages,
 }) {
 	const [messages, setMessages] = useState([]);
 	const { idScheduling } = route.params;
-	// const chat = [];
-
-	// const messages = [];
-	// function scrollToBottomComponent() {
-	// 	return (
-	// 		<View>
-	// 			<Image
-	// 				source={require('../../../../assets/icon/enviar-mensagem.png')}
-	// 				style={styles.icon}
-	// 			/>
-	// 		</View>
-	// 	);
-	// }
-
-	function updateMessages(messag) {
-		// setMessages(previousMessages => {
-		// 	if (previousMessages !== messag) {
-		// 		GiftedChat.append(previousMessages, messag);
-		// 	}
-		// });
-		// GiftedChat.append(messages, messag);
-	}
-
-	// useEffect(() => {
-	// 	requestGetMessages(idScheduling);
-	// }, []);
 
 	useEffect(() => {
-		// requestGetMessages(idScheduling, updateMessages);
-		// console.log('MESSAGES NO USEEFFECT: ', messages);
-		// listSchedulings.forEach(scheduling => {
-		// 	const { chat } = scheduling;
-		// 	if (scheduling.id === idScheduling && chat) {
-		// 		// setMessages(Object.values(chat));
-		// 		setMessages(previousMessages =>
-		// 			GiftedChat.append(previousMessages, Object.values(chat))
-		// 		);
-		// 	}
 		const callback = (message = []) => {
 			setMessages(previousMessages =>
 				GiftedChat.append(previousMessages, message)
@@ -65,15 +28,6 @@ function Chat({
 		};
 
 		requestGetMessages(idScheduling, callback);
-
-		// console.log(chat);
-		// chat.forEach(message => {
-		// });
-		// });
-
-		// messages.forEach(msg => {
-		// 	requestGetMessages(idScheduling, msg);
-		// });
 
 		console.log('subiu');
 
@@ -89,48 +43,11 @@ function Chat({
 			'https://avatars3.githubusercontent.com/u/52518776?s=460&u=1d8c48d9285bf84bfefbb037a32b818b9af97ebd&v=4',
 	};
 
-	// function onSend(msgs) {
-	// 	msgs.forEach(msg => {
-	// 		requestSendMessage(id, msg);
-	// 	});
-	// }
-
-	// const onSend = msgs => {
-	// 	msgs.forEach(msg => {
-	// 		requestSendMessage(idScheduling, msg);
-	// 		setMessages(messages.push(msg));
-	// 		// requestGetMessages(idScheduling, msg);
-	// 		// setMessages(previousMessages => {
-	// 		// 	GiftedChat.append(previousMessages, Object.values(chat));
-	// 		// 	// console.log(chat);
-	// 		// });
-	// 	});
-	// };
-
-	// const onSend = useCallback((newMessage = []) => {
-	// 	setMessages(previousMessages =>
-	// 		GiftedChat.append(previousMessages, newMessage)
-	// 	);
-	// 	newMessage.forEach(newMsg => {
-	// 		newMsg.createdAt = new Date().getTime();
-	// 		requestSendMessage(idScheduling, newMsg);
-	// 	});
-	// }, []);
-
 	moment.locale(`${require('dayjs/locale/pt-br')}`);
-
-	// const onSend = useCallback((msgs = []) => {
-	// 	// setMessages(previousMessages =>
-	// 	// 	GiftedChat.append(previousMessages, msgs)
-	// 	// );
-
-	// 	// sendToRealtime(msgs);
-	// }, []);
-
-	// if (loading) return <ActivityIndicator />;
 
 	return (
 		<GiftedChat
+			isTyping
 			style={{ backgroundColor: 'red' }}
 			user={user}
 			messages={messages}
@@ -138,7 +55,6 @@ function Chat({
 			placeholder='Digite uma mensagem'
 			locale='pt-br'
 			renderLoading={() => <ActivityIndicator />}
-			// scrollToBottomComponent={scrollToBottomComponent}
 			minInputToolbarHeight={55}
 			scrollToBottom
 			renderBubble={props => {
@@ -220,15 +136,15 @@ const mapStateToProps = state => ({
 	uid: state.authSignIn.user.uid,
 	name: state.authSignIn.user.name,
 	lastName: state.authSignIn.user.lastName,
-	listSchedulings: state.scheduling.listSchedulings,
-	requestTurnOffListener: state.messages.requestTurnOffListener,
 });
 
 const mapDispatchToProps = dispatch => ({
 	requestSendMessage: (idShceduling, messages) =>
 		dispatch(MessagesActions.requestSendMessage(idShceduling, messages)),
-	requestGetMessages: (idShceduling, msg) =>
-		dispatch(MessagesActions.requestGetMessages(idShceduling, msg)),
+	requestGetMessages: (idShceduling, callbakc) =>
+		dispatch(MessagesActions.requestGetMessages(idShceduling, callbakc)),
+	requestTurnOffListener: idShceduling =>
+		dispatch(MessagesActions.requestTurnOffListener(idShceduling)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);
