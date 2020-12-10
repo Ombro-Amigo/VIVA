@@ -6,6 +6,7 @@ import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat';
 import { ActivityIndicator } from 'react-native-paper';
 import { connect } from 'react-redux';
 
+import HeaderChamadas from '../../../../components/HeaderChamadas/index';
 import { Creators as MessagesActions } from '../../../../store/ducks/messages';
 import styles from './style';
 
@@ -19,7 +20,6 @@ function Chat({
 }) {
 	const [messages, setMessages] = useState([]);
 	const { idScheduling } = route.params;
-	const [digitando, setDigitando] = useState(false)
 
 	useEffect(() => {
 		const callback = (message = []) => {
@@ -46,98 +46,93 @@ function Chat({
 	moment.locale(`${require('dayjs/locale/pt-br')}`);
 
 	return (
-		<GiftedChat
-			style={{ backgroundColor: 'red' }}
-			user={user}
-			messages={messages}
-			onSend={msgs => requestSendMessage(idScheduling, msgs)}
-			placeholder='Digite uma mensagem'
-			locale='pt-br'
-			renderLoading={() => <ActivityIndicator />}
-			renderAvatar={null}
-			isTyping={digitando}
-			onInputTextChanged={props => {
-				const { text } = props;
-				if (text) {
-					setDigitando(true);
-				} else {
-					setDigitando(false);
-				}
-			}}
-			minInputToolbarHeight={55}
-			scrollToBottom
-			renderBubble={props => {
-				return (
-					<Bubble
-						{...props}
-						textStyle={{
-							left: {
-								fontFamily: 'Signika-Regular',
-							},
-							right: {
-								fontFamily: 'Signika-Regular',
-							},
-						}}
-						wrapperStyle={{
-							right: {
-								backgroundColor: '#6EB4E7',
-							},
-							left: {
-								borderWidth: 1,
-								borderColor: '#6EB4E7',
-							},
-						}}
-					/>
-				);
-			}}
-			renderSend={props => {
-				const { text, messageIdGenerator, user, onSend } = props;
-				return (
-					<TouchableOpacity
-						style={styles.btnSend}
-						onPress={() => {
-							if (text && onSend) {
-								onSend(
-									{
-										text: text.trim(),
-										user,
-										_id: messageIdGenerator(),
-									},
-									true
-								);
-							}
-						}}
-					>
-						{text ? (
-							<Image
-								source={require('../../../../assets/icon/enviar-mensagem.png')}
-								style={styles.icon}
-							/>
-						) : null}
-					</TouchableOpacity>
-				);
-			}}
-			renderInputToolbar={props => {
-				return (
-					<InputToolbar
-						{...props}
-						containerStyle={styles.inputMessageArea}
-						placeholderTextColor='#FFF'
-					/>
-				);
-			}}
-			scrollToBottomComponent={props => {
-				return (
-					<View {...props}>
-						<Image
-							source={require('../../../../assets/icon/seta-para-baixo.png')}
-							style={styles.scrollToBottomIcon}
+		<>
+			<HeaderChamadas />
+			<GiftedChat
+				style={{ backgroundColor: 'red' }}
+				user={user}
+				messages={messages}
+				onSend={msgs => requestSendMessage(idScheduling, msgs)}
+				placeholder='Digite uma mensagem'
+				locale='pt-br'
+				renderLoading={() => <ActivityIndicator />}
+				renderAvatar={null}
+				isTyping={true}
+				minInputToolbarHeight={55}
+				scrollToBottom
+				renderBubble={props => {
+					return (
+						<Bubble
+							{...props}
+							textStyle={{
+								left: {
+									fontFamily: 'Signika-Regular',
+								},
+								right: {
+									fontFamily: 'Signika-Regular',
+								},
+							}}
+							wrapperStyle={{
+								right: {
+									backgroundColor: '#6EB4E7',
+								},
+								left: {
+									borderWidth: 1,
+									borderColor: '#6EB4E7',
+								},
+							}}
 						/>
-					</View>
-				);
-			}}
-			scrollToBottomStyle={styles.scrollToBottomContainer}
-		/>
+					);
+				}}
+				renderSend={props => {
+					const { text, messageIdGenerator, user, onSend } = props;
+					return (
+						<TouchableOpacity
+							style={styles.btnSend}
+							onPress={() => {
+								if (text && onSend) {
+									onSend(
+										{
+											text: text.trim(),
+											user,
+											_id: messageIdGenerator(),
+										},
+										true
+									);
+								}
+							}}
+						>
+							{text ? (
+								<Image
+									source={require('../../../../assets/icon/enviar-mensagem.png')}
+									style={styles.icon}
+								/>
+							) : null}
+						</TouchableOpacity>
+					);
+				}}
+				renderInputToolbar={props => {
+					return (
+						<InputToolbar
+							{...props}
+							containerStyle={styles.inputMessageArea}
+							placeholderTextColor='#FFF'
+						/>
+					);
+				}}
+				scrollToBottomComponent={props => {
+					return (
+						<View {...props}>
+							<Image
+								source={require('../../../../assets/icon/seta-para-baixo.png')}
+								style={styles.scrollToBottomIcon}
+							/>
+						</View>
+					);
+				}}
+				scrollToBottomStyle={styles.scrollToBottomContainer}
+			/>
+		</>
 	);
 }
 
