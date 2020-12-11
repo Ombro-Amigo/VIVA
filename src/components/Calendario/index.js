@@ -57,7 +57,7 @@ export default function Calendario({ onValueChange, value, error }) {
 		<View>
 			<View style={styles.container}>
 				<Calendar
-					minDate={() => now}
+					minDate={() => now()}
 					// onDayPress={(day) => {console.log('selected day', day)}}
 					onDayPress={onDayPress}
 					enableSwipeMonths
