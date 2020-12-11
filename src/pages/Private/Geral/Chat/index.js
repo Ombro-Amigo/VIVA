@@ -19,7 +19,7 @@ function Chat({
 	requestGetMessages,
 }) {
 	const [messages, setMessages] = useState([]);
-	const { idScheduling } = route.params;
+	const { idScheduling, typeUser } = route.params;
 
 	useEffect(() => {
 		const callback = (message = []) => {
@@ -30,17 +30,20 @@ function Chat({
 
 		requestGetMessages(idScheduling, callback);
 		console.log('subiu');
-
 		return () => {
 			requestTurnOffListener(idScheduling);
 		};
 	}, []);
 
+	const avatar =
+		typeUser === 'paciente'
+			? 'https://avatars3.githubusercontent.com/u/52518776?s=460&u=1d8c48d9285bf84bfefbb037a32b818b9af97ebd&v=4'
+			: 'https://avatars0.githubusercontent.com/u/60950724?s=400&u=76c1988418a6f9b75527673cec3a04ed201f1c1c&v=4';
+
 	const user = {
 		_id: uid,
 		name,
-		avatar:
-			'https://avatars3.githubusercontent.com/u/52518776?s=460&u=1d8c48d9285bf84bfefbb037a32b818b9af97ebd&v=4',
+		avatar,
 	};
 
 	moment.locale(`${require('dayjs/locale/pt-br')}`);
@@ -49,14 +52,12 @@ function Chat({
 		<>
 			<HeaderChamadas />
 			<GiftedChat
-				style={{ backgroundColor: 'red' }}
 				user={user}
 				messages={messages}
 				onSend={msgs => requestSendMessage(idScheduling, msgs)}
 				placeholder='Digite uma mensagem'
 				locale='pt-br'
 				renderLoading={() => <ActivityIndicator />}
-				renderAvatar={null}
 				isTyping={true}
 				minInputToolbarHeight={55}
 				scrollToBottom
